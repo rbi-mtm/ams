@@ -142,4 +142,25 @@ This is a placeholder for issues that may be encountered during testing.
 > using the [VM](#31-installing-the-vm).
 ***
 
-TODO
+In this section, we give only a concise list of the software installed in the VM since
+detailed installation instructions for the majority of the listed software
+is easily found online.
+
+- [Arch Linux](https://archlinux.org/) with [yay](https://github.com/Jguer/yay)
+- [Brave](https://brave.com/)
+- [Xfce](https://www.xfce.org/)
+- [miniconda](https://www.anaconda.com/docs/getting-started/miniconda/main)
+- [openmpi](https://www.open-mpi.org/)
+- [FFTW](https://www.fftw.org/)
+- [LAMMPS](https://www.lammps.org/) with some basic additional packages ``(KSPACE MANYBODY MOLECULE RIGID)``
+- [OVITO](https://www.ovito.org/)
+- [Quantum ESPRESSO](https://www.quantum-espresso.org/) (only ``pw.x``, ``pp.x`` and ``ph.x``)
+- [Xcrysden](http://www.xcrysden.org/)
+- CPU version of [MACE](https://github.com/ACEsuit/mace)
+
+Installing the CPU version of MACE is probably the only non-standard installation:
+
+```bash
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+pip install mace-torch
+```
