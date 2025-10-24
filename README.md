@@ -64,7 +64,7 @@ TODO
 ### 3.1. Installing the VM
 
  1. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
- 2. Download the [**ams.ova**](https://drive.google.com/file/d/1lhlvM1SN5NGKT2JOU6rEyPruZnVH5mIT/view?usp=drive_link) file.
+ 2. Download the [**ams.ova**](https://drive.google.com/file/d/1DA3PYMnr4v6YDIU0ML2xk5bbuZyAgp5K/view?usp=drive_link) file.
  3. Run VirtualBox and click on ``File`` &rarr; ``Import Appliance...``
  4. Under ``File:``, enter the path to the downloaded **ams.ova** file.
  5. Click on ``Settings`` and make sure to specify the ``Machine Base Folder:`` path in a drive that has at least **20GB of free space**.
@@ -119,7 +119,7 @@ TODO
 
 - While importing the **ams.ova** file, I'm getting ``E_INVALIDARG (0x80070057)``.
 
-    - Make sure you have enough space on the drive on which you are trying to import the VM. Revisit [step 5 of the VM installation](#31-install-the-virtual-machine).
+    - Make sure you have enough space on the drive on which you are trying to import the VM. Revisit [step 5 of the VM installation](#31-installing-the-vm).
 
 - I'm trying to start the VM on a Linux host, but I'm getting a USB-related error or something like ``ERROR [COM]: aRC=E_ACCESSDENIED (0x80070005)``.
 
