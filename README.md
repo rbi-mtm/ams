@@ -82,6 +82,8 @@ If everything goes well, read the following subsection.
     - username: ``atom``
     - password: ``ams``
 
+- Croatian and English (US) keyboard layouts are installed in the VM, with the Croatian being the default. Switch between them by clicking the flag in the bottom right corner.
+
 - If you wish to do so, when the VM is powered off, right-click on **ams** and select ``Settings`` to modify hardware resource allocation to the VM
 
 ***
