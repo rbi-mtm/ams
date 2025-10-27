@@ -41,6 +41,7 @@ The advantages of using a VM for a school like this are:
 
 This document should be used in the following way: first, read the chapter on [Setting Up](#3-setting-up) and install the VM. When done, learn a bit [about the VM](#32-about-the-vm). Finally, check how to [run the exercises](#4-running-the-exercises).
 
+***
 > [!TIP]
 > Some participants might not be able to
 > [install the VM](#31-installing-the-vm)
@@ -94,9 +95,8 @@ If everything goes well, read the following subsection.
 > we encourage you to start the VM, log in, press ``Ctrl+Alt+T`` to activate the Linux terminal
 > and spend some time using the [command line](https://linuxcommand.org/).
 >
-> There are [many great beginner guides](https://labex.io/linuxjourney) available online. Do not be afraid to experiment, since this is a **virtual** machine and you cannot do any harm to your computer!
+> There are [many great beginner guides](https://labex.io/linuxjourney) available online. Do not be afraid to experiment, since this is a **virtual** machine and you cannot do any harm to your computer. On the other hand, if you mess up something in the VM, you can always just reinstall it.
 
-***
 ### 3.3. Local Installation
 
 If you wish to install the software and run the tutorials on your own machine, read the chapter on [Software Installation](#6-software-installation).
@@ -146,7 +146,8 @@ In this section, we give only a concise list of the software installed in the VM
 detailed installation instructions for the majority of the listed software
 is easily found online.
 
-- [Arch Linux](https://archlinux.org/) with [yay](https://github.com/Jguer/yay)
+- [Arch Linux](https://archlinux.org/)
+- [yay](https://github.com/Jguer/yay)
 - [Brave](https://brave.com/)
 - [Xfce](https://www.xfce.org/)
 - [miniconda](https://www.anaconda.com/docs/getting-started/miniconda/main)
