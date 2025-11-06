@@ -1,0 +1,25 @@
+* TODO Lecture
+** crystallography
+*** symmetry operations
+*** point group
+*** translational symmetry
+*** Bravais lattice
+*** space group
+*** crystal classes
+*** directions/miller
+*** unit cell, reciprocal cell
+brillouin zone
+** simulations
+*** simulation box, pbc
+supercell; boundaries
+*** bulk, surface, slab
+*** pitfalls/gotcha
+
+* TODO Handson
+** md; melt
+*** verlet/leapfrog, total energy, thormostat, damping etc.
+*** LJ/melt in lammps examples
+** create surface
+create (by hand?) Si diamond in conventional cell (8atms per cell)
+** minimize surface
+surface as defect, minimize Si diamond with reaxff?
