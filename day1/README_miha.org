@@ -6,6 +6,7 @@
 *** Bravais lattice
 *** space group
 *** crystal classes
+lattice parameter, c/a, angles
 *** directions/miller
 *** unit cell, reciprocal cell
 brillouin zone
@@ -14,6 +15,7 @@ brillouin zone
 supercell; boundaries
 *** bulk, surface, slab
 *** pitfalls/gotcha
+PES
 
 * TODO Handson
 ** md; melt
@@ -23,3 +25,18 @@ supercell; boundaries
 create (by hand?) Si diamond in conventional cell (8atms per cell)
 ** minimize surface
 surface as defect, minimize Si diamond with reaxff?
+
+
+* Resources
+[[https://matsci.org/][matsci forum]]
+[[https://fortran-lang.discourse.group/][fortran forum]]
+** Crystallography
+[[https://www.iucr.org/education/pamphlets][IUCr pamphlets]]
+[[https://dictionary.iucr.org/Main_Page][IUCr dictionary]]
+[[https://arxiv.org/abs/1808.01590][spglib]]
+** LAMMPS
+[[https://docs.lammps.org/Manual.html][documentation]]
+[[https://andeplane.github.io/atomify/][atomify: lammps-in-browser]]
+** QE
+[[https://www.quantum-espresso.org/Doc/INPUT_PW.html][PW_INPUT]]
+[[https://www.pseudo-dojo.org/][Pseudo-dojo]]
