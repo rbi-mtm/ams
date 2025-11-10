@@ -44,7 +44,7 @@ for n in range(Natoms):
 ### Replicate the unit cell N times along each direction.
 ###
 ### Reminder:
-###  Lattice repetition:
+###  Lattice repetition (symmetry operation):
 ###
 ###    r = n1*a1 + n2*a2 + n3*a3  ; n_i integers
 ###
