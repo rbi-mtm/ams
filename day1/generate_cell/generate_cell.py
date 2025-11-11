@@ -27,13 +27,13 @@ basis[1] = [ 0.5, 0.5, 0.5 ]
 
 ### write the unit cell in xyz-format
 print(Natoms)
-print('Lattice="',*lattice.T.flatten(),'" properties=species:I:1:pos:R:3')
+print('Lattice="',*lattice.flatten(),'" properties=species:I:1:pos:R:3')
 
 for n in range(Natoms):
     # compute the real-space coordinates:
     #   matrix-vector multiplication of lattice vectors
     #   with the basis vector in fractional coords (change of basis operation)
-    r = np.matmul( lattice, basis[n] )
+    r = np.matmul( lattice.T, basis[n] )
     print( n, *r )
 
 
@@ -73,7 +73,7 @@ replicated_lat[2] *= n_replicate_z
 
 # Output the supercell
 print(replicated_Natoms)
-print('Lattice="',*replicated_lat.T.flatten(),'" properties=species:I:1:pos:R:3')
+print('Lattice="',*replicated_lat.flatten(),'" properties=species:I:1:pos:R:3')
 
 # loop over the replications
 for n1 in range(n_replicate_x):
@@ -88,5 +88,5 @@ for n1 in range(n_replicate_x):
                 # shift the atomic basis vector
                 bas = basis[n]+shift
                 # obtain real space coords, from original lattice and shifted basis
-                r = np.matmul( lattice, bas )
+                r = np.matmul( lattice.T, bas )
                 print( n, *r )
