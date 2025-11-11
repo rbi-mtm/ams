@@ -9,7 +9,7 @@ Today, we'll be specifically performing **density functional theory (DFT)** calc
 
 Compared to last week's simulations that employed classical force fields,
 DFT calculations are quantum mechanical.
-As a consequence, they are more **acurate**, **informative** and **expensive**.
+As a consequence, they are more **accurate**, **informative** and **expensive**.
 
 ## About Quantum ESPRESSO
 
