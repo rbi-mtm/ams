@@ -24,6 +24,14 @@ basis[0] = [ 0.0, 0.0, 0.0 ]
 basis[1] = [ 0.5, 0.5, 0.5 ]
 
 
+### define an array of size[Natoms] to store the atomic type of each atom in the unit cell.
+atm_type = np.ndarray([Natoms], dtype=object)
+
+### specify atomic type of atoms in the basis
+atm_type[0] = 1
+atm_type[1] = 2
+
+
 
 ### write the unit cell in xyz-format
 print(Natoms)
@@ -34,7 +42,7 @@ for n in range(Natoms):
     #   matrix-vector multiplication of lattice vectors
     #   with the basis vector in fractional coords (change of basis operation)
     r = np.matmul( lattice.T, basis[n] )
-    print( n, *r )
+    print( atm_type[n], *r )
 
 
 
@@ -57,36 +65,38 @@ for n in range(Natoms):
 
 
 ## how many replicas to create in each direction?
-n_replicate_x = 2
-n_replicate_y = 3
-n_replicate_z = 1
+n_replicate_x = 0
+n_replicate_y = 0
+n_replicate_z = 0
 
-# Rescale the number of atoms in the supercell (for output only)
-replicated_Natoms = Natoms * n_replicate_x * n_replicate_y * n_replicate_z
+if n_replicate_x > 0 and n_replicate_y > 0 and n_replicate_z > 0:
 
-# Rescale the lattice (for output only)
-replicated_lat=lattice.copy()
-replicated_lat[0] *= n_replicate_x
-replicated_lat[1] *= n_replicate_y
-replicated_lat[2] *= n_replicate_z
+    # Rescale the number of atoms in the supercell (for output only)
+    replicated_Natoms = Natoms * n_replicate_x * n_replicate_y * n_replicate_z
+
+    # Rescale the lattice (for output only)
+    replicated_lat=lattice.copy()
+    replicated_lat[0] *= n_replicate_x
+    replicated_lat[1] *= n_replicate_y
+    replicated_lat[2] *= n_replicate_z
 
 
-# Output the supercell
-print(replicated_Natoms)
-print('Lattice="',*replicated_lat.flatten(),'" properties=species:I:1:pos:R:3')
+    # Output the supercell
+    print(replicated_Natoms)
+    print('Lattice="',*replicated_lat.flatten(),'" properties=species:I:1:pos:R:3')
 
-# loop over the replications
-for n1 in range(n_replicate_x):
-    for n2 in range(n_replicate_y):
-        for n3 in range(n_replicate_z):
-            #
-            # construct the `shift` vector for the current box (in fractional coordinates)
-            shift = [ n1, n2, n3 ]
-            #
-            # loop over atoms in the basis:
-            for n in range(Natoms):
-                # shift the atomic basis vector
-                bas = basis[n]+shift
-                # obtain real space coords, from original lattice and shifted basis
-                r = np.matmul( lattice.T, bas )
-                print( n, *r )
+    # loop over the replications
+    for n1 in range(n_replicate_x):
+        for n2 in range(n_replicate_y):
+            for n3 in range(n_replicate_z):
+                #
+                # construct the `shift` vector for the current box (in fractional coordinates)
+                shift = [ n1, n2, n3 ]
+                #
+                # loop over atoms in the basis:
+                for n in range(Natoms):
+                    # shift the atomic basis vector
+                    bas = basis[n]+shift
+                    # obtain real space coords, from original lattice and shifted basis
+                    r = np.matmul( lattice.T, bas )
+                    print( atm_type[n], *r )
