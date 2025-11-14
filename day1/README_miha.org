@@ -11,21 +11,39 @@ lattice parameter, c/a, angles
 *** unit cell, reciprocal cell
 brillouin zone
 ** simulations
-*** simulation box, pbc
-supercell; boundaries
+*** bloch thm, supercell
+box boundaries
+*** kpoints
 *** bulk, surface, slab
 *** pitfalls/gotcha
-PES
-
+*** PES
 * TODO Handson
+** ex. 1: generating a crystal structure
+*** A: use the `generate_cell.py` script to generate an FCC structure
+In primitive cell with one atom per cell, and in the conventional (cubic) cell with 4 atoms per cell.
+*** B: create and visualize a 4x4x4 supercell
+use `ovito`, draw bonds between atoms.
+
+** ex. 2: plot E/V curve of Si, to determine a0
+*** A: generate Si crystal in the diamond configuration
+Diamond lattice is composed of 2 FCC lattices shifted by 0.25. Create the diamond structure in the conventional (cubic) cell.
+*** B: plot the E/V curve, find the lattice constant
+compute the total energy for various values of the lattice parameter `a0`. Plot the enegy per atom vs value of `a0`, and find the minimum.
+
 ** md; melt
 *** verlet/leapfrog, total energy, thormostat, damping etc.
+*** computing the force: empirical potentials
+LJ
 *** LJ/melt in lammps examples
 ** create surface
 create (by hand?) Si diamond in conventional cell (8atms per cell)
 ** minimize surface
-surface as defect, minimize Si diamond with reaxff?
-
+surface as defect, minimize Si diamond with reaxff? maybe sw.
+** difference between md and minimization
+Taking energy out of the system.
+damped dynamics, quickmin/SD, CG, other ...
+*** try the melt example with adding damp at the end
+*** 
 
 * Resources
 [[https://matsci.org/][matsci forum]]
