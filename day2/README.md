@@ -42,11 +42,27 @@ Some facts about QE:
 In this exercise, we will be exploring some of the ground-state properties of silicon.
 
 Since we are working within the **density** functional theory framework,
-we first need to obtain the ground state electronic density.
+we first need to obtain the **ground state electronic density**.
 Let's approach this problem step by step.
 
-### Exercise 1.1: Finding the Atomic Structure
+### Exercise 1.1: Finding the Crystal Structure
 
 The silicon atomic structure was solved using X-ray diffraction back in the 1920s, i.e. it's very well-known.
-[Silicon](https://www.chemicalbook.com/article/silicon-diamond-cubic-crystal-structure.htm) crystallizes in a [diamond cubic structure](https://en.wikipedia.org/wiki/Diamond_cubic),
-which can be seen as two identical FCC lattices shifted by $1/4$ relative to each other.
+Silicon crystallizes in a [diamond crystal structure](https://lampz.tugraz.at/~hadley/ss1/crystalstructure/structures/diamond/diamond.php)
+which can be viewed as two identical FCC lattices shifted by $`1/4`$ relative to each other.
+
+> [!NOTE]
+> It's [possible](https://www.quantum-espresso.org/faq/faq-input-data/#:~:text=3.1%20DOES%20QE%20USE%20PRIMITIVE%20OR%20CONVENTIONAL%20UNIT%20CELL?,and%20the%20atomic%20positions%20correctly.) to use either the _conventional_ or _primitive_
+> unit cells in QE. We will be using the **primitive** cell.
+
+To summarize, these are the parameters we'll be needing:
+
+$$
+\begin{align}
+&a_\text{lat} = 5.431 \text{ &#197;} = 10.263\ \text{Bohr}, \\
+&r_{\text{Si}_1} = (0, 0, 0), \\
+&r_{\text{Si}_2} = (0.25, 0.25, 0.25),
+\end{align}
+$$
+
+where the atomic positions are written in [crystal (fractional) coordinates](https://en.wikipedia.org/wiki/Fractional_coordinates).
