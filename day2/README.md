@@ -66,3 +66,9 @@ $$
 $$
 
 where the atomic positions are written in [crystal (fractional) coordinates](https://en.wikipedia.org/wiki/Fractional_coordinates).
+
+Generally, crystal structures can be found at:
+- [Cambridge Structural Database (CSD)](https://www.ccdc.cam.ac.uk/)
+- [Crystallography Open Database](https://www.crystallography.net/cod/)
+- [Materials Project](https://next-gen.materialsproject.org/)
+- Publications
