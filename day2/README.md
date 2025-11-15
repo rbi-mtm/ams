@@ -72,3 +72,30 @@ Generally, crystal structures can be found at:
 - [Crystallography Open Database](https://www.crystallography.net/cod/)
 - [Materials Project](https://next-gen.materialsproject.org/)
 - Publications
+
+### Exercise 1.2: Electron Configuration and Pseudopotentials
+
+Before delving in DFT calculations, it is worthwhile to spend time on elementary considerations.
+The [atomic number of silicon is 14](https://periodic-table.rsc.org/),
+meaning that each neutral atom of silicon has 14 protons and 14 electrons.
+Since electrons are fermions, they must obey the Pauli exclusion principle,
+i.e., a state with given quantum numbers can be occupied by, at most, one electron.
+
+This gives rise to the following electron configuration of a silicon atom:
+
+$$
+\begin{align}
+1\text{s}^2 2\text{s}^2 2\text{p}^6 3\text{s}^2 3\text{p}^2
+\end{align}
+$$
+
+or in shorthand notation:
+
+$$
+\begin{align}
+\[\text{Ne}\]\ 3\text{s}^2 3\text{p}^2.
+\end{align}
+$$
+
+The 8 electrons (written as [Ne]) are usually defined as the **core** electrons,
+while the 4 remaining ones ($`3\text{s}^2 3\text{p}^2`$) are called **valence** electrons.
