@@ -23,7 +23,7 @@ We'll be performing all calculations using [**Quantum ESPRESSO (QE)**](https://w
 > The differences between the packages are in the intended **use-cases** (some are more optimal for molecules, others for materials),
 > **basis sets** (QE uses plane-waves, some use Gaussians or more complicated functions),
 > some explicitly take into account **all electrons**, while others (like QE) model the
-> electrons near the core using [**_pseudopotentials_**](https://en.wikipedia.org/wiki/Pseudopotential), ...
+> electrons near the core using [**pseudopotentials**], ...
 
 Some facts about QE:
 - created in 2002
@@ -77,11 +77,11 @@ Generally, crystal structures can be found at:
 
 Before delving in DFT calculations, it is worthwhile to spend time on elementary considerations.
 The [atomic number of silicon is 14](https://periodic-table.rsc.org/),
-meaning that each neutral atom of silicon has 14 protons and 14 electrons.
+meaning that a neutral atom of silicon has 14 protons and 14 electrons.
 Since electrons are fermions, they must obey the Pauli exclusion principle,
 i.e., a state with given quantum numbers can be occupied by, at most, one electron.
 
-This gives rise to the following electron configuration of a silicon atom:
+This gives rise to the following [electron configuration](https://en.wikipedia.org/wiki/Electron_configuration) of a silicon atom:
 
 $$
 \begin{align}
@@ -97,5 +97,43 @@ $$
 \end{align}
 $$
 
-The 8 electrons (written as [Ne]) are usually defined as the **core** electrons,
+The 10 electrons (written as [Ne]) are usually defined as the **core** electrons,
 while the 4 remaining ones ($`3\text{s}^2 3\text{p}^2`$) are called **valence** electrons.
+
+The _core_ electrons are called as such because they are strongly bound
+to the atomic core. In a crystal, core electrons do not participate
+in the formation of chemical bonds; rather, they remain bound and **localized**
+near their original atom.
+
+On the other hand, the bands near the [Fermi level](https://en.wikipedia.org/wiki/Fermi_level)
+(i.e. the conduction and valence bands)
+are the ones that primarily determine the interesting reponse properties of a material. These bands are formed by the _valence_ electrons.
+
+Due to the above, QE uses a concept called [_pseudopotentials_](https://en.wikipedia.org/wiki/Pseudopotential),
+which is a way to remove the core electrons from the calculation.
+In the case of silicon, instead of having 14 electrons
+around a core of 14 protons, we model the system as
+4 electrons around an effective core consisting of **14 protons + 10 electrons**.
+
+This effective description of the core manifests itself in
+the Kohn-Sham equations by the electron-ion interaction being
+replaced by a _pseudopotential_ (i.e. electron-effective ion interaction).
+
+> [!NOTE]
+> There is a (fundamentally mathematical) reason why using
+> pseudopotentials in QE is, in fact, not a _choice_, but a
+> _necessity_. 
+>
+> Namely, QE employs a [plane-wave basis set](https://en.wikipedia.org/wiki/Basis_set_(chemistry)). Plane-waves are completely delocalized
+> in real space. As a consequence, it takes a lot of coefficients
+> to represent a spatially localized function in the plane-wave basis.
+>
+> This is a practical issue since the wave functions
+> of core electrons are localized.
+> Furthermore, even the valence electron wave functions
+> have nodes near the core as they have to be orthogonal
+> to the core electron wave functions.
+>
+> Some DFT codes employ localized basis sets and, as such,
+> are able to treat all electrons explicitly.
+> One such example is [WIEN2k](https://en.wikipedia.org/wiki/WIEN2k).
