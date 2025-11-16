@@ -23,7 +23,7 @@ We'll be performing all calculations using [**Quantum ESPRESSO (QE)**](https://w
 > The differences between the packages are in the intended **use-cases** (some are more optimal for molecules, others for materials),
 > **basis sets** (QE uses plane-waves, some use Gaussians or more complicated functions),
 > some explicitly take into account **all electrons**, while others (like QE) model the
-> electrons near the core using [**pseudopotentials**], ...
+> electrons near the core using **pseudopotentials**, ...
 
 Some facts about QE:
 - created in 2002
