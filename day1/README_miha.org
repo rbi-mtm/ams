@@ -1,22 +1,32 @@
 * TODO Lecture
-** crystallography
-*** symmetry operations
+** Intro to crystallography
+*** Symmetry operations
+A symmetry operation is a geometrical transformation of an object, that leaves the object unchanged.
+
 *** point group
 *** translational symmetry
 *** Bravais lattice
+Point groups compatible with a lattice => 32 crystallographic point groups.
+Symmetry elements combined with translation.
 *** space group
+Atomic basis vectors, site symmetry.
+Compatible elements, 230 groups.
 *** crystal classes
 lattice parameter, c/a, angles
 *** directions/miller
-*** unit cell, reciprocal cell
-brillouin zone
+*** unit cell, conventional cell
 ** simulations
-*** bloch thm, supercell
-box boundaries
-*** kpoints
+*** periodic boundary conditions (PBC)
+put gif;
+fractional coords, how to compute pbc, why range -0.5:0.5 rather than 0:1 for distances.
+*** bloch thm, supercell, kpoints
+box boundaries, wavefunction nodes within the sim box.
+Reciprocal cell, Brillouin zone.
 *** bulk, surface, slab
 *** pitfalls/gotcha
-*** PES
+*** PES as concept
+extrema points, minima, saddles.
+Gif of vibrating crystal at T/=0.
 * TODO Handson
 ** ex. 1: generating a crystal structure
 *** A: use the `generate_cell.py` script to generate an FCC structure
