@@ -1,0 +1,52 @@
+&CONTROL
+
+  ! Type of calculation
+  calculation = 'scf'
+
+  ! Arbitrary prefix, but keep it the same in follow-up calculations
+  prefix = 'silicon'
+
+  ! Calculate forces on atoms
+  tprnfor = .true.
+
+  ! Path to pseudopotential directory
+  pseudo_dir = '../pseudo'
+
+  ! Path to where to store KS wavefunctions and the charge density
+  outdir = './out'
+/
+
+&SYSTEM
+
+  ! Bravais lattice index (FCC=2)
+  ibrav = 2
+
+  ! Lattice constant (in Bohr)
+  celldm(1) = 10.20
+
+  ! Number of atoms in the unit cell
+  nat = 2
+
+  ! Number of different atomic species
+  ntyp = 1
+
+  ! Largest plane-wave kinetic energy in Ry (effectively size of basis set)
+  ecutwfc = 18.0
+/
+
+&ELECTRONS
+/
+
+! List of (arbitrary) symbols of the chemical species, mass and pseudopotential
+ATOMIC_SPECIES
+Si  28.086  Si.pz-vbc.UPF
+
+! Symbols of the chemical species and positions in crystal coordinates
+ATOMIC_POSITIONS alat
+Si 0.00 0.00 0.00
+Si 0.25 0.25 0.25
+
+! For which k-points to evaluate the KS wave functions
+! Below is a 6x6x6 Monkhorst-Pack grid
+K_POINTS (automatic)
+6 6 6 0 0 0
