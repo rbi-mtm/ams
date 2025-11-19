@@ -30,6 +30,9 @@
   ! Number of different atomic species
   ntyp = 1
 
+  ! How many bands to include in the calculation
+  nbnd = 8
+
   ! Largest plane-wave kinetic energy in Ry (effectively size of basis set)
   ecutwfc = 18.0
 /
