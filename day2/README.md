@@ -137,3 +137,13 @@ replaced by a _pseudopotential_ (i.e. electron-effective ion interaction).
 > Some DFT codes employ localized basis sets and, as such,
 > are able to treat all electrons explicitly.
 > One such example is [WIEN2k](https://en.wikipedia.org/wiki/WIEN2k).
+
+Take a look at the pseudopotential file
+that we'll be using for silicon simulations:
+
+```bash
+less pseudo/Si.pz-vbc.UPF
+```
+
+This file is written in the [Unified Pseudopotential Format](https://pseudopotentials.quantum-espresso.org/home/unified-pseudopotential-format).
+We can see that `Z_valence = 4.0`.
