@@ -45,6 +45,7 @@ Since we are working within the **density** functional theory framework,
 we first need to obtain the **ground state electronic density**.
 Let's approach this problem step by step.
 
+***
 ### Exercise 1.1: Finding the Crystal Structure
 
 The silicon atomic structure was solved using X-ray diffraction back in the 1920s, i.e. it's very well-known.
@@ -73,6 +74,7 @@ Generally, crystal structures can be found at:
 - [Materials Project](https://next-gen.materialsproject.org/)
 - Publications
 
+***
 ### Exercise 1.2: Electron Configuration and Pseudopotentials
 
 Before delving in DFT calculations, it is worthwhile to spend time on elementary considerations.
@@ -139,7 +141,7 @@ replaced by a _pseudopotential_ (i.e. electron-effective ion interaction).
 > One such example is [WIEN2k](https://en.wikipedia.org/wiki/WIEN2k).
 
 Take a look at the pseudopotential file
-that we'll be using for silicon simulations:
+that we'll be using for silicon calculations:
 
 ```bash
 less pseudo/Si.pz-vbc.UPF
