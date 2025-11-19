@@ -112,7 +112,7 @@ are the ones that primarily determine the interesting reponse properties of a ma
 Due to the above, QE uses a concept called [_pseudopotentials_](https://en.wikipedia.org/wiki/Pseudopotential),
 which is a way to remove the core electrons from the calculation.
 In the case of silicon, instead of having 14 electrons
-around a core of 14 protons, we model the system as
+around a core of 14 protons, we can model the system as
 4 electrons around an effective core consisting of **14 protons + 10 electrons**.
 
 This effective description of the core manifests itself in
