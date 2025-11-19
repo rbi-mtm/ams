@@ -149,3 +149,25 @@ less pseudo/Si.pz-vbc.UPF
 
 This file is written in the [Unified Pseudopotential Format](https://pseudopotentials.quantum-espresso.org/home/unified-pseudopotential-format).
 We can see that `Z_valence = 4.0`.
+
+> [!TIP]
+> For simple scrolling with `less`, use the arrows (&uarr;&darr;).
+> Exit `less` by typing `q`.
+
+***
+### Exercise 1.3: Self-Consistent Field Calculation
+
+After preliminary considerations, let's calculate
+the ground state density $$n(\vec{r})$$.
+The procedure by which $$n(\vec{r})$$ is obtained is called a
+**self-consistent field (SCF)** calculation.
+
+Let's run the calculation by using `pw.x`, the basic program from the QE suite:
+
+```bash
+cd ex1
+pw.x -i si_scf.in | tee si_scf.out
+```
+> [!TIP]
+> We'll be using `tee` to simultaneously write the output to a file
+> and to the screen to follow calculations in real time.
