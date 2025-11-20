@@ -194,3 +194,7 @@ We can't do that directly for the real many-electron system
 However, we can construct an auxillary system of noninteracting fermions,
 called Kohn-Sham (KS) electrons, that is *solvable* and whose ground state
 density is identical (by construction) to the density of the real system!
+
+<p align="center">
+  <img src="/day2/figs/scf_diagram.png" width="550">
+</p>
