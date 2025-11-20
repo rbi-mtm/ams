@@ -186,7 +186,13 @@ pw.x -i si_scf.in | tee si_scf.out
 > We'll be using `tee` to simultaneously write the output to a file
 > and to the screen to follow calculations in real time.
 
-To understand the output, let's first remind ourselves what's an SCF calculation.
+We can open the output file:
+
+```bash
+less si_scf.out
+```
+
+To understand the output, let's remind ourselves what's an SCF calculation.
 
 We want to obtain the ground state electron density $$n$$.
 We can't do that directly for the real many-electron system
@@ -198,3 +204,47 @@ density is identical (by construction) to the density of the real system!
 <p align="center">
   <img src="/day2/figs/scf_diagram.png" width="550">
 </p>
+
+> [!NOTE]
+> $i$ and $k$ are the quantum numbers of the KS wavefunctions $\phi_{ik}$.
+> - $i$ is the KS band; the occupied states are given by $$i \in [1, N_\text{el}/2]$$ (for a **spin-unpolarized** calculation)
+>   - In our case, $N_\text{el} = 4 \times 2 = 8$, so we have **4 occupied (degenerate) bands**
+> - $k$ is the wave vector; in QE we define the $k$-points for which the calculation will be performed in the `K_POINTS` card
+
+**Q1:** We specified a grid of $$6 \times 6 \times 6 = 216$$ $k$-points. However, how many $k$-points are actually used in the calculation? Can you think of an explanation why?
+
+**Q2:** How many iterations did it take to converge the ground state density?
+What is the total energy trend over the iterations?<br>
+(Hint: use `grep "total energy" si_scf.out | head -n -1`)
+
+**Q3:** What are the forces on the two silicon atoms?
+
+> [!TIP]
+> It is interesting to check the different contributions to the total energy:
+> ```bash
+> grep "!" si_scf.out -A7
+> ```
+> - One-electron contribution: kinetic energy of KS electrons
+> - Hartree contribution: classical electrostatic electronic interaction
+> - XC contribution: exchange-correlation energy (XC model dependent)
+> - Ewald contribution: (pseudo)-ionic interaction computed using the [Ewald method](https://en.wikipedia.org/wiki/Ewald_summation)
+> The absolute value of energy is pseudopotential dependent; it has no physical meaning.
+
+Let's also take a look at energies for a fixed $k$-point. E.g., for $k=(0,0,0)$, the so called $\Gamma$ point, the KS energies $\epsilon_{ik}$ are:
+
+```bash
+k = 0.0000 0.0000 0.0000 (   339 PWs)   bands (ev):
+
+-5.8718   6.0677   6.0677   6.0677   8.6242   8.6242   8.6242   9.3285
+```
+
+There are 8 bands because we specified `nbnds=8` in the input file.
+We also have:
+```bash
+highest occupied, lowest unoccupied level (ev):     6.0677    6.7311
+```
+
+As expected, 4 bands are occupied and 4 are unoccupied.
+The occupied band energies are obtained from the SCF cycle,
+which fixes the KS Hamiltonian $H_\text{KS}$, allowing us
+to also obtain the unoccupied band energies.
