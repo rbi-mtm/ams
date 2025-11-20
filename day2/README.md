@@ -159,15 +159,38 @@ We can see that `Z_valence = 4.0`.
 
 After preliminary considerations, let's calculate
 the ground state density $$n(\vec{r})$$.
-The procedure by which $$n(\vec{r})$$ is obtained is called a
+The procedure by which $$n$$ is obtained is called a
 **self-consistent field (SCF)** calculation.
 
-Let's run the calculation by using `pw.x`, the basic program from the QE suite:
+Spend some time checking the SCF input file:
 
 ```bash
 cd ex1
+less si_scf.in
+```
+
+This input is about as simple as it gets.
+Many more options are listed in the [QE documentation](https://www.quantum-espresso.org/Doc/INPUT_PW.html).
+
+> [!NOTE]
+> Each SCF input file must contain the `&CONTROL`, `&SYSTEM` and `&ELECTRONS` namelists,
+> even though `&ELECTRONS` can be left empty (default values will be used).
+
+Let's run the SCF calculation by using `pw.x`, the basic program from the QE suite:
+
+```bash
 pw.x -i si_scf.in | tee si_scf.out
 ```
+
 > [!TIP]
 > We'll be using `tee` to simultaneously write the output to a file
 > and to the screen to follow calculations in real time.
+
+To understand the output, let's first remind ourselves what's an SCF calculation.
+
+We want to obtain the ground state electron density $$n$$.
+We can't do that directly for the real many-electron system
+(because its Schrödinger equation is computationally intractable).
+However, we can construct an auxillary system of noninteracting fermions,
+called Kohn-Sham (KS) electrons, that is *solvable* and whose ground state
+density is identical (by construction) to the density of the real system!
