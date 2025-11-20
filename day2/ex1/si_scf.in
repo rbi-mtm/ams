@@ -22,7 +22,7 @@
   ibrav = 2
 
   ! Lattice constant (in Bohr)
-  celldm(1) = 10.20
+  celldm(1) = 10.263
 
   ! Number of atoms in the unit cell
   nat = 2
