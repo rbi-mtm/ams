@@ -115,7 +115,11 @@ If everything goes well, read the following subsection.
 > we encourage you to start the VM, log in, press ``Ctrl+Alt+T`` to activate the Linux terminal
 > and spend some time using the [command line](https://linuxcommand.org/).
 >
-> There are [many great beginner guides](https://labex.io/linuxjourney) available online. Do not be afraid to experiment, since this is a **virtual** machine and you cannot do any harm to your computer. On the other hand, if you mess up something in the VM, you can always just reinstall it.
+> We invite you to check our [Linux and Python cheatsheet](/cheatsheet.pdf).
+> There are [many great beginner guides](https://labex.io/linuxjourney) available online as well.
+>
+> Do not be afraid to experiment, since this is a **virtual** machine and you cannot do any harm to your computer.
+> On the other hand, if you mess up something in the VM, you can always just reinstall it.
 
 ### 3.3. Local Installation
 
