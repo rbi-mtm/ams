@@ -78,7 +78,7 @@ This document should be used in the following way: first, read the chapter on [S
 ### 3.1. Installing the VM
 
  1. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
- 2. Download the [**ams.ova**](https://drive.google.com/file/d/1DA3PYMnr4v6YDIU0ML2xk5bbuZyAgp5K/view?usp=drive_link) file.
+ 2. Download the [**ams.ova**](https://drive.google.com/file/d/1IRo0lD8XpCH_8ZT79szsVskFfcSWwXU1/view?usp=sharing) file.
  3. Run VirtualBox and click on ``File`` &rarr; ``Import Appliance...``
  4. Under ``File:``, enter the path to the downloaded **ams.ova** file.
  5. Click on ``Settings`` and make sure to specify the ``Machine Base Folder:`` path in a drive that has at least **20GB of free space**.
