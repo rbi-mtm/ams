@@ -84,6 +84,13 @@ This document should be used in the following way: first, read the chapter on [S
  5. Click on ``Settings`` and make sure to specify the ``Machine Base Folder:`` path in a drive that has at least **20GB of free space**.
  6. Click on ``Finish``.
 
+> [!WARNING]
+> If you are using a Mac computer with an M-series chip (M1-M4), you should install
+> the [macOS / Apple Silicon hosts](https://download.virtualbox.org/virtualbox/7.2.4/VirtualBox-7.2.4-170995-macOSArm64.dmg) platform package in step 3.
+>
+> You might still experience issues with the VM.
+> In that case, send a message through the school Slack channel.
+
 If everything goes well, read the following subsection.
 
 ***
