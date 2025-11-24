@@ -248,3 +248,34 @@ As expected, 4 bands are occupied and 4 are unoccupied.
 The occupied band energies are obtained from the SCF cycle,
 which fixes the KS Hamiltonian $H_\text{KS}$, allowing us
 to also obtain the unoccupied band energies.
+
+***
+### Exercise 1.4: Ground State Density
+
+Take a look at the files QE saved after completion of an SCF calculation:
+
+```bash
+ls out/silicon.save/
+```
+
+We have 16 KS wavefunction files (one for each $k$-point)
+and the `charge-density.dat` file, all in binary format.
+
+Let's plot $n(\vec{r})$.
+First, we have to convert the `charge-density.dat` file to a more suitable format.
+We can do that using the QE postprocessing program, [`pp.x`](https://www.quantum-espresso.org/Doc/INPUT_PP.html):
+
+```bash
+pp.x -i si_pp_charge.in | tee si_pp_charge.out
+```
+
+Visualize the density using XCRYSDEN:
+
+```bash
+xcrysden --xsf Si.charge.xsf
+```
+
+> [!TIP]
+> For a clearer image, first click `Modify` &rarr; `Number of Units Drawn`
+> and create a supercell. The density itself is visualized using
+> `Tools` &rarr; `Data Grid`

@@ -1,0 +1,31 @@
+! Transforms binary format to QE text format
+&INPUTPP
+
+  ! The same prefix as in si_scf.in
+  prefix = 'silicon'
+
+  ! The same output directory as in si_scf.in
+  outdir = './out'
+
+  ! Arbitrary output file name
+  filplot = 'Si.charge'
+
+  ! Get charge density
+  plot_num = 0
+/
+
+! Transforms QE text format to XCRYSDEN format
+&PLOT
+
+  ! Arbitrary output file name
+  filepp = 'Si.charge'
+
+  ! 3D plot
+  iflag = 3
+
+  ! Specify XCRYSDEN output file format
+  output_format = 5
+
+  ! Final output file name
+  fileout = 'Si.charge.xsf'
+/
