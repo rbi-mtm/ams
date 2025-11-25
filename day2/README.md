@@ -301,8 +301,22 @@ Therefore, a closer look at the KS eigenvalues $\epsilon_{ik}$ and eigenfunction
 can provide us with useful information about the real system.
 
 First of all, now that we know $n$ from the SCF calculation, we can better sample the
-$k$-points by performing a _non-self-consistent field_ (NSCF) calculation.
+$k$-points by performing a _non-self-consistent field_ (NSCF) calculation (see diagram below).
 
 <p align="center">
   <img src="/day2/figs/nscf_diagram.png" width="550">
 </p>
+
+Let's compare the SCF and NSCF input files:
+
+```bash
+diff -y si_scf.in si_nscf.in | less
+```
+
+and run the NSCF calculation:
+
+```bash
+pw.x -i si_nscf.in | tee si_nscf.out
+```
+
+**Q:** How many wave-functions were obtained by the NSCF calculation?
