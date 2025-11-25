@@ -241,6 +241,7 @@ k = 0.0000 0.0000 0.0000 (   339 PWs)   bands (ev):
 
 There are 8 bands because we specified `nbnds=8` in the input file.
 We also have:
+
 ```bash
 highest occupied, lowest unoccupied level (ev):     6.0677    6.7311
 ```
@@ -282,7 +283,7 @@ xcrysden --xsf Si.charge.xsf
 > `Tools` &rarr; `Data Grid`.
 
 ***
-### Exercise 1.5: Band Structure & Density of States
+### Exercise 1.5: Non-self-consistent Field Calculation
 
 Even though the KS system is basically a fictitious system constructed
 as a crutch to obtain $n(\vec{r})$, it turns out that the KS particles
@@ -304,7 +305,7 @@ First of all, now that we know $n$ from the SCF calculation, we can better sampl
 $k$-points by performing a _non-self-consistent field_ (NSCF) calculation (see diagram below).
 
 <p align="center">
-  <img src="/day2/figs/nscf_diagram.png" width="550">
+  <img src="/day2/figs/nscf_diagram.png" width="350">
 </p>
 
 Let's compare the SCF and NSCF input files:
