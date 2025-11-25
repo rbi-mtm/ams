@@ -228,6 +228,7 @@ What is the total energy trend over the iterations?<br>
 > - Hartree contribution: classical electrostatic electronic interaction
 > - XC contribution: exchange-correlation energy (XC model dependent)
 > - Ewald contribution: (pseudo)-ionic interaction computed using the [Ewald method](https://en.wikipedia.org/wiki/Ewald_summation)
+>
 > The absolute value of energy is pseudopotential dependent; it has no physical meaning.
 
 Let's also take a look at energies for a fixed $k$-point. E.g., for $k=(0,0,0)$, the so called $\Gamma$ point, the KS energies $\epsilon_{ik}$ are:
