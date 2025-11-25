@@ -88,8 +88,10 @@ This document should be used in the following way: first, read the chapter on [S
 > If you are using a Mac computer with an M-series chip (M1-M4), you should install
 > the [macOS / Apple Silicon hosts](https://download.virtualbox.org/virtualbox/7.2.4/VirtualBox-7.2.4-170995-macOSArm64.dmg) platform package in step 3.
 >
-> You might still experience issues with the VM.
-> In that case, send a message through the school Slack channel.
+> However, it is likely you will experience issues with the VM.
+> To resolve this, we are preparing an ARM-compatible VM.
+> Therefore, if you are using a Mac with an M-series chip,
+> we advise you to wait a few days for the image to be ready.
 
 If everything goes well, read the following subsection.
 
