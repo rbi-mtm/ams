@@ -157,6 +157,9 @@ See the README files in the [day1](/day1), [day2](/day2) and [day3](/day3) subdi
 
 ### 5.1. Issues Related to the VM
 
+> [!TIP]
+> Generally, first make sure you're running the latest version of VirtualBox.
+
 - I'm getting an error while installing VirtualBox.
 
     - Try to resolve your error using the detailed [installation guide for VirtualBox](https://www.virtualbox.org/manual/ch02.html).
