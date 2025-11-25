@@ -129,7 +129,29 @@ If you wish to install the software and run the tutorials on your own machine, r
 
 ## 4. Running the Exercises
 
-TODO
+See the README files in the [day1](/day1), [day2](/day2) and [day3](/day3) subdirectories.
+
+> [!IMPORTANT]
+> To update the exercises,
+> open Terminal using ``Ctrl+Alt+T`` and execute:
+> 
+> ```bash
+> cd ams
+> git pull
+> ```
+> 
+> If `git pull` fails due to a merge conflict, you can temporarily stash your changes
+> (note that if you care about the changes you made,
+> you might want to back them up before executing
+> the following commands):
+> 
+> ```bash
+> git stash -u
+> git pull
+> ```
+> 
+> If you don't care about the changes you made, you can delete them forever using `git stash drop`.
+> If you do, restore the changes using `git stash pop`.
 
 ## 5. Common Issues
 
