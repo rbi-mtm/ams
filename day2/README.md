@@ -283,7 +283,7 @@ xcrysden --xsf Si.charge.xsf
 > `Tools` &rarr; `Data Grid`.
 
 ***
-### Exercise 1.5: Non-self-consistent Field Calculation
+### Exercise 1.5: Non-Self-Consistent Field Calculation
 
 Even though the KS system is basically a fictitious system constructed
 as a crutch to obtain $n(\vec{r})$, it turns out that the KS particles
