@@ -279,4 +279,30 @@ xcrysden --xsf Si.charge.xsf
 > [!TIP]
 > For a clearer image, first click `Modify` &rarr; `Number of Units Drawn`
 > and create a supercell. The density itself is visualized using
-> `Tools` &rarr; `Data Grid`
+> `Tools` &rarr; `Data Grid`.
+
+***
+### Exercise 1.5: Band Structure & Density of States
+
+Even though the KS system is basically a fictitious system constructed
+as a crutch to obtain $n(\vec{r})$, it turns out that the KS particles
+are a good zero-order approximation to real **single-particle excitations (quasiparticles)**
+in weakly-correlated systems.
+
+> [!NOTE]
+> A popular approach to quasiparticle calculations 
+> is the [GW approximation](https://www.cond-mat.de/events/correl11/manuscript/Held.pdf),
+> which goes beyond zero-order by approximating the so-called _self-energy_ contribution to
+> quasiparticle energy.
+>
+> A common starting point for a GW calculations is a DFT SCF calculation.
+
+Therefore, a closer look at the KS eigenvalues $\epsilon_{ik}$ and eigenfunctions $\phi_{ik}$
+can provide us with useful information about the real system.
+
+First of all, now that we know $n$ from the SCF calculation, we can better sample the
+$k$-points by performing a _non-self-consistent field_ (NSCF) calculation.
+
+<p align="center">
+  <img src="/day2/figs/nscf_diagram.png" width="550">
+</p>
