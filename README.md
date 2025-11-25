@@ -151,7 +151,7 @@ See the README files in the [day1](/day1), [day2](/day2) and [day3](/day3) subdi
 > ```
 > 
 > If you don't care about the changes you made, you can delete them forever using `git stash drop`.
-> If you do, restore the changes using `git stash pop`.
+> On the other hand, if you want to restore the changes using `git stash pop`.
 
 ## 5. Common Issues
 
