@@ -270,7 +270,7 @@ We can do that using the QE postprocessing program, [`pp.x`](https://www.quantum
 pp.x -i si_pp_charge.in | tee si_pp_charge.out
 ```
 
-Visualize the density using XCRYSDEN:
+Visualize the density using [XCRYSDEN](http://www.xcrysden.org/):
 
 ```bash
 xcrysden --xsf Si.charge.xsf
