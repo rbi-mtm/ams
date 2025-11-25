@@ -150,8 +150,8 @@ See the README files in the [day1](/day1), [day2](/day2) and [day3](/day3) subdi
 > git pull
 > ```
 > 
+> If you want to restore the changes, use `git stash pop`.
 > If you don't care about the changes you made, you can delete them forever using `git stash drop`.
-> On the other hand, if you want to restore the changes using `git stash pop`.
 
 ## 5. Common Issues
 
