@@ -49,7 +49,7 @@ ATOMIC_POSITIONS alat
 Si 0.00 0.00 0.00
 Si 0.25 0.25 0.25
 
-! For which k-points to evaluate the KS wave functions
+! For which k-points to solve the KS wave equations
 ! Below is a 6x6x6 Monkhorst-Pack grid
 K_POINTS (automatic)
 6 6 6 0 0 0
