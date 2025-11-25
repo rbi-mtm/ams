@@ -321,3 +321,23 @@ pw.x -i si_nscf.in | tee si_nscf.out
 ```
 
 **Q:** How many wave-functions were obtained by the NSCF calculation?
+
+***
+### Exercise 1.6: Density of States
+
+Now that we have a denser sampling of the KS states in the reciprocal space,
+let's look at the [density of states (DOS)](https://en.wikipedia.org/wiki/Density_of_states).
+
+For this purpose, we can use the [`dos.x`](https://www.quantum-espresso.org/Doc/INPUT_DOS.html) postprocessing program:
+
+```bash
+dos.x -i si_dos.in | tee si_dos.out
+```
+
+We got the output file `Si_dos.dat`. Let's plot it:
+
+```bash
+python plot_dos.py
+```
+
+**Q:** What does the DOS integrate to? What's the integral of the DOS up to Fermi energy?

@@ -1,0 +1,14 @@
+&DOS
+
+  ! The same prefix as in si_scf.in
+  prefix = 'silicon'
+
+  ! The same output directory as in si_scf.in
+  outdir = './out'
+
+  ! Arbitrary output file name
+  fildos = 'Si_dos.dat'
+
+  ! Energy grid step (eV)
+  DeltaE = 0.01
+/
