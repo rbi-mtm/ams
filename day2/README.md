@@ -211,13 +211,13 @@ density is identical (by construction) to the density of the real system!
 >   - In our case, $N_\text{el} = 4 \times 2 = 8$, so we have **4 occupied (degenerate) bands**
 > - $k$ is the wave vector; in QE we define the $k$-points for which the calculation will be performed in the `K_POINTS` card
 
-**Q1:** We specified a grid of $$6 \times 6 \times 6 = 216$$ $k$-points. However, how many $k$-points are actually used in the calculation? Can you think of an explanation why?
+**Q:** We specified a grid of $$6 \times 6 \times 6 = 216$$ $k$-points. However, how many $k$-points are actually used in the calculation? Can you think of an explanation why?
 
-**Q2:** How many iterations did it take to converge the ground state density?
+**Q:** How many iterations did it take to converge the ground state density?
 What is the total energy trend over the iterations?<br>
 (Hint: use `grep "total energy" si_scf.out | head -n -1`)
 
-**Q3:** What are the forces on the two silicon atoms?
+**Q:** What are the forces on the two silicon atoms?
 
 > [!TIP]
 > It is interesting to check the different contributions to the total energy:
@@ -340,10 +340,13 @@ We got the output file `Si_dos.dat`. Let's plot it:
 python plot_dos.py Si_dos.dat
 ```
 <p align="center">
-  <img src="/day2/figs/Si_dos.png" width="350">
+  <img src="/day2/figs/Si_dos.png" width="650">
 </p>
 
-As expected, from the DOS, we can tell that the single-particle excitation spectrum is gapped,
-or in simpler words: the system is an **insulator**.
+We can see that there are no KS states around Fermi level.
+From that, we can conclude that the single-particle excitation spectrum is also gapped,
+or in simpler terms: the system is an **insulator**.
+
+**T:** Plot the integral of the DOS versus energy.
 
 **Q:** What does the DOS integrate to? What's the integral of the DOS up to Fermi energy?
