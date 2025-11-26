@@ -311,7 +311,7 @@ The different ensembles are often referred to by which properties are constant:
 
 -   isothermal-isobaric NPT: the number of particles/moles $N$, the pressure $P$, and temperature $T$. The system is allowed to exchange energy (heat), and change the volume (box size) to keep the pressure constant. The pressure is manipulated by rescaling the box, via a barostat.
 
--   grand-canonical $\mu$VT: the chemical potential $\mu$, volume $V$, and temperature $T$. The system is assumed open, and can exchange heat (energy), and particles (matter, chemical elements) with its surrounding. The exchange of particles is very difficult to properly implement in MD, some Monte-Carlo based methods exist though.
+-   grand-canonical $\mu$-VT: the chemical potential $\mu$, volume $V$, and temperature $T$. The system is assumed open, and can exchange heat (energy), and particles (matter, chemical elements) with its surrounding. The exchange of particles is very difficult to properly implement in MD, some Monte-Carlo based methods exist though.
 
 ## Part A: Melting a Lennard-Jones solid<a id="sec-3-6"></a>
 
