@@ -218,7 +218,11 @@ Repeat the exercise with some supercell instead of the unit cell. Do you get any
 
 ## Verlet-Stormer<a id="sec-3-1"></a>
 
-In a computer, the first-order derivatives are computed as finite-difference: $$ \frac{\mathrm{d}}{\mathrm{d}t}x(t) = \frac{ x(t+\Delta t) - x(t) }{\Delta t} $$ with a chosen small value of $\Delta t$.
+In a computer, the first-order derivatives are computed as finite-difference:
+
+$$ \frac{\mathrm{d}}{\mathrm{d}t}x(t) = \frac{ x(t+\Delta t) - x(t) }{\Delta t} $$
+
+with a chosen small value of $\Delta t$.
 
 Let's label the positions as function of the timestep:
 
@@ -226,11 +230,17 @@ Let's label the positions as function of the timestep:
 -   the positions in the next time-step $x(t+\Delta t)=x_{n+1}$;
 -   the positions in the previous timestep $x(t-\Delta t)=x_{n-1}$.
 
-Then, the second-order derivatives are computed as difference-of-differences: $$ \frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) = \frac { \frac{ x_{n+1} - x_n }{\Delta t} - \frac{ x_n - x_{n-1} }{\Delta t} }{\Delta t} = \frac { x_{n+1} - 2x_{n} + x_{n-1} } { \Delta t^2} $$
+Then, the second-order derivatives are computed as difference-of-differences:
 
-Then we can write the Newton's equation of motion: $$ F = ma = m \frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) = m \frac { x_{n+1} - 2x_{n} + x_{n-1} } { \Delta t^2} $$
+$$ \frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) = \frac { \frac{ x_{n+1} - x_n }{\Delta t} - \frac{ x_n - x_{n-1} }{\Delta t} }{\Delta t} = \frac { x_{n+1} - 2x_{n} + x_{n-1} } { \Delta t^2} $$
 
-Reshuffling the terms, to solve for positions in the next time-step: $$ x_{n+1} = 2x_n - x_{n-1} + \frac{F \Delta t^2}{m} $$
+Then we can write the Newton's equation of motion:
+
+$$ F = ma = m \frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) = m \frac { x_{n+1} - 2x_{n} + x_{n-1} } { \Delta t^2} $$
+
+Reshuffling the terms, to solve for positions in the next time-step:
+
+$$ x_{n+1} = 2x_n - x_{n-1} + \frac{F \Delta t^2}{m} $$
 
 Therefore, to compute the future positions of atoms, we need to know the current positions, the positions of the previous time-step, and the force at the current time step.
 
@@ -244,9 +254,14 @@ The knowledge of positions at the previous time-step of the basic Verlet-Stormer
 
 The velocity-Verlet algorithm uses particle velocities and forces to calculate the position update. The algorithm follows three steps:
 
--   calculate the future positions from current positions, current velocity, and current force: $$ x_{n+1} = x_n + v_n \Delta t + \frac{1}{2}F_n\Delta t^2 $$
+-   calculate the future positions from current positions, current velocity, and current force:
+    
+    $$ x_{n+1} = x_n + v_n \Delta t + \frac{1}{2}F_n\Delta t^2 $$
+
 -   compute the future force $F_{n+1}$ at positions $x_{n+1}$;
--   compute the future velocities: $$ v_{n+1} = v_{n} + \frac{1}{2}(F_n + F_{n+1})\Delta t $$
+-   compute the future velocities:
+    
+    $$ v_{n+1} = v_{n} + \frac{1}{2}(F_n + F_{n+1})\Delta t $$
 
 In order to start the velocity-Verlet algorithm, we need to provide the initial positions, and velocities.
 
@@ -254,13 +269,23 @@ In order to start the velocity-Verlet algorithm, we need to provide the initial 
 
 The instantaneous force on a configuration of particles $F_n$ can be computed at several different levels of theory. In this section we look at the [Lennard-Jones](https://en.wikipedia.org/wiki/Lennard-Jones_potential) (LJ) potential, which is possibly the simplest pair-potential. It gives the potential energy of two interacting objects, as the function of only the distance $r$ between them. As it does not contain any electronic effects, LJ is often referred to as a "classical" potential. Many other potentials of this type exist.
 
-The LJ potential is defined: $$ V_{LJ}(r) = 4\epsilon \bigg[ \big(\frac{\sigma}{r}\big)^{12} - \big(\frac{\sigma}{r}\big)^{6} \bigg] $$ where $\epsilon$ is the potential depth, and $\sigma$ is the value of distance where $V_{LJ}=0$. It reaches a minimum value at $r=r_{m}=2^{1/6}\sigma$.
+The LJ potential is defined:
 
-Sometimes it is convenient to write it as: $$ V_{LJ}(r) = \frac{A}{r^{12}} - \frac{B}{R^{6}} $$
+$$ V_{LJ}(r) = 4\epsilon \bigg[ \big(\frac{\sigma}{r}\big)^{12} - \big(\frac{\sigma}{r}\big)^{6} \bigg] $$
+
+where $\epsilon$ is the potential depth, and $\sigma$ is the value of distance where $V_{LJ}=0$. It reaches a minimum value at $r=r_{m}=2^{1/6}\sigma$.
+
+Sometimes it is convenient to write it as:
+
+$$ V_{LJ}(r) = \frac{A}{r^{12}} - \frac{B}{R^{6}} $$
 
 ![img](./figs/LJpot.png "The LJ potential.")
 
-The force can be in general computed as the negative gradient of the potential, but $V_{LJ}$ is spherically symmetric, so the force direction is given by the vector $\hat{r}$, and its magnitude by the simple derivate, with an analytical expression: $$ \vec{F}_{LJ}( \vec{r} ) = -\hat{r}\frac{\mathrm{d}V}{\mathrm{d}r} = \hat{r} 48\epsilon \bigg[ \frac{\sigma^{12}}{r^{13}} - 0.5 \frac{\sigma^{6}}{r^{7}} \bigg] $$ where $\vec{r}$ is the vector connecting two particles, $r=|\vec{r}|$ is its Cartesian norm, and $\hat{r} = \vec{r}/r$ its direction.
+The force can be in general computed as the negative gradient of the potential, but $V_{LJ}$ is spherically symmetric, so the force direction is given by the vector $\hat{r}$, and its magnitude by the simple derivate, with an analytical expression:
+
+$$ \vec{F}_{LJ}( \vec{r} ) = -\hat{r}\frac{\mathrm{d}V}{\mathrm{d}r} = \hat{r} 48\epsilon \bigg[ \frac{\sigma^{12}}{r^{13}} - 0.5 \frac{\sigma^{6}}{r^{7}} \bigg] $$
+
+where $\vec{r}$ is the vector connecting two particles, $r=|\vec{r}|$ is its Cartesian norm, and $\hat{r} = \vec{r}/r$ its direction.
 
 ## Molecular Dynamics<a id="sec-3-4"></a>
 
@@ -306,7 +331,9 @@ Imagine you try to model a real molecule with two atoms with the LJ potential. W
 
 Using your favourite programming language, implement functions/routines to compute the total energy, and the force vectors for a given configuration of particles. Use lammps calculations as reference values.
 
-NOTE: keep in mind the distances have to be computed in Periodic Boundary Conditions. NOTE 2: the range of distances where LJ gives a nonzero potential can be quite large, meaning we need to explicitly include a quite large cell in the calculation. In the generic PBC implementation, each image is only made to interact with its nearest-neighbor image, but not the second, third, etc. This is often mitigated by introducing a cutoff range to the LJ interactions, beyond which the interactions are added as analytical expressions based on the density.
+NOTE: keep in mind the distances have to be computed in Periodic Boundary Conditions.
+
+NOTE 2: the range of distances where LJ gives a nonzero potential can be quite large, meaning we need to explicitly include a quite large cell in the calculation. In the generic PBC implementation, each image is only made to interact with its nearest-neighbor image, but not the second, third, etc. This is often mitigated by introducing a cutoff range to the LJ interactions, beyond which the interactions are added as analytical expressions based on the density.
 
 ### EXTRA-3.3: implement your own Verlet algorithm:<a id="sec-3-7-3"></a>
 
