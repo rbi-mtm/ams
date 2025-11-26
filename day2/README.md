@@ -344,9 +344,21 @@ python plot_dos.py Si_dos.dat
 </p>
 
 We can see that there are no KS states around Fermi level.
-From that, we can conclude that the single-particle excitation spectrum is also gapped,
+From that, we can conclude that the single-particle excitation spectrum is also likely gapped,
 or in simpler terms: the system is an **insulator**.
 
 **T:** Plot the integral of the DOS versus energy.
 
 **Q:** What does the DOS integrate to? What's the integral of the DOS up to Fermi energy?
+
+> [!NOTE]
+> The band gap is about 0.55 eV, which is **much** smaller than the experimentally
+> measured value of about 1.12 eV. Besides the fact that we are using the LDA functional,
+> there is a **fundamental** reason why DFT calculations underestimate bandgaps.
+>
+> Namely, it is known that the exact exchange-correlation functional
+> has [derivative discontinuities at integer particle numbers](https://physics.stackexchange.com/questions/176419/why-does-density-functional-theory-dft-underestimate-bandgaps),
+> while the functionals employed in practical calculations are continuous.
+>
+> This discontinuity contributes to the fundamental gap,
+> leading to DFT band gaps being generally underestimated.
