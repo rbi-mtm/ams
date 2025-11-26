@@ -277,7 +277,7 @@ where $\epsilon$ is the potential depth, and $\sigma$ is the value of distance w
 
 Sometimes it is convenient to write it as:
 
-$$ V_{LJ}(r) = \frac{A}{r^{12}} - \frac{B}{R^{6}} $$
+$$ V_{LJ}(r) = \frac{A}{r^{12}} - \frac{B}{r^{6}} $$
 
 ![img](./figs/LJpot.png "The LJ potential.")
 
