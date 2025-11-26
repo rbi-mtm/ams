@@ -337,7 +337,13 @@ dos.x -i si_dos.in | tee si_dos.out
 We got the output file `Si_dos.dat`. Let's plot it:
 
 ```bash
-python plot_dos.py
+python plot_dos.py Si_dos.dat
 ```
+<p align="center">
+  <img src="/day2/figs/Si_dos.png" width="350">
+</p>
+
+As expected, from the DOS, we can tell that the single-particle excitation spectrum is gapped,
+or in simpler words: the system is an **insulator**.
 
 **Q:** What does the DOS integrate to? What's the integral of the DOS up to Fermi energy?
