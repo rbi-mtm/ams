@@ -43,7 +43,7 @@ basis[2] = [ 0.5, 0.0, 0.5 ]
 basis[3] = [ 0.0, 0.5, 0.5 ]
 ```
 
-1.  Modify the `generate_cell.py` script to generate the conventional cell of FCC structure, as given above. Call the script with python, and redirect the output to a file:
+1.  Modify the `generate_cell.py` script to generate the conventional cell of FCC structure, as given above. Call the script with `python`, and redirect the output to a file:
     
     ```bash
        python generate_cell.py > my_output_filename.xyz
@@ -74,7 +74,7 @@ basis[0] = [ 0.0, 0.0, 0.0 ]
 
 1.  Modify the `generate_cell.py` script to generate 4x4x4 supercells of both structures generated above.
 
-2.  Use `ovito` to visualize. The script will generate two structures in the output file: one for the unit cell, and one for the supercell. Navigate the structures in `ovito`.
+2.  Use `ovito` to visualize. The script will generate two structures in the same output file: one for the unit cell, and one for the supercell. Navigate the structures in `ovito`.
 
 3.  Test the structure of your supercell in ovito, using the modifier "Polyhedral Template Matching". You might need to tick the boxes "cubic diamond" or "hexagonal diamond".
 
@@ -156,7 +156,7 @@ If you feel confident in scripting, skip directly to EXTRA-2.1.
 1.  Generate the diamond structure with several different values of the lattice constant `a0`. The range of values should be around 5.2 to 5.8.
 2.  Compute the value of total energy for each `a0`. Use LAMMPS software to compute the energy.
     
-    Launch `lammps` with the command `lmp` as:
+    Launch `lammps` with the command `lmp`, giving the input file `lammps.in` as:
     
     ```bash
        lmp -in lammps.in
@@ -164,7 +164,7 @@ If you feel confident in scripting, skip directly to EXTRA-2.1.
     
     this will produce some output on the screen. Search for the line that says: "TotEng". The value printed after it is the total energy of your system.
     
-    Save this value into a text file, together with the current value of `a0`. The goal is to produce a file with contents like:
+    Save the current value of `a0`, together with the corresponding total energy value into a file. The goal is to produce a file with contents (`a0` in first column, and total energy in the second):
     
     ```txt
        5.20  	-33.795071
@@ -186,10 +186,6 @@ If you feel confident in scripting, skip directly to EXTRA-2.1.
     
     ![img](./figs/a0_etot.png "Plot of total energy versus the lattice constant.")
 
-To compute the total energy, use the script
-
-compute the total energy for various values of the lattice parameter \`a0\`. Plot the enegy per atom vs value of \`a0\`, and find the minimum.
-
 ## EXTRA:<a id="sec-2-3"></a>
 
 ### EXTRA-2.1: Write a `bash` script<a id="sec-2-3-1"></a>
@@ -204,9 +200,9 @@ Use your favourite programming language to write a functional fit to the data, a
 
 ### EXTRA-2.3: Compute with the primitive cell of diamond<a id="sec-2-3-3"></a>
 
-Modify the script to create the primitive cell of diamond, and plot the result. What differences do you see (in terms of values of total energy, or `a0`)?
+Modify the script to work with the primitive cell of diamond, and plot the result. What differences do you see (in terms of values of total energy, or `a0`)?
 
-### EXTRA-2.4: Do we need a supercell?<a id="sec-2-3-4"></a>
+### EXTRA-2.4: How about a supercell?<a id="sec-2-3-4"></a>
 
 Repeat the exercise with some supercell instead of the unit cell. Do you get any differences? Why?
 
