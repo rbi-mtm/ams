@@ -7,15 +7,23 @@
   - [Part A: Generate Si crystal in the diamond configuration](#sec-2-1)
   - [Part B: computing the lattice constant of Si](#sec-2-2)
   - [EXTRA:](#sec-2-3)
-- [md; melt](#sec-3)
-  - [verlet/leapfrog, total energy, thormostat, damping etc.](#sec-3-1)
-  - [computing the force: empirical potentials](#sec-3-2)
-  - [LJ/melt in lammps examples](#sec-3-3)
-- [create surface](#sec-4)
-- [minimize surface](#sec-5)
-- [difference between md and minimization](#sec-6)
-  - [try the melt example with adding damp at the end](#sec-6-1)
-  - [](#sec-6-2)
+- [Exercise 3: velocity Verlet algorithm, Molecular Dynamics](#sec-3)
+  - [Verlet-Stormer](#sec-3-1)
+  - [velocity-Verlet](#sec-3-2)
+  - [Computing the Force (classical potentials)](#sec-3-3)
+  - [Molecular Dynamics](#sec-3-4)
+  - [A word on statistical ensembles](#sec-3-5)
+  - [Part A: Melting a Lennard-Jones solid](#sec-3-6)
+  - [EXTRA:](#sec-3-7)
+- [md; melt](#sec-4)
+  - [verlet/leapfrog, total energy, thormostat, damping etc.](#sec-4-1)
+  - [computing the force: empirical potentials](#sec-4-2)
+  - [LJ/melt in lammps examples](#sec-4-3)
+- [create surface](#sec-5)
+- [minimize surface](#sec-6)
+- [difference between md and minimization](#sec-7)
+  - [try the melt example with adding damp at the end](#sec-7-1)
+  - [](#sec-7-2)
 
 
 # Exercise 1: Generating a crystal structure<a id="sec-1"></a>
@@ -206,28 +214,138 @@ Modify the script to work with the primitive cell of diamond, and plot the resul
 
 Repeat the exercise with some supercell instead of the unit cell. Do you get any differences? Why?
 
-# md; melt<a id="sec-3"></a>
+# Exercise 3: velocity Verlet algorithm, Molecular Dynamics<a id="sec-3"></a>
 
-## verlet/leapfrog, total energy, thormostat, damping etc.<a id="sec-3-1"></a>
+## Verlet-Stormer<a id="sec-3-1"></a>
 
-## computing the force: empirical potentials<a id="sec-3-2"></a>
+In a computer, the first-order derivatives are computed as finite-difference: $$ \frac{\mathrm{d}}{\mathrm{d}t}x(t) = \frac{ x(t+\Delta t) - x(t) }{\Delta t} $$ with a chosen small value of $\Delta t$.
+
+Let's label the positions as function of the timestep:
+
+-   the current positions $x(t)=x_n$;
+-   the positions in the next time-step $x(t+\Delta t)=x_{n+1}$;
+-   the positions in the previous timestep $x(t-\Delta t)=x_{n-1}$.
+
+Then, the second-order derivatives are computed as difference-of-differences: $$ \frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) = \frac { \frac{ x_{n+1} - x_n }{\Delta t} - \frac{ x_n - x_{n-1} }{\Delta t} }{\Delta t} = \frac { x_{n+1} - 2x_{n} + x_{n-1} } { \Delta t^2} $$
+
+Then we can write the Newton's equation of motion: $$ F = ma = m \frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) = m \frac { x_{n+1} - 2x_{n} + x_{n-1} } { \Delta t^2} $$
+
+Reshuffling the terms, to solve for positions in the next time-step: $$ x_{n+1} = 2x_n - x_{n-1} + \frac{F \Delta t^2}{m} $$
+
+Therefore, to compute the future positions of atoms, we need to know the current positions, the positions of the previous time-step, and the force at the current time step.
+
+The instantaneous force is a quantity which depends on the level of theory we want to include, but it can always be computed from the available data. At the simplest level, it's a function of the chemical type, and interatomic distances.
+
+This is the basic Verlet-Stormer algotihrm for the update of atomic positions. Solving it for a number of timesteps $\Delta t$ makes a trajectory, which is just one of the possible solutions of the equation of motion.
+
+## velocity-Verlet<a id="sec-3-2"></a>
+
+The knowledge of positions at the previous time-step of the basic Verlet-Stormer algorithm poses a challenege when initiating the simulation, but can be overcome by the velocity-Verlet algorithm.
+
+The velocity-Verlet algorithm uses particle velocities and forces to calculate the position update. The algorithm follows three steps:
+
+-   calculate the future positions from current positions, current velocity, and current force: $$ x_{n+1} = x_n + v_n \Delta t + \frac{1}{2}F_n\Delta t^2 $$
+-   compute the future force $F_{n+1}$ at positions $x_{n+1}$;
+-   compute the future velocities: $$ v_{n+1} = v_{n} + \frac{1}{2}(F_n + F_{n+1})\Delta t $$
+
+In order to start the velocity-Verlet algorithm, we need to provide the initial positions, and velocities.
+
+## Computing the Force (classical potentials)<a id="sec-3-3"></a>
+
+The instantaneous force on a configuration of particles $F_n$ can be computed at several different levels of theory. In this section we look at the [Lennard-Jones](https://en.wikipedia.org/wiki/Lennard-Jones_potential) (LJ) potential, which is possibly the simplest pair-potential. It gives the potential energy of two interacting objects, as the function of only the distance $r$ between them. As it does not contain any electronic effects, LJ is often referred to as a "classical" potential. Many other potentials of this type exist.
+
+The LJ potential is defined: $$ V_{LJ}(r) = 4\epsilon \bigg[ \big(\frac{\sigma}{r}\big)^{12} - \big(\frac{\sigma}{r}\big)^{6} \bigg] $$ where $\epsilon$ is the potential depth, and $\sigma$ is the value of distance where $V_{LJ}=0$. It reaches a minimum value at $r=r_{m}=2^{1/6}\sigma$.
+
+Sometimes it is convenient to write it as: $$ V_{LJ}(r) = \frac{A}{r^{12}} - \frac{B}{R^{6}} $$
+
+![img](./figs/LJpot.png "The LJ potential.")
+
+The force can be in general computed as the negative gradient of the potential, but $V_{LJ}$ is spherically symmetric, so the force direction is given by the vector $\hat{r}$, and its magnitude by the simple derivate, with an analytical expression: $$ \vec{F}_{LJ}( \vec{r} ) = -\hat{r}\frac{\mathrm{d}V}{\mathrm{d}r} = \hat{r} 48\epsilon \bigg[ \frac{\sigma^{12}}{r^{13}} - 0.5 \frac{\sigma^{6}}{r^{7}} \bigg] $$ where $\vec{r}$ is the vector connecting two particles, $r=|\vec{r}|$ is its Cartesian norm, and $\hat{r} = \vec{r}/r$ its direction.
+
+## Molecular Dynamics<a id="sec-3-4"></a>
+
+Molecular Dynamics (MD) is a simulation technique which generates a trajectory of configurations, which is a possible solution of the equations of motion. By changing the initial conditions, MD generates a different trajectory which is also a valid solution.
+
+Very often, the concrete method of computing the atomic update step is similar (if not identical) to the one sketched above (the velocity-Verlet). The computation of force can however be much more involved, by including effects at several levels of theory (classical, semi-classical, QM/MM, ab-initio, etc.).
+
+Once we have an equilibrated, and long-enough trajectory, we can compute some thermodynamic properties from the trajectory. Namely, we can compute those that can be expressed as functions of positions and momenta of the particles. For example temperature, expressed as average kinetic energy per particle.
+
+## A word on statistical ensembles<a id="sec-3-5"></a>
+
+Depending on which statistical ensemble we wish to simulate (canonical, micro-canonical, or grand-canonical), different thermodynamic properties are kept constant in the simulation, while others can vary.
+
+If we wish to simulate a system at a certain constant temperature, the particle properties (velocity) have to be scaled to meet the temperature criteria. There exist different schemes for such rescaling, commonly called the "thermostats".
+
+Similarly, if we wish to simulate a system at a certain constant pressure, the schemes are called "barostats".
+
+The different ensembles are often referred to by which properties are constant:
+
+-   micro-canonical NVE: the number of particles/moles $N$, box volume $V$, and the energy $E$. This corresponds to an isolated system, which does not exchange heat or matter with its surrounding. The total energy in NVE is coserved (i.e. the sum of kinetic and potential $E=K+V$).
+
+-   canonical NVT: the number of particles/moles $N$, box volume $V$, and the temperature $T$. The system is allowed to exchange energy (heat) with its surrounding, such that $T$ remains constant. Velocities rescaled with a thermostat, to keep constant the kinetic energy (=temperature).
+
+-   isothermal-isobaric NPT: the number of particles/moles $N$, the pressure $P$, and temperature $T$. The system is allowed to exchange energy (heat), and change the volume (box size) to keep the pressure constant. The pressure is manipulated by rescaling the box, via a barostat.
+
+-   grand-canonical $\mu$VT: the chemical potential $\mu$, volume $V$, and temperature $T$. The system is assumed open, and can exchange heat (energy), and particles (matter, chemical elements) with its surrounding. The exchange of particles is very difficult to properly implement in MD, some Monte-Carlo based methods exist though.
+
+## Part A: Melting a Lennard-Jones solid<a id="sec-3-6"></a>
+
+1.  launch lmp
+
+2.  visulaize output, plot the radial distribution function.
+
+3.  plot the kinetic, potential, and total energy as function of time
+
+## EXTRA:<a id="sec-3-7"></a>
+
+### EXTRA-3.1: significance of `epsilon` and `sigma`<a id="sec-3-7-1"></a>
+
+Imagine you try to model a real molecule with two atoms with the LJ potential. Which experimantal (or computed) values of the molecule would you need, in order to determine `epsilon`? And which to determine `sigma`?
+
+### EXTRA-3.2: implement your own module to compute LJ energy and force:<a id="sec-3-7-2"></a>
+
+Using your favourite programming language, implement functions/routines to compute the total energy, and the force vectors for a given configuration of particles. Use lammps calculations as reference values.
+
+NOTE: keep in mind the distances have to be computed in Periodic Boundary Conditions. NOTE 2: the range of distances where LJ gives a nonzero potential can be quite large, meaning we need to explicitly include a quite large cell in the calculation. In the generic PBC implementation, each image is only made to interact with its nearest-neighbor image, but not the second, third, etc. This is often mitigated by introducing a cutoff range to the LJ interactions, beyond which the interactions are added as analytical expressions based on the density.
+
+### EXTRA-3.3: implement your own Verlet algorithm:<a id="sec-3-7-3"></a>
+
+Using your favourite programming language, implement the Velocity-Verlet algorithm. To compute the energy and forces, use the routines you previously implemented.
+
+Attention to the units, and the $\Delta t$ parameter.
+
+### EXTRA-3.4: compute which Bravais lattice has the lowest LJ energy<a id="sec-3-7-4"></a>
+
+Use the script `generate_cell.py` from the first exercise to generate the Face-Centered Cubic (FCC), Body-Centered Cubic (BCC), and Hexagonal Close-Packed (HCP) structures. Then choose parameters for the `epsilon` and `sigma`, and find the lattice constant `a0` for each crystal lattice. Generate a large supercell with the final parameters of each lattice, and compute the total energy per atom. Which crystal structure has the lowest energy?
+
+The structure with lowest energy is the most stable, and coincidentally appears most often in the nature. It is quite remarkable that a simple LJ potential is already sufficient to reproduce that behaviour of nature. Remember the LJ only has a radial component.
+
+### EXTRA-3.5: LJ substance<a id="sec-3-7-5"></a>
+
+The substance/matter of an LJ simulation is sometimes called the "Lennard-Jonesium". Historically, LJ potential was used quite successfully to model the liquid Argon. Find the values of `epsilon` and `sigma` online to model it, and try to simulate some representative points of its phase diagram (solid, liquid, gas).
+
+# md; melt<a id="sec-4"></a>
+
+## verlet/leapfrog, total energy, thormostat, damping etc.<a id="sec-4-1"></a>
+
+## computing the force: empirical potentials<a id="sec-4-2"></a>
 
 LJ
 
-## LJ/melt in lammps examples<a id="sec-3-3"></a>
+## LJ/melt in lammps examples<a id="sec-4-3"></a>
 
-# create surface<a id="sec-4"></a>
+# create surface<a id="sec-5"></a>
 
 create (by hand?) Si diamond in conventional cell (8atms per cell)
 
-# minimize surface<a id="sec-5"></a>
+# minimize surface<a id="sec-6"></a>
 
 surface as defect, minimize Si diamond with reaxff? maybe sw.
 
-# difference between md and minimization<a id="sec-6"></a>
+# difference between md and minimization<a id="sec-7"></a>
 
 Taking energy out of the system. damped dynamics, quickmin/SD, CG, other &#x2026;
 
-## try the melt example with adding damp at the end<a id="sec-6-1"></a>
+## try the melt example with adding damp at the end<a id="sec-7-1"></a>
 
-## <a id="sec-6-2"></a>
+## <a id="sec-7-2"></a>
