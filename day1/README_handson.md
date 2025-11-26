@@ -285,7 +285,7 @@ The force can be in general computed as the negative gradient of the potential, 
 
 $$ \vec{F}_{LJ}( \vec{r} ) = -\hat{r}\frac{\mathrm{d}V}{\mathrm{d}r} = \hat{r} 48\epsilon \bigg[ \frac{\sigma^{12}}{r^{13}} - 0.5 \frac{\sigma^{6}}{r^{7}} \bigg] $$
 
-where $\vec{r}$ is the vector connecting two particles, $r=\lvert\vec{r}\rvert$ is its Cartesian norm, and $\hat{r} = \vec{r}/r$ its direction.
+where $\vec{r}$ is the vector connecting two particles, $r$ is its Cartesian norm, and $\hat{r} = \vec{r}/r$ its direction.
 
 ## Molecular Dynamics<a id="sec-3-4"></a>
 
