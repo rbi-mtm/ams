@@ -1,0 +1,12 @@
+units metal
+atom_style atomic
+
+
+read_data struc.lmp
+
+pair_style sw
+pair_coeff * * /home/atom/ams/day1/si_lattice_const/Si.sw Si
+mass 1 29.0
+
+thermo_style custom etotal
+run 0
