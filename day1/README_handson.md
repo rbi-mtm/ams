@@ -255,13 +255,13 @@ The knowledge of positions at the previous time-step of the basic Verlet-Stormer
 The velocity-Verlet algorithm uses particle velocities and forces to calculate the position update. The algorithm follows three steps:
 
 -   calculate the future positions from current positions, current velocity, and current force:
-    
-    $$ x_{n+1} = x_n + v_n \Delta t + \frac{1}{2}F_n\Delta t^2 $$
+
+$$ x_{n+1} = x_n + v_n \Delta t + \frac{1}{2}F_n\Delta t^2 $$
 
 -   compute the future force $F_{n+1}$ at positions $x_{n+1}$;
 -   compute the future velocities:
-    
-    $$ v_{n+1} = v_{n} + \frac{1}{2}(F_n + F_{n+1})\Delta t $$
+
+$$ v_{n+1} = v_{n} + \frac{1}{2}(F_n + F_{n+1})\Delta t $$
 
 In order to start the velocity-Verlet algorithm, we need to provide the initial positions, and velocities.
 
@@ -285,7 +285,7 @@ The force can be in general computed as the negative gradient of the potential, 
 
 $$ \vec{F}_{LJ}( \vec{r} ) = -\hat{r}\frac{\mathrm{d}V}{\mathrm{d}r} = \hat{r} 48\epsilon \bigg[ \frac{\sigma^{12}}{r^{13}} - 0.5 \frac{\sigma^{6}}{r^{7}} \bigg] $$
 
-where $\vec{r}$ is the vector connecting two particles, $r=|\vec{r}|$ is its Cartesian norm, and $\hat{r} = \vec{r}/r$ its direction.
+where $\vec{r}$ is the vector connecting two particles, $r=\lvert\vec{r}\rvert$ is its Cartesian norm, and $\hat{r} = \vec{r}/r$ its direction.
 
 ## Molecular Dynamics<a id="sec-3-4"></a>
 
