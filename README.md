@@ -53,7 +53,7 @@ This document should be used in the following way: first, read the chapter on [S
 
 | Start | End | 3.12. | 10.12. | 17.12. |
 |:---:|:---:|---|---|---|
-| 8:30 | 9:00 | Registration | - | - |
+| 8:00 | 8:50 | Registration | - | - |
 | 9:00 | 9:55 | **Ivor Lončarić**<br>Opening / General Introduction to Atomistic Simulations | **Dino Novko**<br>Phonons, Electrons and Electron-Phonon Coupling | **Dino Novko**<br>Comparing _Ab Initio_ Simulations With Experiments |
 | 9:55 | 10:25 | Coffee Break | Coffee Break | Coffee Break |
 | 10:25 | 11:20 | **Luka Benić**<br>Fundamentals of Density Functional Theory | **Ryan Requist**<br>_Ab Initio_ Molecular Dynamics | **Ivor Lončarić**<br>Machine learning in Materials Science |
