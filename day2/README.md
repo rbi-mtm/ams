@@ -362,3 +362,18 @@ or in simpler terms: the system is an **insulator**.
 >
 > This discontinuity contributes to the fundamental gap,
 > leading to DFT band gaps being generally underestimated.
+
+***
+### Exercise 1.7: Band Structure & Projected Density of States
+
+We continue with investigating the structure of the KS states.
+In this Exercise, we'll plot the band structure, i.e. the dispersion of Kohn-Sham energies
+$\epsilon_{i}(\vec{k})$.
+
+These energies are also obtained using an NSCF calculation.
+Recall that in Exercise 1.4 we used a **uniform grid** of $k$-points for an NSCF calculation.
+This provided us with a uniform sampling of KS states across the [Brillouin zone](https://en.wikipedia.org/wiki/Brillouin_zone),
+convenient for calculating the DOS.
+
+On the other hand, to obtain an interesting band structure, we need to select a **path** of
+$k$-points through the Brillouin zone for which the $\epsilon_{i}(\vec{k})$ will be evaluated.
