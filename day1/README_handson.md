@@ -433,7 +433,15 @@ A too large value can induce "box explosion" in lammps, which means two atoms ha
 
 A too small value means there is not much change between two successive steps, and thus the computer is re-computing properties which did not change a lot. That is an unnecessary waste of computer time.
 
-### EXTRA-3.3: highly symmetric initial configurations<a id="sec-3-9-3"></a>
+### EXTRA-3.3: significance of the cutoff<a id="sec-3-9-3"></a>
+
+In the exercise we used the cutoff value of LJ at 2.5, which means any interaction of atoms which are more than 2.5 distance units apart is not taken into account explicitly.
+
+What do you think is the effect of this choice on the simulation, regarding the computation speed? How about accuracy?
+
+Try to repeat the calculation(s) with larger value of the cutoff, do you notice any differences?
+
+### EXTRA-3.4: highly symmetric initial configurations<a id="sec-3-9-4"></a>
 
 Did you notice any behaviour during the MD simulations, that seemed strangely symmetric for no reason?
 
@@ -451,7 +459,7 @@ The lammps input file `lammps.in` contains a commented line which gives a small 
 
 Uncommenting this line should remove the symmetric behaviour of the simulation.
 
-### EXTRA-3.4: implement your own module to compute LJ energy and force:<a id="sec-3-9-4"></a>
+### EXTRA-3.5: implement your own module to compute LJ energy and force:<a id="sec-3-9-5"></a>
 
 Using your favourite programming language, implement functions/routines to compute the total energy, and the force vectors for a given configuration of particles. Use lammps calculations as reference values.
 
@@ -459,7 +467,7 @@ NOTE: keep in mind the distances have to be computed in Periodic Boundary Condit
 
 NOTE 2: the range of distances where LJ gives a nonzero potential can be quite large, meaning we need to explicitly include a quite large cell in the calculation. In the generic PBC implementation, each image is only made to interact with its nearest-neighbor image, but not the second, third, etc. This is often mitigated by introducing a cutoff range to the LJ interactions, beyond which the interactions are added as analytical expressions based on the density.
 
-### EXTRA-3.5: compute which Bravais lattice has the lowest LJ energy<a id="sec-3-9-5"></a>
+### EXTRA-3.6: compute which Bravais lattice has the lowest LJ energy<a id="sec-3-9-6"></a>
 
 Use the script `generate_cell.py` from the first exercise to generate the Simple Cubic (SC), Face-Centered Cubic (FCC), Body-Centered Cubic (BCC), and Hexagonal Close-Packed (HCP) structures. Then choose parameters for the `epsilon` and `sigma`, and find the lattice constant `a0` for each crystal lattice. Which crystal structure has the lowest energy?
 
@@ -467,13 +475,13 @@ The energy values for FCC and HCP are quite close, generate a (very) large super
 
 FCC and HCP are the lowest energy structures. They are the most stable, and coincidentally appear most often in the nature. The simple LJ potential is already sufficient to reproduce that behaviour of nature; remember LJ only has a radial component.
 
-### EXTRA-3.6: implement your own Verlet algorithm:<a id="sec-3-9-6"></a>
+### EXTRA-3.7: implement your own Verlet algorithm:<a id="sec-3-9-7"></a>
 
 Using your favourite programming language, implement the Velocity-Verlet algorithm. To compute the energy and forces, use the routines you previously implemented for LJ potential.
 
 Attention to the units, and the $\Delta t$ parameter.
 
-### EXTRA-3.7: LJ substance<a id="sec-3-9-7"></a>
+### EXTRA-3.8: LJ substance<a id="sec-3-9-8"></a>
 
 The substance/matter of an LJ simulation is sometimes called the "Lennard-Jonesium". Historically, LJ potential was used quite successfully to model Argon in all phases. Find the values of `epsilon` and `sigma` online to model it, and try to simulate some representative points of its phase diagram (solid, liquid, gas).
 
