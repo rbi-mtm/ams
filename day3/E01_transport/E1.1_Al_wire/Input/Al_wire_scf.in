@@ -1,0 +1,39 @@
+ &control
+    calculation='scf'
+    restart_mode='from_scratch',
+    pseudo_dir = '??',
+    outdir='??'
+    prefix='??'
+ /
+ &system
+    ibrav = 0,
+    nat= ??,
+    ntyp= 1,
+    nspin = 1,
+    ecutwfc = 15.0,
+    occupations='smearing',
+    smearing='fermi-dirac',
+    degauss=0.0006333621028712442  ! corresponds 100 K electronic temperature
+ /
+ &electrons
+    conv_thr = 1.0e-8
+    mixing_beta = 0.7
+ /
+ATOMIC_SPECIES
+ Al 26.98 Al.upf
+ATOMIC_POSITIONS bohr  
+ Al 0.0 0.0 0.000
+ Al 0.0 0.0 5.4118
+ Al 0.0 0.0 10.8236  
+ Al 0.0 0.0 16.2354
+ Al 0.0 0.0 21.6472
+ Al 0.0 0.0 27.059
+ Al 0.0 0.0 32.4708
+K_POINTS (automatic)
+ 1 1 5 0 0 0
+
+CELL_PARAMETERS bohr
+18.8973   0.0000   0.0000
+ 0.0000  18.8973   0.0000
+ 0.0000   0.0000  37.8826 
+
