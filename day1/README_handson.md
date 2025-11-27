@@ -281,7 +281,7 @@ $$ V_{LJ}(r) = \frac{A}{r^{12}} - \frac{B}{r^{6}} $$
 
 The force can be in general computed as the negative gradient of the potential, but $V_{LJ}$ is spherically symmetric, so the force direction is given by the vector $\hat{r}$, and its magnitude by the simple derivate, with an analytical expression:
 
-$$ \vec{F}_{LJ}( \vec{r} ) = -\hat{r}\frac{\mathrm{d}V}{\mathrm{d}r} = \hat{r} 48\epsilon \bigg[ \frac{\sigma^{12}}{r^{13}} - 0.5 \frac{\sigma^{6}}{r^{7}} \bigg] $$
+$$ \vec{F}_{LJ}( \vec{r} ) = -\hat{r}\frac{\mathrm{d}V}{\mathrm{d}r} = -\hat{r} 48\epsilon \bigg[ \frac{\sigma^{12}}{r^{13}} - 0.5 \frac{\sigma^{6}}{r^{7}} \bigg] $$
 
 where $\vec{r}$ is the vector connecting two particles, $r$ is its Cartesian norm, and $\hat{r} = \vec{r}/r$ its direction.
 
