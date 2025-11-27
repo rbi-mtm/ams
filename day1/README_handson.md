@@ -7,23 +7,21 @@
   - [Part A: Generate Si crystal in the diamond configuration](#sec-2-1)
   - [Part B: computing the lattice constant of Si](#sec-2-2)
   - [EXTRA:](#sec-2-3)
-- [Exercise 3: velocity Verlet algorithm, Molecular Dynamics](#sec-3)
+- [Exercise 3: velocity Verlet, Lennard-Jones, Molecular Dynamics](#sec-3)
   - [Verlet-Stormer](#sec-3-1)
   - [velocity-Verlet](#sec-3-2)
-  - [Computing the Force (classical potentials)](#sec-3-3)
+  - [Computing the Force (classical potentials: LJ)](#sec-3-3)
   - [Molecular Dynamics](#sec-3-4)
   - [A word on statistical ensembles](#sec-3-5)
-  - [Part A: Melting a Lennard-Jones solid](#sec-3-6)
-  - [EXTRA:](#sec-3-7)
-- [md; melt](#sec-4)
-  - [verlet/leapfrog, total energy, thormostat, damping etc.](#sec-4-1)
-  - [computing the force: empirical potentials](#sec-4-2)
-  - [LJ/melt in lammps examples](#sec-4-3)
-- [create surface](#sec-5)
-- [minimize surface](#sec-6)
-- [difference between md and minimization](#sec-7)
-  - [try the melt example with adding damp at the end](#sec-7-1)
-  - [](#sec-7-2)
+  - [Part A: LJ solid](#sec-3-6)
+  - [Part B: LJ liquid](#sec-3-7)
+  - [Part C: LJ gas](#sec-3-8)
+  - [EXTRA:](#sec-3-9)
+- [create surface](#sec-4)
+- [minimize surface](#sec-5)
+- [difference between md and minimization](#sec-6)
+  - [try the melt example with adding damp at the end](#sec-6-1)
+  - [](#sec-6-2)
 
 
 # Exercise 1: Generating a crystal structure<a id="sec-1"></a>
@@ -214,7 +212,7 @@ Modify the script to work with the primitive cell of diamond, and plot the resul
 
 Repeat the exercise with some supercell instead of the unit cell. Do you get any differences? Why?
 
-# Exercise 3: velocity Verlet algorithm, Molecular Dynamics<a id="sec-3"></a>
+# Exercise 3: velocity Verlet, Lennard-Jones, Molecular Dynamics<a id="sec-3"></a>
 
 ## Verlet-Stormer<a id="sec-3-1"></a>
 
@@ -265,7 +263,7 @@ $$ v_{n+1} = v_{n} + \frac{1}{2}(F_n + F_{n+1})\Delta t $$
 
 In order to start the velocity-Verlet algorithm, we need to provide the initial positions, and velocities.
 
-## Computing the Force (classical potentials)<a id="sec-3-3"></a>
+## Computing the Force (classical potentials: LJ)<a id="sec-3-3"></a>
 
 The instantaneous force on a configuration of particles $F_n$ can be computed at several different levels of theory. In this section we look at the [Lennard-Jones](https://en.wikipedia.org/wiki/Lennard-Jones_potential) (LJ) potential, which is possibly the simplest pair-potential. It gives the potential energy of two interacting objects, as the function of only the distance $r$ between them. As it does not contain any electronic effects, LJ is often referred to as a "classical" potential. Many other potentials of this type exist.
 
@@ -293,15 +291,15 @@ Molecular Dynamics (MD) is a simulation technique which generates a trajectory o
 
 Very often, the concrete method of computing the atomic update step is similar (if not identical) to the one sketched above (the velocity-Verlet). The computation of force can however be much more involved, by including effects at several levels of theory (classical, semi-classical, QM/MM, ab-initio, etc.).
 
-Once we have an equilibrated, and long-enough trajectory, we can compute some thermodynamic properties from the trajectory. Namely, we can compute those that can be expressed as functions of positions and momenta of the particles. For example temperature, expressed as average kinetic energy per particle.
+Once we have an equilibrated, and long-enough trajectory, we can compute some thermodynamic properties from the trajectory. Namely, we can compute those that can be expressed as functions of positions and momenta of the particles. For example particle density, which gives the average distance between particles, and temperature, expressing the average kinetic energy per particle.
 
 ## A word on statistical ensembles<a id="sec-3-5"></a>
 
 Depending on which statistical ensemble we wish to simulate (canonical, micro-canonical, or grand-canonical), different thermodynamic properties are kept constant in the simulation, while others can vary.
 
-If we wish to simulate a system at a certain constant temperature, the particle properties (velocity) have to be scaled to meet the temperature criteria. There exist different schemes for such rescaling, commonly called the "thermostats".
+In a classical simulation, the velocities of particles at a given temperature are spread over a Maxwell-Boltzmann distribution arising due to elastic collisions. Thus if we wish to simulate a system at a certain constant temperature, the particle properties (velocity) have to be scaled to meet the temperature criteria. There exist different schemes for such rescaling, commonly called the "thermostats".
 
-Similarly, if we wish to simulate a system at a certain constant pressure, the schemes are called "barostats".
+Similarly, if we wish to simulate a system at a certain constant pressure, the box size has to be scaled, for which the different schemes are called "barostats".
 
 The different ensembles are often referred to by which properties are constant:
 
@@ -313,21 +311,147 @@ The different ensembles are often referred to by which properties are constant:
 
 -   grand-canonical $\mu$-VT: the chemical potential $\mu$, volume $V$, and temperature $T$. The system is assumed open, and can exchange heat (energy), and particles (matter, chemical elements) with its surrounding. The exchange of particles is very difficult to properly implement in MD, some Monte-Carlo based methods exist though.
 
-## Part A: Melting a Lennard-Jones solid<a id="sec-3-6"></a>
+## Part A: LJ solid<a id="sec-3-6"></a>
 
-1.  launch lmp
+In this exercise, we will perform MD simulation of a LJ system at some fixed conditions of density and temperature. We fix the potential parameters `epsilon` and `sigma` both to equal 1.0.
 
-2.  visulaize output, plot the radial distribution function.
+The initial structure is specified in the file `lj_box.lmp`, it contains a 10x10x10 supercell of a simple cubic lattice, with the lattice constant `a0` equal to `1.0`. Thus it's a cubic cell of size 10.0, containing in total 1000 atoms.
 
-3.  plot the kinetic, potential, and total energy as function of time
+Below is a phase diagram for a LJ substance. The size of our box and number of particles fixes the particle density $\rho=1.0$. First let's choose a temperature value $T=0.4$ (in LJ units), which should correspond to a solid phase, with FCC crystal structure.
 
-## EXTRA:<a id="sec-3-7"></a>
+![img](./figs/LJphase_diagram.png "LJ phase diagram.")
 
-### EXTRA-3.1: significance of `epsilon` and `sigma`<a id="sec-3-7-1"></a>
+1.  Use LAMMPS software to perform MD. The input file is located at `LJ_md/lammps.in`.
+    
+    Launch the calculation in parallel with the command (it can take around 20 seconds):
+    
+    ```bash
+        mpirun lmp -in lammps.in
+    ```
+    
+    This will output thermodynamics data directly to screen, and a copy of the same data into `log.lammps` file.
+
+2.  The output structure is written in the file `dump.dat`. This file contains a number of images from the trajectory generated by lammps. Visualize the trajectory with `ovito`.
+    
+    Navigate to the final structure in the trajectory, and try to identify if any regular structure has appeared.
+    
+    Use the modifier "Coordination analysis" to plot the radial distribution function (RDF). Compare the RDF of initial and final configurations in the trajectory.
+    
+    ![img](./figs/rdf_solid.png "RDF of solid phase.")
+    
+    RDF gives information of the distribution of distances between atoms. The first peak corresponds to the first neighbour shell, second peak to the second neighbor shell, and so on. The well-defined peaks in the RDF are clear sign of a solid structure, since atoms are placed at specific distances from each other.
+
+3.  Open the file `log.lammps`, and delete the header and footer lines, keeping just the thermodynamic data. Plot the total energy `TotEng` of the simulation.
+    
+    At which point do you think the simulation is well equilibrated/thermalized?
+    
+    MD simulations are highly susceptible to the initial configuration of the simulation. If that is far from expected structure at specified simulation conditions, it might take many steps to thermalize.
+
+## Part B: LJ liquid<a id="sec-3-7"></a>
+
+Now we raise the temperature to $T=1.8$ in LJ units, and keep the same particle density. Checking the phase diagram, this point should correspond to a liquid structure.
+
+1.  Open the lammps input file `lammps.in` and modify the Berendsen thermostat temperature values from 0.4 to 1.8 in the line:
+    
+    ```bash
+       fix             2 all temp/berendsen   0.4   0.4   2.0
+    ```
+    
+    to become:
+    
+    ```bash
+       fix             2 all temp/berendsen   1.8   1.8   2.0
+    ```
+    
+    Now launch lammps the same as previously:
+    
+    ```
+       mpirun lmp -in lammps.in
+    ```
+
+2.  Visulaize the output `dump.dat`, and plot the RDF with the modifier "Coordination analysis". What differences do you see in the RDFs?
+    
+    Liquid structure is characterized by structural order on short range, and no order on the long range. The RDF contains a well-defined first peak, followed by a few broader peaks, until becoming flat.
+    
+    ![img](./figs/rdf_liquid.png "RDF of liquid phase.")
+
+## Part C: LJ gas<a id="sec-3-8"></a>
+
+In the Part B, we moved from solid to liquid on the phase diagram by keeping the density constant, and raising the temperatrue (vertical axis on the phase diagram).
+
+In Part C, we simulate a gas phase of LJ, for which we move on the horizontal axis of the phase diagram, all the way to very low density $\rho\approx 0.1$, and $T=1.0$.
+
+1.  Given the density as $\rho = N/V$, and the volume being $V=a^3$, what side-length $a$ of the cube do we need to obtain density $\rho \approx 0.1$ with $N=1000$ particles?
+
+2.  The input cubic structure is written in the file `lj_box.lmp`.
+    
+    We can modify the box size by hand, replace the lines:
+    
+    ```
+       0.0   10.0  xlo xhi
+       0.0   10.0  ylo yhi
+       0.0   10.0  zlo zhi
+    ```
+    
+    by:
+    
+    ```
+       0.0   21.5  xlo xhi
+       0.0   21.5  ylo yhi
+       0.0   21.5  zlo zhi
+    ```
+    
+    This should increase the simulation box from 10.0 to 21.5, which corresponds to $\rho \approx 0.1$. However, the atomic positions did not change by this modification. Thus we now have a large simulation box containing a cubic atomic structure that is surrounded by vacuum.
+    
+    The modified configuration is now far from being a gas-phase as we would like to simulate.
+    
+    Launch the LAMMPS simulation and visualize the output.
+    
+    We might need to perform a longer simulation to get a nice gas phase structure, modify the number of simulation steps, in the last line of the lammps input file:
+    
+    ```
+       run    30000
+    ```
+
+3.  Draw the RDFs and compare with RDFs from solid, and liquid phases.
+    
+    The gas phase is characterized by no structural order at all. The first peak is already broadened, and the RDF contains no other significant peaks.
+    
+    ![img](./figs/rdf_gas.png "RDF of gas phase.")
+
+## EXTRA:<a id="sec-3-9"></a>
+
+### EXTRA-3.1: significance of `epsilon` and `sigma`<a id="sec-3-9-1"></a>
 
 Imagine you try to model a real molecule with two atoms with the LJ potential. Which experimantal (or computed) values of the molecule would you need, in order to determine `epsilon`? And which to determine `sigma`?
 
-### EXTRA-3.2: implement your own module to compute LJ energy and force:<a id="sec-3-7-2"></a>
+### EXTRA-3.2: significance of `timestep`<a id="sec-3-9-2"></a>
+
+Attempt to play with the value of `timestep` in the lammps input.
+
+A too large value can induce "box explosion" in lammps, which means two atoms have been moved very close together in a single step, such that the repulsive force between them is very large, which generates huge velocity, and the particles in the subsequent step have displaced by more than half the size of simulation box.
+
+A too small value means there is not much change between two successive steps, and thus the computer is re-computing properties which did not change a lot. That is an unnecessary waste of computer time.
+
+### EXTRA-3.3: highly symmetric initial configurations<a id="sec-3-9-3"></a>
+
+Did you notice any behaviour during the MD simulations, that seemed strangely symmetric for no reason?
+
+If not, try to reduce the printing frequency `Nprint` to 50 or so, and repeat the simulation of the solid phase.
+
+What happens to the forces when the atoms are placed in a strictly symmetric arrangement, and what does this mean for the dynamic propagation of a structure?
+
+In many cases when simulating dynamical properties, it is a good idea to break the strict numerically equivalent symmetries of a system, since they might impose unreal constraints to the forces, and thus bias the dynamics of a system in an unwanted way.
+
+The lammps input file `lammps.in` contains a commented line which gives a small displacement to the initial configuration, just enough to break the strict numerical equivalence:
+
+```
+#displace_atoms  all random 0.05 0.05 0.05 1234
+```
+
+Uncommenting this line should remove the symmetric behaviour of the simulation.
+
+### EXTRA-3.4: implement your own module to compute LJ energy and force:<a id="sec-3-9-4"></a>
 
 Using your favourite programming language, implement functions/routines to compute the total energy, and the force vectors for a given configuration of particles. Use lammps calculations as reference values.
 
@@ -335,44 +459,38 @@ NOTE: keep in mind the distances have to be computed in Periodic Boundary Condit
 
 NOTE 2: the range of distances where LJ gives a nonzero potential can be quite large, meaning we need to explicitly include a quite large cell in the calculation. In the generic PBC implementation, each image is only made to interact with its nearest-neighbor image, but not the second, third, etc. This is often mitigated by introducing a cutoff range to the LJ interactions, beyond which the interactions are added as analytical expressions based on the density.
 
-### EXTRA-3.3: implement your own Verlet algorithm:<a id="sec-3-7-3"></a>
+### EXTRA-3.5: compute which Bravais lattice has the lowest LJ energy<a id="sec-3-9-5"></a>
 
-Using your favourite programming language, implement the Velocity-Verlet algorithm. To compute the energy and forces, use the routines you previously implemented.
+Use the script `generate_cell.py` from the first exercise to generate the Simple Cubic (SC), Face-Centered Cubic (FCC), Body-Centered Cubic (BCC), and Hexagonal Close-Packed (HCP) structures. Then choose parameters for the `epsilon` and `sigma`, and find the lattice constant `a0` for each crystal lattice. Which crystal structure has the lowest energy?
+
+The energy values for FCC and HCP are quite close, generate a (very) large supercell for each lattice, and compute the total energy per atom.
+
+FCC and HCP are the lowest energy structures. They are the most stable, and coincidentally appear most often in the nature. The simple LJ potential is already sufficient to reproduce that behaviour of nature; remember LJ only has a radial component.
+
+### EXTRA-3.6: implement your own Verlet algorithm:<a id="sec-3-9-6"></a>
+
+Using your favourite programming language, implement the Velocity-Verlet algorithm. To compute the energy and forces, use the routines you previously implemented for LJ potential.
 
 Attention to the units, and the $\Delta t$ parameter.
 
-### EXTRA-3.4: compute which Bravais lattice has the lowest LJ energy<a id="sec-3-7-4"></a>
+### EXTRA-3.7: LJ substance<a id="sec-3-9-7"></a>
 
-Use the script `generate_cell.py` from the first exercise to generate the Face-Centered Cubic (FCC), Body-Centered Cubic (BCC), and Hexagonal Close-Packed (HCP) structures. Then choose parameters for the `epsilon` and `sigma`, and find the lattice constant `a0` for each crystal lattice. Generate a large supercell with the final parameters of each lattice, and compute the total energy per atom. Which crystal structure has the lowest energy?
+The substance/matter of an LJ simulation is sometimes called the "Lennard-Jonesium". Historically, LJ potential was used quite successfully to model Argon in all phases. Find the values of `epsilon` and `sigma` online to model it, and try to simulate some representative points of its phase diagram (solid, liquid, gas).
 
-The structure with lowest energy is the most stable, and coincidentally appears most often in the nature. It is quite remarkable that a simple LJ potential is already sufficient to reproduce that behaviour of nature. Remember the LJ only has a radial component.
+NOTE: the units for `epsilon` are often given as cm$^{-1}$, which corresponds to about $1.24\cdot 10^{-4}$ eV.
 
-### EXTRA-3.5: LJ substance<a id="sec-3-7-5"></a>
-
-The substance/matter of an LJ simulation is sometimes called the "Lennard-Jonesium". Historically, LJ potential was used quite successfully to model the liquid Argon. Find the values of `epsilon` and `sigma` online to model it, and try to simulate some representative points of its phase diagram (solid, liquid, gas).
-
-# md; melt<a id="sec-4"></a>
-
-## verlet/leapfrog, total energy, thormostat, damping etc.<a id="sec-4-1"></a>
-
-## computing the force: empirical potentials<a id="sec-4-2"></a>
-
-LJ
-
-## LJ/melt in lammps examples<a id="sec-4-3"></a>
-
-# create surface<a id="sec-5"></a>
+# create surface<a id="sec-4"></a>
 
 create (by hand?) Si diamond in conventional cell (8atms per cell)
 
-# minimize surface<a id="sec-6"></a>
+# minimize surface<a id="sec-5"></a>
 
 surface as defect, minimize Si diamond with reaxff? maybe sw.
 
-# difference between md and minimization<a id="sec-7"></a>
+# difference between md and minimization<a id="sec-6"></a>
 
 Taking energy out of the system. damped dynamics, quickmin/SD, CG, other &#x2026;
 
-## try the melt example with adding damp at the end<a id="sec-7-1"></a>
+## try the melt example with adding damp at the end<a id="sec-6-1"></a>
 
-## <a id="sec-7-2"></a>
+## <a id="sec-6-2"></a>
