@@ -31,6 +31,8 @@
 
 ## Part A: Generate an FCC structure in the cubic (conventional) cell:<a id="sec-1-1"></a>
 
+The files for this exercise are located in directory `ams/day1/generate_cell/`.
+
 Face-Centered Cubic (FCC) structure is characterised by one atom at the origin of the cubic cell, and one atom at the center of each face of the cubic cell (thus 4 atoms per cell). This is also called the conventional cell of FCC.
 
 The lattice vectors are:
@@ -157,6 +159,8 @@ and two unit cells of FCC, shifted by 0.25:
 1.  Create the diamond structure in the conventional (cubic) cell, as given above. Verify the output structure by visualization.
 
 ## Part B: computing the lattice constant of Si<a id="sec-2-2"></a>
+
+The files for the exercise are located in directory `ams/day1/si_lattice_const/`.
 
 We can compute the lattice constant of a crystal, by finding the value of `a0` which minimizes the total energy of the cell. In this exercise, we do the task manually, meaning we explicitly select some values of `a0`, generate the structure with given `a0`, compute the corresponding energy, and plot the curve. The curve can then be fitted with a polynomial to find the exact value of `a0` at the minimum.
 
@@ -351,7 +355,11 @@ The different ensembles are often referred to by which properties are constant:
 
 ## Part A: LJ solid<a id="sec-3-6"></a>
 
-In this exercise, we will perform MD simulation of a LJ system at some fixed conditions of density and temperature. We fix the potential parameters `epsilon` and `sigma` both to equal 1.0.
+The files for this exercise are located in the directory `ams/day1/LJ_md/`.
+
+In this exercise, we will perform MD simulation of a LJ system at some fixed conditions of density and temperature.
+
+We fix the potential parameters `epsilon` and `sigma` both to equal 1.0.
 
 The initial structure is specified in the file `lj_box.lmp`, it contains a 10x10x10 supercell of a simple cubic lattice, with the lattice constant `a0` equal to `1.0`. Thus it's a cubic cell of size 10.0, containing in total 1000 atoms.
 
@@ -553,7 +561,9 @@ The Steepest Descent algorithm has its drawbacks, and is generally not the most 
 
 ## Part A: Minimize a LJ structure<a id="sec-4-3"></a>
 
-1.  In the directory `minimize/`, you will the lammps input file `lammps.in`, and a structure file `struc.lmp`. The structure was taken from one particular trajectory of a MD simulation of Lennard-Jonesium at density $\rho=1.1$ and $T=0.48$. According to the phase diagram of the previous exercise, the structure should be FCC. However, since the temperature is nonzero, the structure contains significant distortions from the lattice positions.
+The files for this exercise are located in `ams/day1/minimize`.
+
+1.  In the directory you will the lammps input file `lammps.in`, and a structure file `struc.lmp`. The structure was taken from one particular trajectory of a MD simulation of Lennard-Jonesium at density $\rho=1.1$ and $T=0.48$. According to the phase diagram of the previous exercise, the structure should be FCC. However, since the temperature is nonzero, the structure contains significant distortions from the lattice positions.
     
     View the structure with `ovito` and use the modifier "Polyhedral Template Matching" to try and make some sense of it.
     
@@ -611,7 +621,7 @@ Is there any good reason to assume the force can be extrapolated as a simple qua
 
 # EXTRA 1: The lammps examples<a id="sec-5"></a>
 
-In the directory `/home/atom/software/lammps/examples` you will find the examples that come with LAMMPS.
+In the directory `home/atom/software/lammps/examples` you will find the examples that come with LAMMPS.
 
 NOTE: most of the input files begin with `in.#`, and are set-up such that they do not output much by default. So to obtain any result you will have to check the input file, and uncomment some commands specific to the output, such as `dump`. Use the lammps [docs](https://docs.lammps.org/Manual.html) for help.
 
