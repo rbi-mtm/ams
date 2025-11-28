@@ -23,7 +23,7 @@ mass            1 1.0
 
 ### select Berendsen thermostat, last 3 values set the temperature:
 ### T_start  T_end  T_damp
-fix             2 all temp/berendsen   1.0   1.0   2.0
+fix             2 all temp/berendsen   0.4   0.4   2.0
 
 ### specify the LJ potential with a cutoff
 pair_style      lj/cut 2.5
@@ -52,4 +52,4 @@ thermo          ${Nprint}
 #timestep 0.008
 
 ### run the simulation for N steps
-run             80000
+run             30000
