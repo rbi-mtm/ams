@@ -78,20 +78,18 @@ This document should be used in the following way: first, read the chapter on [S
 ### 3.1. Installing the VM
 
  1. Download and install [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
- 2. Download the [**ams.ova**](https://drive.google.com/file/d/1Y1tqZAUKk5ZAjnA5kplyvTa9Xvbs9jd_/view?usp=drive_link) file.
+ 2. If your computer architecture is ``x86`` (common case), download  the [**ams.ova**](https://drive.google.com/file/d/1Y1tqZAUKk5ZAjnA5kplyvTa9Xvbs9jd_/view?usp=drive_link) file. If your architecture is ``ARM`` (e.g. Macbook with an M-series chip), download [**ams_debian.ova**](https://drive.google.com/file/d/1B42N5_NUYfIrgzH56EdpyLmcKy5s1pnK/view?usp=sharing).
  3. Run VirtualBox and click on ``File`` &rarr; ``Import Appliance...``
- 4. Under ``File:``, enter the path to the downloaded **ams.ova** file.
+ 4. Under ``File:``, enter the path to the downloaded **ams.ova** / **ams_debian.ova** file.
  5. Click on ``Settings`` and make sure to specify the ``Machine Base Folder:`` path in a drive that has at least **20GB of free space**.
  6. Click on ``Finish``.
 
 > [!WARNING]
 > If you are using a Mac computer with an M-series chip (M1-M4), you should install
-> the [macOS / Apple Silicon hosts](https://download.virtualbox.org/virtualbox/7.2.4/VirtualBox-7.2.4-170995-macOSArm64.dmg) platform package in step 3.
+> the [macOS / Apple Silicon hosts](https://download.virtualbox.org/virtualbox/7.2.4/VirtualBox-7.2.4-170995-macOSArm64.dmg) platform package in step 1. Make sure you download **ams_debian.ova** as well in step 2. You might have to [adjust the resolution](https://askubuntu.com/questions/211163/virtualbox-how-do-i-change-guest-precise-resolution-to-169-1920x1080-inste) after starting the VM.
 >
-> However, it is likely you will experience issues with the VM.
-> To resolve this, we are preparing an ARM-compatible VM.
-> Therefore, if you are using a Mac with an M-series chip,
-> we advise you to wait a few days for the image to be ready.
+> Note also that, while the ``ARM``-architecture VM likely will work, we currently have no plans to support it.
+> Therefore, if you are able, we recommend using a laptop with an ``x86`` architecture.
 
 If everything goes well, read the following subsection.
 
@@ -112,7 +110,7 @@ If everything goes well, read the following subsection.
 ***
 
 > [!IMPORTANT]
-> This is an [Arch Linux](https://en.wikipedia.org/wiki/Arch_Linux) VM.
+> This is an [Arch Linux](https://en.wikipedia.org/wiki/Arch_Linux) VM (or [Debian](https://www.debian.org/), in case you're using the ARM-based VM.
 > If you don't have previous experience with Linux,
 > we encourage you to start the VM, log in, press ``Ctrl+Alt+T`` to activate the Linux terminal
 > and spend some time using the [command line](https://linuxcommand.org/).
@@ -197,8 +195,8 @@ In this section, we give only a concise list of the software installed in the VM
 detailed installation instructions for the majority of the listed software
 is easily found online.
 
-- [Arch Linux](https://archlinux.org/)
-- [yay](https://github.com/Jguer/yay)
+- [Arch Linux](https://archlinux.org/) or [Debian Linux on ARM](https://www.debian.org/ports/arm/)
+- [yay](https://github.com/Jguer/yay) (in case of Arch)
 - [Brave](https://brave.com/)
 - [Xfce](https://www.xfce.org/)
 - [miniconda](https://www.anaconda.com/docs/getting-started/miniconda/main)
