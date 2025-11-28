@@ -148,8 +148,10 @@ graph neural networks and it uses the atomic cluster expansion (ACE) to represen
 
 * [I .Batatia et al, arXiv:2205.06643 (2022)](https://arxiv.org/abs/2205.06643)
 * [I .Batatia et al, NeurIPS 35, 11423 (2022)](https://openreview.net/forum?id=YPpSngE-ZU)
+* [MACE documentation](https://mace-docs.readthedocs.io/en/latest/)
 
-Important parameters:
+To run the training, MACE provides a script called `mace_run_train `. This script allows specification of model, training, and dataset parameters.
+Important parameters are listed below:
 
 * `--name`: Name of run, will also be prepended to the model filename
 * `--train_file`: file containing training data
@@ -265,8 +267,8 @@ Then, the `numpy` functions `numpy.fabs` and `numpy.mean` can be used to calcula
 
 #### Tasks
 
-2. Predict energies and forces on new data using the two models from the E2.1 and E2.2
-3. Calculate MAEs for the predictions with both models and compare them
+1. Predict energies and forces on new data using the two models from the E2.1 and E2.2
+2. Calculate MAEs for the predictions with both models and compare them
 
 ---
 
