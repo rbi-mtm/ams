@@ -576,6 +576,8 @@ The Steepest Descent algorithm has its drawbacks, and is generally not the most 
     Notice the final positions of the atoms is quite regular in a fcc lattice configuration.
     
     There is a curiosity though. Under a particular viewing angle, you will notice a [stacking fault](https://en.wikipedia.org/wiki/Stacking_fault) that spans over the whole simulation box. The stacking fault is a defect that appears in real materials, and is a specific topic of many studies.
+    
+    ![img](./figs/stack_fault.png "Stacking fault defect")
 
 3.  What does the presence of this defect imply for our minimization procedure? Did we reach a minimum of the potential energy? Is the minimum global, or local?
     
