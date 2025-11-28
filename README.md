@@ -110,7 +110,7 @@ If everything goes well, read the following subsection.
 ***
 
 > [!IMPORTANT]
-> This is an [Arch Linux](https://en.wikipedia.org/wiki/Arch_Linux) VM (or [Debian](https://www.debian.org/), in case you're using the ARM-based VM.
+> This is an [Arch Linux](https://en.wikipedia.org/wiki/Arch_Linux) VM (or [Debian](https://www.debian.org/), in case you're using the ARM-based VM).
 > If you don't have previous experience with Linux,
 > we encourage you to start the VM, log in, press ``Ctrl+Alt+T`` to activate the Linux terminal
 > and spend some time using the [command line](https://linuxcommand.org/).
