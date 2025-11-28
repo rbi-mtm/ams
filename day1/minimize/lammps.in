@@ -1,0 +1,19 @@
+units lj
+atom_style atomic
+
+read_data struc.lmp
+
+pair_style      lj/cut 2.5
+### parameters for LJ: 
+### type_i type_j epsilon sigma cutoff
+pair_coeff      1 1 1.0 1.0 2.5
+
+mass 1 1.0
+
+min_style cg
+
+thermo_style custom step etotal
+thermo 1
+dump            1 all custom 1 dump.dat id type x y z fx fy fz
+
+minimize 1e-4 1e-3 1000 1000
