@@ -10,18 +10,21 @@
 - [Exercise 3: velocity Verlet, Lennard-Jones, Molecular Dynamics](#sec-3)
   - [Verlet-Stormer](#sec-3-1)
   - [velocity-Verlet](#sec-3-2)
-  - [Computing the Force (classical potentials: LJ)](#sec-3-3)
+  - [Computing the Energy and Force (classical potentials: LJ)](#sec-3-3)
   - [Molecular Dynamics](#sec-3-4)
   - [A word on statistical ensembles](#sec-3-5)
   - [Part A: LJ solid](#sec-3-6)
   - [Part B: LJ liquid](#sec-3-7)
   - [Part C: LJ gas](#sec-3-8)
   - [EXTRA:](#sec-3-9)
-- [create surface](#sec-4)
-- [minimize surface](#sec-5)
-- [difference between md and minimization](#sec-6)
-  - [try the melt example with adding damp at the end](#sec-6-1)
-  - [](#sec-6-2)
+- [Exercise 4: Optimization of a structure](#sec-4)
+  - [Driven-damped dynamics](#sec-4-1)
+  - [Minimization, relaxation, geometry optimization](#sec-4-2)
+  - [Part A: Minimize a LJ structure](#sec-4-3)
+  - [EXTRA:](#sec-4-4)
+- [EXTRA 1: The lammps examples](#sec-5)
+- [EXTRA 2: phonons with LJ](#sec-6)
+- [Some more resources:](#sec-7)
 
 
 # Exercise 1: Generating a crystal structure<a id="sec-1"></a>
@@ -160,12 +163,29 @@ We can compute the lattice constant of a crystal, by finding the value of `a0` w
 If you feel confident in scripting, skip directly to EXTRA-2.1.
 
 1.  Generate the diamond structure with several different values of the lattice constant `a0`. The range of values should be around 5.2 to 5.8.
+    
+    Use the `generate_cell.py` script from the previous exercise to create `.xyz` files with the different structures.
+
 2.  Compute the value of total energy for each `a0`. Use LAMMPS software to compute the energy.
     
-    Launch `lammps` with the command `lmp`, giving the input file `lammps.in` as:
+    a) Unfortunately, `lammps` does not understand the `.xyz` file format with our structure. Use the python script `xyz2lmp.py` to convert from `.xyz` to `.lmp` format. Save the output to file `struc.lmp`:
     
     ```bash
-       lmp -in lammps.in
+        python  xyz2lmp.py  struc_a0.xyz  >  struc.lmp
+    ```
+    
+    NOTE: the `.lmp` file format can also be viewed by `ovito`.
+    
+    b) Open the lammps input file `lammps.in`, and make sure the structure is read from appropriate `struc.lmp` file, the one you saved in the previous step. It is specified in the line:
+    
+    ```bash
+        read_data  struc.lmp
+    ```
+    
+    c) Launch `lammps` with the command `lmp`, giving the input file `lammps.in` as:
+    
+    ```bash
+        lmp -in lammps.in
     ```
     
     this will produce some output on the screen. Search for the line that says: "TotEng". The value printed after it is the total energy of your system.
@@ -173,22 +193,22 @@ If you feel confident in scripting, skip directly to EXTRA-2.1.
     Save the current value of `a0`, together with the corresponding total energy value into a file. The goal is to produce a file with contents (`a0` in first column, and total energy in the second):
     
     ```txt
-       5.20  	-33.795071
-       5.25  	-34.151899
-       5.30  	-34.414694
-       5.35  	-34.588440
-       5.40  	-34.677817
-       5.45  	-34.687223
-       5.50  	-34.620807
-       5.55  	-34.482483
-       5.60  	-34.275956
-       5.65  	-34.004740
-       5.70  	-33.672175
-       5.75  	-33.281449
-       5.80  	-32.835608
+        5.20  	-33.795071
+        5.25  	-34.151899
+        5.30  	-34.414694
+        5.35  	-34.588440
+        5.40  	-34.677817
+        5.45  	-34.687223
+        5.50  	-34.620807
+        5.55  	-34.482483
+        5.60  	-34.275956
+        5.65  	-34.004740
+        5.70  	-33.672175
+        5.75  	-33.281449
+        5.80  	-32.835608
     ```
     
-    Which can then be plotted by e.g. `gnuplot` to produce something like:
+    Which can then be plotted by your favourite plotting tool (e.g. `gnuplot`), to produce something like:
     
     ![img](./figs/a0_etot.png "Plot of total energy versus the lattice constant.")
 
@@ -263,7 +283,7 @@ $$ v_{n+1} = v_{n} + \frac{1}{2}(F_n + F_{n+1})\Delta t $$
 
 In order to start the velocity-Verlet algorithm, we need to provide the initial positions, and velocities.
 
-## Computing the Force (classical potentials: LJ)<a id="sec-3-3"></a>
+## Computing the Energy and Force (classical potentials: LJ)<a id="sec-3-3"></a>
 
 The instantaneous force on a configuration of particles $F_n$ can be computed at several different levels of theory. In this section we look at the [Lennard-Jones](https://en.wikipedia.org/wiki/Lennard-Jones_potential) (LJ) potential, which is possibly the simplest pair-potential. It gives the potential energy of two interacting objects, as the function of only the distance $r$ between them. As it does not contain any electronic effects, LJ is often referred to as a "classical" potential. Many other potentials of this type exist.
 
@@ -281,9 +301,27 @@ $$ V_{LJ}(r) = \frac{A}{r^{12}} - \frac{B}{r^{6}} $$
 
 The force can be in general computed as the negative gradient of the potential, but $V_{LJ}$ is spherically symmetric, so the force direction is given by the vector $\hat{r}$, and its magnitude by the simple derivate, with an analytical expression:
 
-$$ \vec{F}_{LJ}( \vec{r} ) = -\hat{r}\frac{\mathrm{d}V}{\mathrm{d}r} = -\hat{r} 48\epsilon \bigg[ \frac{\sigma^{12}}{r^{13}} - 0.5 \frac{\sigma^{6}}{r^{7}} \bigg] $$
+$$ \vec{F}_{LJ}( \vec{r} ) = -\hat{r}\frac{\mathrm{d}V}{\mathrm{d}r} = \hat{r} 48\epsilon \bigg[ \frac{\sigma^{12}}{r^{13}} - 0.5 \frac{\sigma^{6}}{r^{7}} \bigg] $$
 
 where $\vec{r}$ is the vector connecting two particles, $r$ is its Cartesian norm, and $\hat{r} = \vec{r}/r$ its direction.
+
+### The total energy<a id="sec-3-3-1"></a>
+
+The energy on particle $i$ is the sum of the $V_{LJ}$ contribution from all particles $j$:
+
+$$ E_i = \sum_{j \ne i} V_{LJ}(r_j) $$
+
+where $r_j$ is the distance from particle $i$ to $j$ in periodic boundary conditions.
+
+The total energy of a LJ system is then the sum of the per-particle energy $E_i$ over all particles $i$:
+
+$$ E_{tot} = \sum_i E_i $$
+
+### The total force<a id="sec-3-3-2"></a>
+
+Similarly to the energy, the force on any single particle $i$ is the sum of force contributions by all particles $j$:
+
+$$ \vec{F}_i = \sum_{j \ne i} \vec{F}_{LJ}( \vec{r}_j ) $$
 
 ## Molecular Dynamics<a id="sec-3-4"></a>
 
@@ -487,18 +525,113 @@ The substance/matter of an LJ simulation is sometimes called the "Lennard-Jonesi
 
 NOTE: the units for `epsilon` are often given as cm$^{-1}$, which corresponds to about $1.24\cdot 10^{-4}$ eV.
 
-# create surface<a id="sec-4"></a>
+# Exercise 4: Optimization of a structure<a id="sec-4"></a>
 
-create (by hand?) Si diamond in conventional cell (8atms per cell)
+## Driven-damped dynamics<a id="sec-4-1"></a>
 
-# minimize surface<a id="sec-5"></a>
+Looking back at the velocity-Verlet equation, we can express the force in the last term as negative gradient of the potential. Thus we can collect both terms into a single $\Delta R$ which is an atomic displacement:
 
-surface as defect, minimize Si diamond with reaxff? maybe sw.
+$$ x_{n+1} = x_n + v_n \Delta t - \nabla V \Delta t = x_n + \Delta R $$
 
-# difference between md and minimization<a id="sec-6"></a>
+and we see the velocity term $v_n$ as driving the displacements, which means the system is pushed away from the energy minimum, and thus it is raising the value of total energy; meanwhile the force term $-\nabla V$ as lowering the displacement, and thus keeping the system close to a minimum energy.
 
-Taking energy out of the system. damped dynamics, quickmin/SD, CG, other &#x2026;
+In the previous exercise, we used a thermostat which regulates the atomic velocities at each simulation step, in order to keep the system at a target temperature, thus adding the energy into the system via the kinetic energy ($E_{tot} = E_{kin} + E_{pot}$).
 
-## try the melt example with adding damp at the end<a id="sec-6-1"></a>
+## Minimization, relaxation, geometry optimization<a id="sec-4-2"></a>
 
-## <a id="sec-6-2"></a>
+If we set the velocities $v_n$ to zero at each step, we obtain an algorithm where the energy is systematically removed from the system, and the structure is being updated toward the minimum point of the potential (where the force is zero):
+
+$$ x_{n+1} = x_n + \alpha F $$
+
+where we have renamed $\Delta t$ to $\alpha$, since it does not represent a real time step anymore.
+
+An algorithm performing such positions update is called the Steepest Descent, because it moves the configuration in the direction of the steepest descent (direction of force is the negative gradient).
+
+The end result of this algorithm is a structure in a minimum of the potential energy where the force is zero, and the process is called a "minimization of the energy", or "relaxation of the forces", or more broadly "geometric optimization".
+
+The Steepest Descent algorithm has its drawbacks, and is generally not the most suitable. Many other minimization algorihms exist, with various schemes for the position update. For example, the [Conjugate Gradient](https://en.wikipedia.org/wiki/Conjugate_gradient_method#As_an_iterative_method) is implemented as the default choice for a minimizer in many computational codes due to its relative robustness. Some of the other more popular minimizers include Quickmin, FIRE, BFGS, and L-BFGS (see for example: [REF](https://pubs.aip.org/aip/jcp/article/128/13/134106/977389/Optimization-methods-for-finding-minimum-energy)).
+
+## Part A: Minimize a LJ structure<a id="sec-4-3"></a>
+
+1.  In the directory `minimize/`, you will the lammps input file `lammps.in`, and a structure file `struc.lmp`. The structure was taken from one particular trajectory of a MD simulation of Lennard-Jonesium at density $\rho=1.1$ and $T=0.48$. According to the phase diagram of the previous exercise, the structure should be FCC. However, since the temperature is nonzero, the structure contains significant distortions from the lattice positions.
+    
+    View the structure with `ovito` and use the modifier "Polyhedral Template Matching" to try and make some sense of it.
+    
+    If look closely, you might already notice a particular structure in the box.
+
+2.  Launch the minimization with lammps:
+    
+    ```bash
+       lmp -in lammps.in
+    ```
+    
+    The output on the screen will give you the value of total energy, as the minimization progresses.
+    
+    Visualize the minimization trajectory with `ovito`:
+    
+    ```bash
+       ovito dump.dat
+    ```
+    
+    Notice the final positions of the atoms is quite regular in a fcc lattice configuration.
+    
+    There is a curiosity though. Under a particular viewing angle, you will notice a [stacking fault](https://en.wikipedia.org/wiki/Stacking_fault) that spans over the whole simulation box. The stacking fault is a defect that appears in real materials, and is a specific topic of many studies.
+
+3.  What does the presence of this defect imply for our minimization procedure? Did we reach a minimum of the potential energy? Is the minimum global, or local?
+    
+    How would you attempt to "correct" the defect, and bring the structure to the global minimum (perfect FCC)?
+
+4.  Go back to the previous exercise, and generate LJ structures at different conditions of temperature and density, and then try to minimize them.
+    
+    See under which conditions can you obtain a perfect crystal after the minimization. In most cases, you will end up with some defects in the simulation box, such as polycrystallinity (grains, crystal domains), pockets of amorphous arrangements, vacancies, interstitials, etc.
+    
+    In nature, no crystal is a perfect crystal, structural defects are very common. They might originate from different sources, such as fabrication conditions, doping, mechanical damage, damage from radiation, etc.
+
+## EXTRA:<a id="sec-4-4"></a>
+
+### EXTRA-4.1: choosing different minimization algorithm<a id="sec-4-4-1"></a>
+
+The lammps command `min_style` can take arguments such as "sd", "cg", "fire", etc. Check the lammps documentation of [min<sub>style</sub>](https://docs.lammps.org/min_style.html#syntax) command.
+
+### EXTRA-4.2: implement a steepest-descent algorithm<a id="sec-4-4-2"></a>
+
+In your favourite programming language, use the routines and functions developed in previous exercises, to implement a steepest-descent minimization algorithm.
+
+If you already have a working Verlet scheme, the modification is only minor: zero the velocities at each step.
+
+### ExTRA-4.3: The `alpha` parameter in a steepest descent<a id="sec-4-4-3"></a>
+
+The parameter $\alpha$ in the steepest descent is often seen as just a step-size. There exist a number of ways to "optimize" the step size, such that the next step would bring the structure as close as possible to a minimum. These are usually called [line-search](https://en.wikipedia.org/wiki/Line_search) algorithms.
+
+The simplest one is to assume that the force is locally quadratic, and extrapolate the minimum of its curve. Then `alpha` is the stepsize which brings the structure to the extrapolated minimum. This approach is faster than the pure SD with constant `alpha`, however it still needs a number of steps to converge to a real minimum.
+
+Is there any good reason to assume the force can be extrapolated as a simple quadratic curve? Why (not)? In which region(s) of the Potential Energy Surface would you expect this to be most true/false?
+
+# EXTRA 1: The lammps examples<a id="sec-5"></a>
+
+In the directory `/home/atom/software/lammps/examples` you will find the examples that come with LAMMPS.
+
+NOTE: most of the input files begin with `in.#`, and are set-up such that they do not output much by default. So to obtain any result you will have to check the input file, and uncomment some commands specific to the output, such as `dump`. Use the lammps [docs](https://docs.lammps.org/Manual.html) for help.
+
+Some interesting ones include:
+
+-   `melt/`: where a LJ structure is brought to a high temperature;
+-   `min/`: a simulation of a 2D structure which is subsequently minimized
+-   `fire/`: same structure, minimize with fire/cg
+-   `friction/`
+
+# EXTRA 2: phonons with LJ<a id="sec-6"></a>
+
+Phonons are a collective vibration mode of the whole crystal, you will hear more about them in the next days of the school.
+
+You can also use the LJ potential to compute phonon disperions.
+
+# Some more resources:<a id="sec-7"></a>
+
+-   Crystal symmetry, space groups, etc.: <https://crystalsymmetry.wordpress.com/>, [IUCr pamphlets](https://www.iucr.org/education/pamphlets), [IUCr dictionary](https://dictionary.iucr.org/Main_Page), [spglib](https://arxiv.org/abs/1808.01590)
+-   LAMMPS: [homepage](https://www.lammps.org/#gsc.tab=0), [atomify: lammps-in-browser](https://andeplane.github.io/atomify/)
+-   matsci [forum](https://matsci.org/)
+-   Numerical methods for electronic structure (by prof. Paolo Giannozzi): [intro](http://www.fisica.uniud.it/~giannozz/Didattica/MetNum/LectureNotes/metnum-intro.pdf), [chapter 2](http://www.fisica.uniud.it/~giannozz/Didattica/MetNum/LectureNotes/metnum-cap2.pdf), [chapter 3](http://www.fisica.uniud.it/~giannozz/Didattica/MetNum/LectureNotes/metnum-cap3.pdf), [chapter 4](http://www.fisica.uniud.it/~giannozz/Didattica/MetNum/LectureNotes/metnum-cap4.pdf), [chapter 5](http://www.fisica.uniud.it/~giannozz/Didattica/MetNum/LectureNotes/metnum-cap5.pdf), [chapter 6](http://www.fisica.uniud.it/~giannozz/Didattica/MetNum/LectureNotes/metnum-cap6.pdf), [chapter 7](http://www.fisica.uniud.it/~giannozz/Didattica/MetNum/LectureNotes/metnum-cap7.pdf), [article](http://www.fisica.uniud.it/~giannozz/Papers/handbook2.pdf), [chapter 9](http://www.fisica.uniud.it/~giannozz/Didattica/MetNum/LectureNotes/metnum-cap9.pdf)
+-   Problems in quantum mechanics (SISSA entrance exams): [link](https://people.sissa.it/~degironc/past_cm_exams/)
+-   Numerical methods for strongly correlated electrons (by prof. Sandro Sorella): [Link](https://people.sissa.it/~sorella/Simulazioni.pdf)
+-   [Review on semi-empirical methods](https://hj.hi.is/reikniefnfr/Semi-Empirical-Review.pdf)
