@@ -29,6 +29,7 @@ This repository contains materials related to the hands-on sessions held at **AM
     5.2. [Other Issues](#52-other-issues)
 
  6. [Software Installation](#6-software-installation)
+ 7. [Additional Resources](#7-additional-resources)
     
 ## 1. Introduction
 
@@ -214,3 +215,9 @@ Installing the CPU version of MACE is probably the only non-standard installatio
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 pip install mace-torch
 ```
+
+## 7. Additional Resources
+
+- [Other schools and workshops organized by our group](https://rbi-mtm.github.io/teaching/)
+- Materials for [Quantum ESPRESSO Ljubljana Summer School (2019)](https://gitlab.com/QEF/material-for-ljubljana-qe-summer-school)
+- [F. Giustino, _Materials Modelling using Density Functional Theory: Properties and Predictions_](https://www.researchgate.net/profile/Seyedeh_Tahereh_Hosseini/post/Where_can_I_learn_density_functional_theory/attachment/5fdce96fe35e2b0001ff44a6/AS%3A970150027202560%401608313199049/download/DFT_Giustino.pdf)
