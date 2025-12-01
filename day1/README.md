@@ -539,7 +539,7 @@ Attention to the units, and the $\Delta t$ parameter.
 
 The substance/matter of an LJ simulation is sometimes called the "Lennard-Jonesium". Historically, LJ potential was used quite successfully to model Argon in all phases. Find the values of `epsilon` and `sigma` online to model it, and try to simulate some representative points of its phase diagram (solid, liquid, gas).
 
-NOTE: the units for `epsilon` are often given as cm${}^{-1}$, which corresponds to about $1.24\cdot 10^{-4}$ eV.
+NOTE: the units for `epsilon` are often given as $\mathrm{cm}^{-1}$, which corresponds to about $1.24\cdot 10^{-4}$ eV.
 
 # Exercise 4: Optimization of a structure<a id="sec-4"></a>
 
