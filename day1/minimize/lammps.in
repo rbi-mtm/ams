@@ -1,6 +1,13 @@
+### AMS2025 school Zagreb, day 1, exercise 4:
+### Minimize the energy of a LJ system.
+###
+### 
+
+
 units lj
 atom_style atomic
 
+### read structure from file
 read_data struc.lmp
 
 pair_style      lj/cut 2.5
@@ -10,10 +17,15 @@ pair_coeff      1 1 1.0 1.0 2.5
 
 mass 1 1.0
 
+
+### select minimization algorithm:
+###   cg = conjugate gradient
 min_style cg
 
 thermo_style custom step etotal
 thermo 1
 dump            1 all custom 1 dump.dat id type x y z fx fy fz
 
+
+### launch minimization
 minimize 1e-4 1e-3 1000 1000

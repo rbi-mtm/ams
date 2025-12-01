@@ -10,8 +10,6 @@ units           lj
 atom_style      atomic
 
 ### read input structure from file:
-###   the structure contains 1000 atoms in a simple cubic lattice
-###   with side length 10.0, thus the particle density is 1.0
 read_data       lj_box.lmp
 
 ### give a small displacement to initial positions,
@@ -34,7 +32,7 @@ pair_coeff      1 1 1.0 1.0 2.5
 neighbor        0.3 bin
 neigh_modify    every 20 delay 0 check no
 
-### select NVE ensemble
+
 fix             1 all nve
 
 compute         epot all pe/atom

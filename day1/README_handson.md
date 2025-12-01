@@ -54,13 +54,21 @@ basis[2] = [ 0.5, 0.0, 0.5 ]
 basis[3] = [ 0.0, 0.5, 0.5 ]
 ```
 
+We will create a file with the desired crystal structure, in the `xyz` format. The format is quite straightforward, you can read more info [online](https://docs.ovito.org/reference/file_formats/input/xyz.html#file-formats-input-xyz-extended-format).
+
 1.  Modify the `generate_cell.py` script to generate the conventional cell of FCC structure, as given above. Call the script with `python`, and redirect the output to a file:
     
-    ```bash
+    ```shell
        python generate_cell.py > my_output_filename.xyz
     ```
 
-2.  Use `ovito` program to visualize the xyz output, draw bonds between the atoms.
+2.  Use `ovito` program to visualize the xyz output:
+    
+    ```shell
+       ovito my_output_filename.xyz
+    ```
+    
+    Draw bonds between the atoms, click on "Add modification", and select "create bonds".
 
 ## Part B: Generate an FCC structure in the primitive cell:<a id="sec-1-2"></a>
 
@@ -254,7 +262,7 @@ Let's label the positions as function of the timestep:
 
 Then, the second-order derivatives are computed as difference-of-differences:
 
-$$ \frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) = \frac { \frac{ x_{n+1} - x_n }{\Delta t} - \frac{ x_n - x_{n-1} }{\Delta t} }{\Delta t} = \frac { x_{n+1} - 2x_{n} + x_{n-1} } { \Delta t^2} $$
+$$ \frac{\mathrm{d}^2}{\mathrm{d}t^2} x(t) = \frac { \big[ ( x_{n+1} - x_n )/\Delta t \big] - \big[ ( x_n - x_{n-1} )/\Delta t \big] }{\Delta t} = \frac { x_{n+1} - 2x_{n} + x_{n-1} } { \Delta t^2} $$
 
 Then we can write the Newton's equation of motion:
 
@@ -289,7 +297,7 @@ In order to start the velocity-Verlet algorithm, we need to provide the initial 
 
 ## Computing the Energy and Force (classical potentials: LJ)<a id="sec-3-3"></a>
 
-The instantaneous force on a configuration of particles $F_n$ can be computed at several different levels of theory. In this section we look at the [Lennard-Jones](https://en.wikipedia.org/wiki/Lennard-Jones_potential) (LJ) potential, which is possibly the simplest pair-potential. It gives the potential energy of two interacting objects, as the function of only the distance $r$ between them. As it does not contain any electronic effects, LJ is often referred to as a "classical" potential. Many other potentials of this type exist.
+The instantaneous force on a configuration of particles $F_n$ can be computed at several different levels of theory. In this section we look at the [Lennard-Jones](https://en.wikipedia.org/wiki/Lennard-Jones_potential) (LJ) potential, which is possibly the simplest pair-potential. It gives the potential energy of two interacting objects, as the function of only the distance $r$ between them. As it does not contain any electronic effects, LJ is often referred to as a "classical" potential. Many other potentials of this type exist. For example in the previous exercise we used [Stillinger-Weber](https://docs.lammps.org/pair_sw.html) potential, which is more sophisticated than LJ since it contains a 3-body term, but still classical/empirical.
 
 The LJ potential is defined:
 
@@ -309,7 +317,7 @@ $$ \vec{F}_{LJ}( \vec{r} ) = -\hat{r}\frac{\mathrm{d}V}{\mathrm{d}r} = \hat{r} 4
 
 where $\vec{r}$ is the vector connecting two particles, $r$ is its Cartesian norm, and $\hat{r} = \vec{r}/r$ its direction.
 
-### The total energy<a id="sec-3-3-1"></a>
+### The potential energy<a id="sec-3-3-1"></a>
 
 The energy on particle $i$ is the sum of the $V_{LJ}$ contribution from all particles $j$:
 
@@ -317,9 +325,9 @@ $$ E_i = \sum_{j \ne i} V_{LJ}(r_j) $$
 
 where $r_j$ is the distance from particle $i$ to $j$ in periodic boundary conditions.
 
-The total energy of a LJ system is then the sum of the per-particle energy $E_i$ over all particles $i$:
+The potential energy of a LJ system is then the sum of the per-particle energy $E_i$ over all particles $i$:
 
-$$ E_{tot} = \sum_i E_i $$
+$$ E_{pot} = \sum_i E_i $$
 
 ### The total force<a id="sec-3-3-2"></a>
 
@@ -345,7 +353,7 @@ Similarly, if we wish to simulate a system at a certain constant pressure, the b
 
 The different ensembles are often referred to by which properties are constant:
 
--   micro-canonical NVE: the number of particles/moles $N$, box volume $V$, and the energy $E$. This corresponds to an isolated system, which does not exchange heat or matter with its surrounding. The total energy in NVE is coserved (i.e. the sum of kinetic and potential $E=K+V$).
+-   micro-canonical NVE: the number of particles/moles $N$, box volume $V$, and the energy $E$. This corresponds to an isolated system, which does not exchange heat or matter with its surrounding. The total energy in NVE is coserved (i.e. the sum of kinetic and potential $E_{tot}=E_{kin} + E_{pot}$).
 
 -   canonical NVT: the number of particles/moles $N$, box volume $V$, and the temperature $T$. The system is allowed to exchange energy (heat) with its surrounding, such that $T$ remains constant. Velocities rescaled with a thermostat, to keep constant the kinetic energy (=temperature).
 
@@ -531,7 +539,7 @@ Attention to the units, and the $\Delta t$ parameter.
 
 The substance/matter of an LJ simulation is sometimes called the "Lennard-Jonesium". Historically, LJ potential was used quite successfully to model Argon in all phases. Find the values of `epsilon` and `sigma` online to model it, and try to simulate some representative points of its phase diagram (solid, liquid, gas).
 
-NOTE: the units for `epsilon` are often given as cm$^{-1}$, which corresponds to about $1.24\cdot 10^{-4}$ eV.
+NOTE: the units for `epsilon` are often given as cm${}^{-1}$, which corresponds to about $1.24\cdot 10^{-4}$ eV.
 
 # Exercise 4: Optimization of a structure<a id="sec-4"></a>
 
