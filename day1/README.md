@@ -1,3 +1,19 @@
+# AMS2025 / Day 1 / Hands-on session
+## Introduction
+
+In this session you will learn how to generate a crystal structure from scratch, determine the lattice constant, and launch molecular dynamics and perform a geometry optimization with an empirical potential.
+
+In the exercises you will need to edit input files or scripts, which you will then execute. Feel free to write additional comments in any of the files, in the appropriate format (usually line starting with `#` is a comment not read by the program).
+
+You are encouraged to open, inspect, and question all the files and scripts that are used.
+
+For visualization of the atomic structures in this session, use `ovito` program installed in your VM.
+
+For plotting, the VM includes the `matplotlib` python module, and `gnuplot` program.
+
+For computing the energy and forces, you will use the LAMMPS software (`lmp`) that is installed in your VM.
+
+## Contents
 - [Exercise 1: Generating a crystal structure](#sec-1)
   - [Part A: Generate an FCC structure in the cubic (conventional) cell:](#sec-1-1)
   - [Part B: Generate an FCC structure in the primitive cell:](#sec-1-2)
@@ -107,9 +123,9 @@ In the script, the atomic positions are written in the crystal (fractional) coor
 
 In terms of their direction and norm, is there any constraint on the lattice vectors?
 
-Hint: The determinant of the matrix of lattice vectors gives the absolute value of the volume of the cell; which can also be computed by the scalar triple product: a1.(a2 x a3).
+Hint: The determinant of the matrix of lattice vectors gives the absolute value of the volume of the cell; which can also be computed by the scalar triple product: $\mathbf{a}_1 \cdot (\mathbf{a}_2 \times \mathbf{a}_3)$.
 
-Physically, is it meaningful for the volume of a cell to be zero? Can the lattice vectors be coplanar, or collinear? What does it mean if a matrix has determinant equal to zero? What happens to the metric tensor aTa?
+Physically, is it meaningful for the volume of a cell to be zero? Can the lattice vectors be coplanar, or collinear? What does it mean if a matrix has determinant equal to zero? What happens to the metric tensor $\mathbf{A}^T\mathbf{A}$?
 
 ### EXTRA-1.3: Implementing `cart_to_cryst` and `cryst_to_cart`:<a id="sec-1-4-3"></a>
 
