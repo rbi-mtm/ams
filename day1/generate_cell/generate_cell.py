@@ -1,6 +1,7 @@
 import numpy as np
 
-### Lattice constant
+### Lattice constant in units of real space; distance
+###   (modify with actual value)
 a0 = 1.82
 
 ### Define lattice vectors in real space: a_i = [x, y, z]
@@ -29,7 +30,7 @@ atm_type[:] = 1
 basis[0] = np.array([ 0.0, 0.0, 0.0 ])
 basis[1] = np.array([ 0.5, 0.5, 0.5 ])
 
-### Atomic type of atoms in the basis
+### Atomic type of atoms in the basis (integer or string)
 atm_type[0] = 1
 # atm_type[1] = 2
 
