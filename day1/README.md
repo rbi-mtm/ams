@@ -3,7 +3,7 @@
 
 In this session you will learn how to generate a crystal structure from scratch, determine the lattice constant, and launch molecular dynamics and perform a geometry optimization with an empirical potential.
 
-In the exercises you will need to edit input files or scripts, which you will then execute. Feel free to write additional comments in any of the files, in the appropriate format (usually line starting with `#` is a comment not read by the program).
+In the exercises you will need to edit input files or scripts, which you will then execute. Feel free to write additional comments, and your own notes in any of the files, in the appropriate format (usually line starting with `#` is a comment not read by the program).
 
 You are encouraged to open, inspect, and question all the files and scripts that are used.
 
