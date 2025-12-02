@@ -211,13 +211,13 @@ density is identical (by construction) to the density of the real system!
 >   - In our case, $N_\text{el} = 4 \times 2 = 8$, so we have **4 occupied (degenerate) bands**
 > - $k$ is the wave vector; in QE we define the $k$-points for which the calculation will be performed in the `K_POINTS` card
 
-**Q:** We specified a grid of $$6 \times 6 \times 6 = 216$$ $k$-points. However, how many $k$-points are actually used in the calculation? Can you think of an explanation why?
+**Question:** We specified a grid of $$6 \times 6 \times 6 = 216$$ $k$-points. However, how many $k$-points are actually used in the calculation? Can you think of an explanation why?
 
-**Q:** How many iterations did it take to converge the ground state density?
+**Question:** How many iterations did it take to converge the ground state density?
 What is the total energy trend over the iterations?<br>
 (Hint: use `grep "total energy" si_scf.out | head -n -1`)
 
-**Q:** What are the forces on the two silicon atoms?
+**Question:** What are the forces on the two silicon atoms?
 
 > [!TIP]
 > It is interesting to check the different contributions to the total energy:
@@ -320,7 +320,7 @@ and run the NSCF calculation:
 pw.x -i si_nscf.in | tee si_nscf.out
 ```
 
-**Q:** How many wave-functions were obtained by the NSCF calculation?
+**Question:** How many wave-functions were obtained by the NSCF calculation?
 
 ***
 ### Exercise 1.6: Density of States
@@ -347,9 +347,9 @@ We can see that there are no KS states around Fermi level.
 From that, we can conclude that the single-particle excitation spectrum is also likely gapped,
 or in simpler terms: the system is an **insulator**.
 
-**T:** Plot the integral of the DOS versus energy.
+**Task:** Plot the integral of the DOS versus energy.
 
-**Q:** What does the DOS integrate to? What's the integral of the DOS up to Fermi energy?
+**Question:** What does the DOS integrate to? What's the integral of the DOS up to Fermi energy?
 
 > [!NOTE]
 > The band gap is about 0.55 eV, which is **much** smaller than the experimentally
