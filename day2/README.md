@@ -387,11 +387,17 @@ convenient for calculating the DOS.
 On the other hand, to obtain an interesting band structure, we need to select a **path** of
 $k$-points through the Brillouin zone for which $\epsilon_{i}(\vec{k})$ will be evaluated.
 This can conveniently be done in XCRYSDEN.
-We'll be using the following path connecting [high-symmetry points](https://en.wikipedia.org/wiki/Brillouin_zone#Critical_points): $L-\Gamma-X-K-\Gamma$
+We'll be using the following path that connects [high-symmetry points](https://en.wikipedia.org/wiki/Brillouin_zone#Critical_points): $L-\Gamma-X-K-\Gamma$
 
 <p align="center">
   <img src="/day2/figs/Si_band_path.png" width="650">
 </p>
+
+The input file is given in `05_si_bands.in`. Let's run the calculation:
+
+```bash
+pw.x -i 05_si_bands.in | tee 05_si_bands.out
+```
 
 > [!NOTE]
 > **FAQ:** How to select a path through the Brillouin zone?
@@ -403,8 +409,28 @@ We'll be using the following path connecting [high-symmetry points](https://en.w
 > The rest of the band structure can usually be deduced from the path
 > between the high-symmetry points.
 >
-> Furthermore, if we're interested in conductivity of the system along a certain direction,
-> we'll select the corresponding path in reciprocal space, etc.
+> Another example is that,
+> if we're interested in the dispersion of single particle
+> excitations along a certain direction,
+> we'll select the corresponding path in reciprocal space.
 >
-> There are tools which generate paths automatically ([SeeK path])(https://seekpath.materialscloud.io/)
+> There are tools which generate paths automatically ([SeeK path](https://seekpath.materialscloud.io/))
 > but it's best to always check the literature for previous conventions.
+
+**Question:** How many wave-function files were obtained by this NSCF (bands) calculation?
+
+We can write the bands in a convenient format using the `bands.x` postprocessing program:
+
+```bash
+bands.x -i 06_si_bands_pp.in | tee 06_si_bands_pp.out
+```
+
+We'll plot the bands using the `Si.bands.dat.gnu` file.
+However, to better understand the nature of the bands, we'll first
+project the KS orbitals onto atomic orbitals.
+This is done using [`projwfc.x`](https://www.quantum-espresso.org/Doc/INPUT_PROJWFC.html):
+
+```bash
+mkdir -p pdos
+projwfc.x -i 07_si_projwfc.in | tee 07_si_projwfc.out
+```
