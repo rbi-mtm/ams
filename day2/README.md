@@ -386,3 +386,25 @@ convenient for calculating the DOS.
 
 On the other hand, to obtain an interesting band structure, we need to select a **path** of
 $k$-points through the Brillouin zone for which $\epsilon_{i}(\vec{k})$ will be evaluated.
+This can conveniently be done in XCRYSDEN.
+We'll be using the following path connecting [high-symmetry points](https://en.wikipedia.org/wiki/Brillouin_zone#Critical_points): $L-\Gamma-X-K-\Gamma$
+
+<p align="center">
+  <img src="/day2/figs/Si_band_path.png" width="650">
+</p>
+
+> [!NOTE]
+> **FAQ:** How to select a path through the Brillouin zone?
+>
+> It depends on what we're interested in.
+> High-symmetry points are where the bands have extremal
+> (minimal or maximal) behavior, so we will include them if we want to, e.g., see
+> if the system has a [direct or indirect band gap](https://en.wikipedia.org/wiki/Direct_and_indirect_band_gaps).
+> The rest of the band structure can usually be deduced from the path
+> between the high-symmetry points.
+>
+> Furthermore, if we're interested in conductivity of the system along a certain direction,
+> we'll select the corresponding path in reciprocal space, etc.
+>
+> There are tools which generate paths automatically ([SeeK path])(https://seekpath.materialscloud.io/)
+> but it's best to always check the literature for previous conventions.
