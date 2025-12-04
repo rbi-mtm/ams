@@ -277,10 +277,19 @@ Visualize the density using [XCRYSDEN](http://www.xcrysden.org/):
 xcrysden --xsf Si.charge.xsf
 ```
 
+> [!WARNING]
+> XCRYSDEN might not work on ARM-machines.
+
 > [!TIP]
 > For a clearer image, first click `Modify` &rarr; `Number of Units Drawn`
 > and create a supercell. The density itself is visualized using
 > `Tools` &rarr; `Data Grid`.
+
+The result should look something like the image below.
+
+<p align="center">
+  <img src="/day2/figs/Si_gs_density.png" width="800">
+</p>
 
 ***
 ### Exercise 1.5: Non-Self-Consistent Field Calculation
@@ -376,4 +385,4 @@ This provided us with a uniform sampling of KS states across the [Brillouin zone
 convenient for calculating the DOS.
 
 On the other hand, to obtain an interesting band structure, we need to select a **path** of
-$k$-points through the Brillouin zone for which the $\epsilon_{i}(\vec{k})$ will be evaluated.
+$k$-points through the Brillouin zone for which $\epsilon_{i}(\vec{k})$ will be evaluated.
