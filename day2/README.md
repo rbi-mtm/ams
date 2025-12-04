@@ -166,7 +166,7 @@ Spend some time checking the SCF input file:
 
 ```bash
 cd ex1
-less si_scf.in
+less 01_si_scf.in
 ```
 
 This input is about as simple as it gets.
@@ -179,7 +179,7 @@ Many more options are listed in the [QE documentation](https://www.quantum-espre
 Let's run the SCF calculation by using `pw.x`, the basic program from the QE suite:
 
 ```bash
-pw.x -i si_scf.in | tee si_scf.out
+pw.x -i 01_si_scf.in | tee 01_si_scf.out
 ```
 
 > [!TIP]
@@ -189,7 +189,7 @@ pw.x -i si_scf.in | tee si_scf.out
 We can open the output file:
 
 ```bash
-less si_scf.out
+less 01_si_scf.out
 ```
 
 To understand the output, let's remind ourselves what's an SCF calculation.
@@ -222,7 +222,7 @@ What is the total energy trend over the iterations?<br>
 > [!TIP]
 > It is interesting to check the different contributions to the total energy:
 > ```bash
-> grep "!" si_scf.out -A7
+> grep "!" 01_si_scf.out -A7
 > ```
 > - One-electron contribution: kinetic energy of KS electrons
 > - Hartree contribution: classical electrostatic electronic interaction
@@ -239,7 +239,7 @@ k = 0.0000 0.0000 0.0000 (   339 PWs)   bands (ev):
 -5.8718   6.0677   6.0677   6.0677   8.6242   8.6242   8.6242   9.3285
 ```
 
-There are 8 bands because we specified `nbnds=8` in the input file.
+There are 8 bands because we specified `nbnds = 8` in the input file.
 We also have:
 
 ```bash
@@ -268,7 +268,7 @@ First, we have to convert the `charge-density.dat` file to a more suitable forma
 We can do that using the QE postprocessing program, [`pp.x`](https://www.quantum-espresso.org/Doc/INPUT_PP.html):
 
 ```bash
-pp.x -i si_pp_charge.in | tee si_pp_charge.out
+pp.x -i 02_si_pp_charge.in | tee 02_si_pp_charge.out
 ```
 
 Visualize the density using [XCRYSDEN](http://www.xcrysden.org/):
@@ -311,16 +311,16 @@ $k$-points by performing a _non-self-consistent field_ (NSCF) calculation (see d
 Let's compare the SCF and NSCF input files:
 
 ```bash
-diff -y si_scf.in si_nscf.in | less
+diff -y 01_si_scf.in 03_si_nscf.in | less
 ```
 
 and run the NSCF calculation:
 
 ```bash
-pw.x -i si_nscf.in | tee si_nscf.out
+pw.x -i 03_si_nscf.in | tee 03_si_nscf.out
 ```
 
-**Question:** How many wave-functions were obtained by the NSCF calculation?
+**Question:** How many wave-function files were obtained by the NSCF calculation?
 
 ***
 ### Exercise 1.6: Density of States
@@ -331,7 +331,7 @@ let's look at the [density of states (DOS)](https://en.wikipedia.org/wiki/Densit
 For this purpose, we can use the [`dos.x`](https://www.quantum-espresso.org/Doc/INPUT_DOS.html) postprocessing program:
 
 ```bash
-dos.x -i si_dos.in | tee si_dos.out
+dos.x -i 04_si_dos.in | tee 04_si_dos.out
 ```
 
 We got the output file `Si_dos.dat`. Let's plot it:

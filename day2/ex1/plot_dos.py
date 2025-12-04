@@ -55,7 +55,7 @@ def read_columns(filename, usecols=None, skiprows=0):
 
 def get_fermi_energy_dos(filename, metal=True):
     """
-Reads the Fermi energy
+    Reads the Fermi energy
 
     There are two cases:
 
