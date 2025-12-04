@@ -165,7 +165,7 @@ The procedure by which $$n$$ is obtained is called a
 Spend some time checking the SCF input file:
 
 ```bash
-cd ex1
+cd ~/ams/day2/exercise_1
 less 01_si_scf.in
 ```
 
