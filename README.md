@@ -56,16 +56,16 @@ This document should be used in the following way: first, read the chapter on [S
 |:---:|:---:|---|---|---|
 | 8:00 | 8:50 | Registration | - | - |
 | 9:00 | 9:55 | **Ivor Lončarić**<br>Opening / General Introduction to Atomistic Simulations | **Dino Novko**<br>Phonons, Electrons and Electron-Phonon Coupling | **Dino Novko**<br>Comparing _Ab Initio_ Simulations With Experiments |
-| 9:55 | 10:25 | Coffee Break | Coffee Break | Coffee Break |
-| 10:25 | 11:20 | **Luka Benić**<br>Fundamentals of Density Functional Theory | **Ryan Requist**<br>_Ab Initio_ Molecular Dynamics | **Ivor Lončarić**<br>Machine learning in Materials Science |
-| 11:20 | 11:25 | Break | Break | Break |
-| 11:25 | 12:20 | **Miha Gunde**<br>Introduction to Crystallography & Atomistic Simulations | **Bernhard Kretz**<br>Theory and Modelling of Electronic Transport | **Bernhard Kretz**<br>Hands-on Session #1 |
-| 12:20 | 13:50 | Lunch | Lunch | Lunch |
-| 13:50 | 14:40 | **Miha Gunde**<br>Hands-on Session #1 | **Juraj Ovčar**<br>Hands-on Session #1 | **Bernhard Kretz**<br>Hands-on Session #2 |
-| 14:40 | 15:10 | Coffee Break | Coffee Break | Coffee Break |
-| 15:10 | 16:00 | **Miha Gunde**<br>Hands-on Session #2 | **Juraj Ovčar**<br>Hands-on Session #2 | **Bernhard Kretz**<br>Hands-on Session #3 |
-| 16:00 | 16:05 | Break | Break | Break |
-| 16:05 | 17:00 | **Miha Gunde**<br>Hands-on Session #3 | **Juraj Ovčar**<br>Hands-on Session #3 | Panel discussion |
+| 9:55 | 10:15 | Coffee Break | Coffee Break | Coffee Break |
+| 10:15 | 11:10 | **Luka Benić**<br>Fundamentals of Density Functional Theory | **Ryan Requist**<br>_Ab Initio_ Molecular Dynamics | **Ivor Lončarić**<br>Machine learning in Materials Science |
+| 11:10 | 11:15 | Break | Break | Break |
+| 11:15 | 12:10 | **Miha Gunde**<br>Introduction to Crystallography & Atomistic Simulations | **Bernhard Kretz**<br>Theory and Modelling of Electronic Transport | **Bernhard Kretz**<br>Hands-on Session #1 |
+| 12:10 | 13:05 | Lunch | Lunch | Lunch |
+| 13:05 | 13:55 | **Miha Gunde**<br>Hands-on Session #1 | **Juraj Ovčar**<br>Hands-on Session #1 | **Bernhard Kretz**<br>Hands-on Session #2 |
+| 13:55 | 14:15 | Coffee Break | Coffee Break | Coffee Break |
+| 14:15 | 15:05 | **Miha Gunde**<br>Hands-on Session #2 | **Juraj Ovčar**<br>Hands-on Session #2 | **Bernhard Kretz**<br>Hands-on Session #3 |
+| 15:05 | 15:10 | Break | Break | Break |
+| 15:10 | 16:00 | **Miha Gunde**<br>Hands-on Session #3 | **Juraj Ovčar**<br>Hands-on Session #3 | Panel discussion |
 
 ## 3. Setting Up
 
