@@ -400,6 +400,8 @@ The input file is given in `05_si_bands.in`. Let's run the calculation:
 pw.x -i 05_si_bands.in | tee 05_si_bands.out
 ```
 
+**Task:** Reproduce the k-path given in `05_si_bands.in` using XCRYSDEN.
+
 > [!NOTE]
 > **FAQ:** How to select a path through the Brillouin zone?
 >
