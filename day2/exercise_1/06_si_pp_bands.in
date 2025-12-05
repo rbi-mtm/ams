@@ -4,7 +4,7 @@
   prefix = 'silicon'
 
   ! The same output directory as in si_scf.in
-  outdir = './tmp/'
+  outdir = './out'
 
   ! Arbitrary output file name
   filband = 'Si.bands.dat'

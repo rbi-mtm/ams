@@ -406,7 +406,7 @@ pw.x -i 05_si_bands.in | tee 05_si_bands.out
 > **FAQ:** How to select a path through the Brillouin zone?
 >
 > It depends on what we're interested in.
-> High-symmetry points are where the bands have extremal
+> High-symmetry points are where the bands usually have extremal
 > (minimal or maximal) behavior, so we will include them if we want to, e.g., see
 > if the system has a [direct or indirect band gap](https://en.wikipedia.org/wiki/Direct_and_indirect_band_gaps).
 > The rest of the band structure can usually be deduced from the path
@@ -418,14 +418,14 @@ pw.x -i 05_si_bands.in | tee 05_si_bands.out
 > models using [maximally-localized Wannier functions](https://wannier.org).
 >
 > There are tools which generate paths automatically ([SeeK path](https://seekpath.materialscloud.io/))
-> but it's best to always check the literature for previous conventions.
+> but it's best to always check the literature to determine the path.
 
 **Question:** How many wave-function files were obtained by this NSCF (bands) calculation?
 
 We can write the bands in a convenient format using the `bands.x` postprocessing program:
 
 ```bash
-bands.x -i 06_si_bands_pp.in | tee 06_si_bands_pp.out
+bands.x -i 06_si_pp_bands.in | tee 06_si_pp_bands.out
 ```
 
 We'll plot the bands using the `Si.bands.dat.gnu` file.
