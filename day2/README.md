@@ -411,8 +411,9 @@ pw.x -i 05_si_bands.in | tee 05_si_bands.out
 > between the high-symmetry points.
 >
 > We can also infer other useful quantities, such as
-> the [effective mass](https://en.wikipedia.org/wiki/Effective_mass_(solid-state_physics)) of single particle excitations,
-> identify anisotropies in the bands, etc.
+> the [effective mass](https://en.wikipedia.org/wiki/Effective_mass_(solid-state_physics)) of single particle excitations.
+> Bands are also a starting point for fitting tight-binding
+> models using [maximally-localized Wannier functions](https://wannier.org).
 >
 > There are tools which generate paths automatically ([SeeK path](https://seekpath.materialscloud.io/))
 > but it's best to always check the literature for previous conventions.
