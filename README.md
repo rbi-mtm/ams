@@ -5,8 +5,8 @@ Welcome to the **Atomistic Modeling School 2025 ([AMS25](https://rbi-mtm.github.
 The school is held at the [**Institute of Physics (Zagreb, Croatia)**](https://maps.app.goo.gl/SigjffQmq9kXdW2n9) across three days:
 
 - December 3 2025, 09:00 - 17:00
-- December 10 2025, 09:00 - 17:00
-- December 17 2025, 09:00 - 17:00
+- December 10 2025, 09:00 - 16:00
+- December 17 2025, 09:00 - 16:00
 
 This repository contains materials related to the hands-on sessions held at **AMS25**.
 
