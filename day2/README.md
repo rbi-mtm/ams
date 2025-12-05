@@ -410,10 +410,9 @@ pw.x -i 05_si_bands.in | tee 05_si_bands.out
 > The rest of the band structure can usually be deduced from the path
 > between the high-symmetry points.
 >
-> Another example is that,
-> if we're interested in the dispersion of single particle
-> excitations along a certain direction,
-> we'll select the corresponding path in reciprocal space.
+> We can also infer other useful quantities, such as
+> the [effective mass](https://en.wikipedia.org/wiki/Effective_mass_(solid-state_physics)) of single particle excitations,
+> identify anisotropies in the bands, etc.
 >
 > There are tools which generate paths automatically ([SeeK path](https://seekpath.materialscloud.io/))
 > but it's best to always check the literature for previous conventions.
