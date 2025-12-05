@@ -354,7 +354,8 @@ python plot_dos.py Si_dos.dat
 
 We can see that there are no KS states around Fermi level.
 From that, we can conclude that the single-particle excitation spectrum is also likely gapped,
-or in simpler terms: the system is an **insulator**.
+or in simpler terms: the system is an **insulator**
+(in fact, since the gap is small, the system is classified as a **semiconductor**).
 
 **Task:** Plot the integral of the DOS versus energy.
 
