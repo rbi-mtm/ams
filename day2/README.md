@@ -343,10 +343,10 @@ For this purpose, we can use the [`dos.x`](https://www.quantum-espresso.org/Doc/
 dos.x -i 04_si_dos.in | tee 04_si_dos.out
 ```
 
-We got the output file `Si_dos.dat`. Let's plot it:
+We got the output file `Si.dos.dat`. Let's plot it:
 
 ```bash
-python plot_dos.py Si_dos.dat
+python plot_dos.py Si.dos.dat
 ```
 <p align="center">
   <img src="/day2/figs/Si_dos.png" width="650">
@@ -442,3 +442,18 @@ projwfc.x -i 07_si_projwfc.in | tee 07_si_projwfc.out
 that we are projecting the KS states onto?
 Hint: Read the ``07_si_projwfc.out`` file and check the
 ``pdos`` directory.
+
+Using the small helper-program `sumpdos.x`,
+let's sum the contributions of the two atoms for
+the $s$ and $p$ orbitals, respectively:
+
+```bash
+sumpdos.x pdos/*\(s\) > Si.pdos_s.dat
+sumpdos.x pdos/*\(p\) > Si.pdos_p.dat
+```
+
+We can finally plot the bands and PDOS together:
+
+```bash
+python plot_bands_pdos.py
+```

@@ -125,8 +125,8 @@ if __name__ == '__main__':
 
     Usage examples:
 
-        python plot_dos.py Si_dos.dat
-        python plot_dos.py -o dos_figure.png Si_dos.dat
+        python plot_dos.py Si.dos.dat
+        python plot_dos.py -o dos_figure.png Si.dos.dat
 
     """
 
