@@ -437,3 +437,8 @@ This is done using [`projwfc.x`](https://www.quantum-espresso.org/Doc/INPUT_PROJ
 mkdir -p pdos
 projwfc.x -i 07_si_projwfc.in | tee 07_si_projwfc.out
 ```
+
+**Question:** What are the atomic orbitals
+that we are projecting the KS states onto?
+Hint: Read the ``07_si_projwfc.out`` file and check the
+``pdos`` directory.
