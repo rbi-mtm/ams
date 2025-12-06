@@ -291,6 +291,9 @@ The result should look something like the image below.
   <img src="/day2/figs/Si_gs_density.png" width="800">
 </p>
 
+The charge density is concentrated _between_ atoms,
+indicative of covalent bonding.
+
 ***
 ### Exercise 1.5: Non-Self-Consistent Field Calculation
 
@@ -457,3 +460,6 @@ We can finally plot the bands and PDOS together:
 ```bash
 python plot_bands_pdos.py
 ```
+<p align="center">
+  <img src="/day2/figs/bands_pdos.png" width="1000">
+</p>
