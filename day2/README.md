@@ -473,3 +473,9 @@ Again, this is indicative of directional (covalent) bonding.
 in the $\Gamma-X$ and $\Gamma-L$ directions by fitting parabolas to the bands.
 Compare them with the results on the bottom of
 [this page](https://lampz.tugraz.at/~hadley/ss1/semiconductors/silicon_bandstructure.php).
+
+**Task:** Generate a k-path automatically using
+[SeeK-path](https://seekpath.materialscloud.io/)
+and plot the resulting band structure.
+Take care that the generated path is
+[discontinous](https://physics.stackexchange.com/questions/545748/what-is-the-meaning-of-vertical-bars-in-paths-of-high-symmetry-points).
