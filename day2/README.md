@@ -463,3 +463,13 @@ python plot_bands_pdos.py
 <p align="center">
   <img src="/day2/figs/bands_pdos.png" width="1000">
 </p>
+
+- The band gap is indirect.
+- We can see that the valence band has a mostly $p$-orbital character.
+Again, this is indicative of directional (covalent) bonding.
+
+**Task:** Calculate the effective mass of the
+[heavy and light holes](https://physics.stackexchange.com/questions/229328/why-do-we-have-heavy-and-light-hole-bands-in-semiconductors)
+in the $\Gamma$-$X$ and $\Gamma$-$L$ directions by fitting parabolas to the bands.
+Compare them with the results on the bottom of
+[this page](https://lampz.tugraz.at/~hadley/ss1/semiconductors/silicon_bandstructure.php).
