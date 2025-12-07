@@ -11,6 +11,10 @@ Compared to last week's simulations that employed classical force fields,
 DFT calculations are quantum mechanical.
 As a consequence, they are more **accurate**, **informative** and **computationally expensive**.
 
+> [!NOTE]
+> On first reading, you might want to skip
+> the additional exercises (labeled with **Task**).
+
 ## About Quantum ESPRESSO
 
 ![QE-logo](https://gitlab.com/QEF/q-e/-/raw/develop/logo.jpg)
@@ -480,6 +484,7 @@ and plot the resulting band structure.
 Take care that the generated path is
 [discontinous](https://physics.stackexchange.com/questions/545748/what-is-the-meaning-of-vertical-bars-in-paths-of-high-symmetry-points).
 
+***
 ### Exercise 1.8: Additional Tasks
 
 - Construct a $2\times 2 \times 2$ supercell of silicon
