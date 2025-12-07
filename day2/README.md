@@ -482,4 +482,13 @@ Take care that the generated path is
 
 ### Exercise 1.8: Additional Tasks
 
+- Construct a $2\times 2 \times 2$ supercell of silicon
+and repeat the calculations above to obtain the band structure.
+Since, in the supercell, there are 8 times more electrons,
+you get 8 times more occupied bands.
+However, no new physics was introduced;
+only the periodicity of the system was redefined.
+What is the connection between the band
+structures of the primitive cell and the supercell?
+
 - Repeat all of the above calculations for [diamond (carbon)](https://en.wikipedia.org/wiki/Diamond). What is the value of the band gap? The necessary pseudopotential is given in the [pseudo](/day2/pseudo) directory.
