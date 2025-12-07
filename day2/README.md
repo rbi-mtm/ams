@@ -48,12 +48,14 @@ using the example of silicon in its
 naturally occuring (diamond cubic) form.
 
 The workflow consists of:
-    1. Choose an approximation (exchange-correlation functional) (we will use [LDA](https://en.wikipedia.org/wiki/Local-density_approximation))
-    2. Input the crystal structure into QE
-    3. Get the ground-state electronic density
+1. Choose an approximation (exchange-correlation functional)
+(we will use [LDA](https://en.wikipedia.org/wiki/Local-density_approximation)),
+2. Input the crystal structure into QE,
+3. Get the ground-state electronic density.
 
 From the density, we easily get the energy and
 [ionic forces](https://en.wikipedia.org/wiki/Hellmann%E2%80%93Feynman_theorem).
+
 However, it turns out that we can learn more about the
 details of the ground-state, as well as get a
 first approximation to the excited states, by looking  
