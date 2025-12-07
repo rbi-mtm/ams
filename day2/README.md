@@ -479,3 +479,7 @@ Compare them with the results on the bottom of
 and plot the resulting band structure.
 Take care that the generated path is
 [discontinous](https://physics.stackexchange.com/questions/545748/what-is-the-meaning-of-vertical-bars-in-paths-of-high-symmetry-points).
+
+### Exercise 1.8: Additional Tasks
+
+- Repeat all of the above calculations for [diamond (carbon)](https://en.wikipedia.org/wiki/Diamond). What is the value of the band gap? The necessary pseudopotential is given in the [pseudo](/day2/pseudo) directory.
