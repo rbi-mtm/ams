@@ -420,8 +420,15 @@ We'll be using the following path that connects [high-symmetry points](https://e
 The input file is given in `05_si_bands.in`. Let's run the calculation:
 
 ```bash
+rm out/silicon.save/wfc*
 pw.x -i 05_si_bands.in | tee 05_si_bands.out
 ```
+
+> [!IMPORTANT]
+> We first removed the KS wave-functions obtained by the previous NSCF calculation
+> so they don't get mixed up with the ones obtained in the `bands.x` calculation.
+>
+> In a realistic situation, we would first back up the old wave-functions.
 
 **Task:** Reproduce the k-path given in `05_si_bands.in` using XCRYSDEN.
 
