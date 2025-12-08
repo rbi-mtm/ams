@@ -206,6 +206,21 @@ pw.x -i 01_si_scf.in | tee 01_si_scf.out
 > We'll be using `tee` to simultaneously write the output to a file
 > and to the screen to follow calculations in real time.
 
+> [!NOTE]
+>
+> **FAQ:** How to select `ecutwfc`, the `K_POINTS` grid and such "free" parameters?
+>
+> These parameters must be selected large enough
+> so that the results of the calculation (e.g. energy)
+> **do not significantly change**
+> if such parameters are increased further.
+>
+> In principle, one should always perform a _convergence test_ to be sure
+> that the selected parameters are large enough.
+>
+> **Task:** Calculate the dependence of energy for `ecutwfc` values
+> of 10, 20, 30, 40, 50, 60 and 70 Ry.
+
 We can open the output file:
 
 ```bash
