@@ -387,9 +387,9 @@ or in simpler terms: the system is an **insulator**
 > [!NOTE]
 > The band gap is about 0.55 eV, which is **much** smaller than the experimentally
 > measured value of about 1.12 eV. Besides the fact that we are using the LDA functional,
-> there is a **fundamental** reason why DFT calculations underestimate bandgaps.
+> there is a **fundamental** reason why practical DFT calculations underestimate bandgaps.
 >
-> Namely, it is known that the exact exchange-correlation functional
+> Namely, it is known that the exact (but unknown) exchange-correlation functional
 > has [derivative discontinuities at integer particle numbers](https://physics.stackexchange.com/questions/176419/why-does-density-functional-theory-dft-underestimate-bandgaps),
 > while the functionals employed in practical calculations are continuous.
 >
