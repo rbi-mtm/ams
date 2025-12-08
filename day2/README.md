@@ -313,7 +313,14 @@ xcrysden --xsf Si.charge.xsf
 ```
 
 > [!WARNING]
-> XCRYSDEN might not work on ARM-machines.
+> If you are on an ARM machine and XCRYSDEN does not work,
+> here's a possible fix:
+>
+> ```bash
+> sudo apt-get -y install xcrysden && \
+> mkdir -p ~/.xcrysden && \
+> echo "set toglOpt(accum) false" > ~/.xcrysden/custom-definitions
+> ```
 
 > [!TIP]
 > For a clearer image, first click `Modify` &rarr; `Number of Units Drawn`
