@@ -41,7 +41,7 @@ Some facts about QE:
 - Quantum transport
 - ...
 
-## Exercise 1: Silicon
+## Exercise 1: Basic QE workflow / Silicon
 
 In this exercise, we will be showcasing a basic QE workflow
 using the example of silicon in its
