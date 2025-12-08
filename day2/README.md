@@ -577,7 +577,7 @@ fs.x -i 02_ag_fs.in | tee 02_ag_fs.out
 xcrysden --bxsf silver_fs.bxsf
 ```
 <p align="center">
-  <img src="/day2/figs/Ag_fermi_surface.png" width="800">
+  <img src="/day2/figs/Ag_fermi_surface.png" width="500">
 </p>
 
 The Fermi surface is _almost_ a sphere - we can see
