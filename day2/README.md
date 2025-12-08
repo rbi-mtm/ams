@@ -542,3 +542,49 @@ What is the connection between the band
 structures of the primitive cell and the supercell?
 
 - Repeat all of the above calculations for [diamond (carbon)](https://en.wikipedia.org/wiki/Diamond). What is the value of the band gap? The necessary pseudopotential is given in the [pseudo](/day2/pseudo) directory.
+
+***
+## Exercise 2: DFT in Metallic Systems / Silver
+
+In this Exercise, we'll perform similar elementary calculations
+for a metallic system: silver (Ag).
+
+### Exercise 2.1: Fermi Surface
+
+Let's check the SCF input file:
+
+```bash
+cd ~/ams/day2/exercise_2
+less 01_ag_scf.in
+```
+
+There are two main differences compared to silicon calculations:
+
+- We're using the [PBE functional] https://dft.uci.edu/pubs/RCFB08.pdf
+- Since Ag is a metal, we have to use [smearing techniques](https://vasp.at/wiki/Smearing_technique)
+  to stabilize numeric convergence
+
+Let's run the SCF calculation using 2 CPUs via [MPI](https://en.wikipedia.org/wiki/Message_Passing_Interface):
+
+```bash
+mpirun -n 2 pw.x -i 01_ag_scf.in | tee 01_ag_scf.out
+```
+
+It's interesting to plot the Fermi surface:
+
+```bash
+fs.x -i 02_ag_fs.in | tee 02_ag_fs.out
+xcrysden --bxsf silver_fs.bxsf
+```
+<p align="center">
+  <img src="/day2/figs/Ag_fermi_surface.png" width="800">
+</p>
+
+The Fermi surface is _almost_ a sphere - we can see
+[necks](http://www.jetp.ras.ru/cgi-bin/dn/e_015_01_0049.pdf) around the $L$ points
+of the Brillouine zone.
+
+This can be understood in terms of the
+[nearly free electron model](https://solidstate.quantumtinkerer.tudelft.nl/test_builds/N_A-equal-0/11_nearly_free_electron_model/)
+for systems in which the
+[equivalent free electron Fermi sphere extends beyond the Brillouin zone boundary](https://kbose.weebly.com/uploads/1/0/4/9/10492046/fermi_surfaces_from_kittel.pdf).

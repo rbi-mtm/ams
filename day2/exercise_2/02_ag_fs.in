@@ -1,0 +1,8 @@
+&FERMI
+
+  ! Same prefix as in the SCF calculation 
+  prefix = 'silver'
+
+  ! Same outdir as in the SCF calculation
+  outdir = './out/'
+/
