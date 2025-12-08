@@ -10,4 +10,6 @@
   ! Use pdos directory not to overcrowd the current directory
   filpdos = './pdos/Si.pdos.dat'
 
+  ! Energy resolution (in eV)
+  deltaE = 0.1
 /
