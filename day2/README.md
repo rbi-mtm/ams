@@ -560,7 +560,7 @@ less 01_ag_scf.in
 
 There are two main differences compared to silicon calculations:
 
-- We're using the [PBE functional] https://dft.uci.edu/pubs/RCFB08.pdf
+- We're using the [PBE functional](https://dft.uci.edu/pubs/RCFB08.pdf)
 - Since Ag is a metal, we have to use [smearing techniques](https://vasp.at/wiki/Smearing_technique)
   to stabilize numeric convergence
 
@@ -587,4 +587,4 @@ of the Brillouine zone.
 This can be understood in terms of the
 [nearly free electron model](https://solidstate.quantumtinkerer.tudelft.nl/test_builds/N_A-equal-0/11_nearly_free_electron_model/)
 for systems in which the
-[equivalent free electron Fermi sphere extends beyond the Brillouin zone boundary](https://kbose.weebly.com/uploads/1/0/4/9/10492046/fermi_surfaces_from_kittel.pdf).
+[diameter of the free electron Fermi sphere is slightly less than the Brillouin zone boundary](https://kbose.weebly.com/uploads/1/0/4/9/10492046/fermi_surfaces_from_kittel.pdf).
