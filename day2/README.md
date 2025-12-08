@@ -280,7 +280,7 @@ Take a look at the files QE saved after completion of an SCF calculation:
 ls out/silicon.save/
 ```
 
-We have 16 KS wavefunction files (one for each $k$-point)
+We have 72 KS wavefunction files (one for each $k$-point)
 and the `charge-density.dat` file, all in binary format.
 
 Let's plot $n(\vec{r})$.
