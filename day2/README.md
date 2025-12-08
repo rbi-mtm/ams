@@ -481,7 +481,7 @@ We can finally plot the bands and PDOS together:
 python plot_bands_pdos.py
 ```
 <p align="center">
-  <img src="/day2/figs/bands_pdos.png" width="1000">
+  <img src="/day2/figs/Si_bands_pdos.png" width="1000">
 </p>
 
 - The band gap is indirect.
