@@ -33,7 +33,7 @@
   ! How many bands to include in the calculation
   nbnd = 8
 
-  ! Largest plane-wave kinetic energy in Ry (effectively size of basis set)
+  ! Largest plane-wave kinetic energy in Ry (effectively size of basis set) for w.f.s
   ecutwfc = 18.0
 
   ! Brillouin zone integration method suitable for NSCF calculations
