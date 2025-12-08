@@ -15,7 +15,7 @@
   ! Path to where to store KS wavefunctions and the charge density
   outdir = './out'
 
-  ! Print all bands
+  ! Print all k-point results
   verbosity = 'high'
 /
 
