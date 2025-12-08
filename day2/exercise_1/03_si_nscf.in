@@ -34,7 +34,7 @@
   nbnd = 8
 
   ! Largest plane-wave kinetic energy in Ry (effectively size of basis set) for w.f.s
-  ecutwfc = 18.0
+  ecutwfc = 60.0
 
   ! Brillouin zone integration method suitable for NSCF calculations
   ! https://doi.org/10.1103/PhysRevB.49.16223
@@ -55,6 +55,6 @@ Si 0.00 0.00 0.00
 Si 0.25 0.25 0.25
 
 ! For which k-points to solve the KS wave equations
-! Below is a 12x12x12 Monkhorst-Pack grid
+! Below is a 24x24x24 Monkhorst-Pack grid
 K_POINTS (automatic)
-12 12 12 0 0 0
+24 24 24 0 0 0

@@ -231,7 +231,7 @@ density is identical (by construction) to the density of the real system!
 >   - In our case, $N_\text{el} = 4 \times 2 = 8$, so we have **4 occupied (degenerate) bands**
 > - $k$ is the wave vector; in QE we define the $k$-points for which the calculation will be performed in the `K_POINTS` card
 
-**Question:** We specified a grid of $$6 \times 6 \times 6 = 216$$ $k$-points. However, how many $k$-points are actually used in the calculation? Can you think of an explanation why?
+**Question:** We specified a grid of $$12 \times 12 \times 12 = 1728$$ $k$-points. However, how many $k$-points are actually used in the calculation? Can you think of an explanation why?
 
 **Question:** How many iterations did it take to converge the ground state density?
 What is the total energy trend over the iterations?<br>
@@ -254,9 +254,9 @@ What is the total energy trend over the iterations?<br>
 Let's also take a look at energies for a fixed $k$-point. E.g., for $k=(0,0,0)$, the so called $\Gamma$ point, the KS energies $\epsilon_{ik}$ are:
 
 ```bash
-k = 0.0000 0.0000 0.0000 (   339 PWs)   bands (ev):
+k = 0.0000 0.0000 0.0000 (  2109 PWs)   bands (ev):
 
--5.8718   6.0677   6.0677   6.0677   8.6242   8.6242   8.6242   9.3285
+-5.8889   6.0358   6.0358   6.0358   8.5968   8.5968   8.5968   9.2920
 ```
 
 There are 8 bands because we specified `nbnds = 8` in the input file.
