@@ -198,7 +198,7 @@ def plot_bands_pdos(HSP, k, bands, pdos, total_dos, savefig=False, ylim=None):
     total_dos : np.ndarray
         Array of (energy, DOS) values
     savefig : bool
-        If True, saves the figure to bands_pdos.png
+        If True, saves the figure to Si_bands_pdos.png
     ylim : None | tuple
         If given, sets the y-limits
 
@@ -311,7 +311,7 @@ def plot_bands_pdos(HSP, k, bands, pdos, total_dos, savefig=False, ylim=None):
     
     # Show or save figure
     if savefig:
-        plt.savefig('bands_pdos.png', format='png', dpi=300)
+        plt.savefig('Si_bands_pdos.png', format='png', dpi=300)
     else:
         plt.show()
 
