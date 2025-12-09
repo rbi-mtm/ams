@@ -582,7 +582,7 @@ xcrysden --bxsf silver_fs.bxsf
 
 The Fermi surface is _almost_ a sphere - we can see
 [necks](http://www.jetp.ras.ru/cgi-bin/dn/e_015_01_0049.pdf) around the $L$ points
-of the Brillouine zone.
+of the Brillouin zone.
 
 This can be understood in terms of the
 [nearly free electron model](https://solidstate.quantumtinkerer.tudelft.nl/test_builds/N_A-equal-0/11_nearly_free_electron_model/)
