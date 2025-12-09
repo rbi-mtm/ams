@@ -643,7 +643,7 @@ xcrysden --xsf LiC6-charge_DIFF.xsf
 ```
 
 <p align="center">
-  <img src="/day2/figs/LiC6_chgdiff.png" width="650">
+  <img src="/day2/figs/LiC6_chgdiff.png" width="1000">
 </p>
 
 ***
