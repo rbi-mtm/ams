@@ -645,3 +645,18 @@ xcrysden --xsf LiC6-charge_DIFF.xsf
 <p align="center">
   <img src="/day2/figs/LiC6_chgdiff.png" width="650">
 </p>
+
+***
+### Exercise 3.2: Formation Energy
+
+Formation energy is a crucial indicator of material stability.
+For $$T = 0$$ K, we can calculate it as:
+
+$$
+\begin{align}
+E_{\text{F}} = E_{\text{LiC}_6} - (E_{\text{Li}} + E_{\text{C}_6})
+\end{align}
+$$
+
+**Task:** Calculate the formation energy as given above.
+Hint: The fastest way to get the data is `grep ! *out`.
