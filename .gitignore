@@ -1,2 +1,6 @@
 *.out
 out/
+*.dat
+*.gnu
+*.rap
+pdos/
