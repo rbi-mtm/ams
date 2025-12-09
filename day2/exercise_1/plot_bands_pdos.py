@@ -277,14 +277,15 @@ def plot_bands_pdos(HSP, k, bands, pdos, total_dos, savefig=False, ylim=None):
             pdos_proj_p = pdos_projs[i]
 
     ax_dos.fill_betweenx(y=pdos_proj_s[:, 0],
-                         x1=pdos_proj_s[:, 1],
+                         x1=0.0,
+                         x2=pdos_proj_s[:, 1],
                          facecolor='mediumseagreen',
                          label=label_s,
                          edgecolor='black')
 
     ax_dos.fill_betweenx(y=pdos_proj_p[:, 0],
                          x1=pdos_proj_s[:, 1],
-                         x2=pdos_proj_p[:, 1],
+                         x2=pdos_proj_s[:, 1] + pdos_proj_p[:, 1],
                          facecolor='salmon',
                          label=label_p,
                          edgecolor='black')
