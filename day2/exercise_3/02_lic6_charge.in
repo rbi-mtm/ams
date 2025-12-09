@@ -1,0 +1,14 @@
+&INPUTPP
+  
+  ! Same prefix as the SCF calculation
+  prefix = 'lic6'
+
+  ! Same output directory as the SCF calculation
+  outdir = './out'
+
+  ! Arbitrary output filename
+  filplot = 'LiC6.charge'
+
+  ! Get the charge density
+  plot_num = 0
+/

@@ -609,3 +609,39 @@ to obtain the band structure and PDOS of silver.
 `plot_bands_pdos.py` script to
 see the localized bands belonging to the
 deeper $4s^2$ and $4p^6$ states.
+
+***
+## Exercise 3: Charge Transfer & Formation Energy / LiC6
+
+[Lithium-intercalated graphite](https://pubs.aip.org/aip/apl/article/110/10/104106/236614/Revealing-the-electronic-structure-of-LiC6-by-soft)
+is used as the anode material in lithium-ion batteries.
+
+### Exercise 3.1: Charge Transfer
+
+Let's take a look at the charge transfer of the lithium $2s$
+electrons to the graphite's $\pi$-system.
+We'll calculate the difference of the charge density
+between isolated lithium/graphite and the compound system.
+
+```bash
+cd ~/ams/day2/exercise3
+mpirun -n 2 pw.x -i 01_lic6_scf.in | tee 01_lic6_scf.out
+pp.x -i 02_lic6_charge.in | tee 02_lic6_charge.out
+```
+
+Repeat the above calculations for the Li and C6 input files.
+When done, we can calculate the charge difference:
+
+```bash
+pp.x -i 07_chgdiff.in | tee 07_chgdiff.out
+```
+
+Visualize it using XCRYSDEN:
+
+```bash
+xcrysden --xsf LiC6-charge_DIFF.xsf
+```
+
+<p align="center">
+  <img src="/day2/figs/LiC6_chgdiff.png" width="650">
+</p>

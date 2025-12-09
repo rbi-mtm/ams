@@ -1,0 +1,14 @@
+&INPUTPP
+ /
+
+&PLOT
+  nfile = 3
+
+  filepp(1) = 'LiC6.charge', weight(1) = 1.0
+  filepp(2) = 'Li.charge', weight(2) = -1.0
+  filepp(3) = 'C6.charge', weight(3) = -1.0
+
+  iflag = 3
+  output_format = 5
+  fileout = 'LiC6-charge_DIFF.xsf'
+/

@@ -1,0 +1,72 @@
+&CONTROL
+
+  ! Type of calculation
+  calculation = 'scf'
+
+  ! Arbitrary prefix, but keep it the same in follow-up calculations
+  prefix = 'li'
+
+  ! Path to pseudopotential directory
+  pseudo_dir = '../pseudo'
+
+  ! Path to where to store KS wavefunctions and the charge density
+  outdir = './out'
+
+  ! Print as much information as possible
+  verbosity = 'high'
+/
+
+&SYSTEM
+
+  ! Bravais lattice index
+  ibrav = 0
+
+  ! Lattice constant (in Bohr)
+  celldm(1) = 8.05023
+
+  ! Number of atoms in the unit cell
+  nat = 1
+
+  ! Number of different atomic species
+  ntyp = 1
+
+  ! Largest plane-wave kinetic energy in Ry (effectively size of basis set) for w.f.s
+  ecutwfc = 30
+
+  ! Largest plane-wave kinetic energy in Ry (effectively size of basis set) for the density
+  ecutrho = 360
+
+  ! Smear out the KS Fermi distribution to allow for easier numerical convergence
+  ! https://vasp.at/wiki/Smearing_technique 
+  occupations = 'smearing'
+  smearing = 'methfessel-paxton'
+  degauss = 0.01
+/
+
+&ELECTRONS
+
+  ! Stabilizes convergence by mixing new and old charge densities during SCF
+  mixing_beta = 0.7
+
+  ! Tight convergence criterium
+  conv_thr = 1.0d-10
+/
+
+! List of (arbitrary) symbols of the chemical species, mass and pseudopotential
+ATOMIC_SPECIES
+Li 6.941  li_pbe_v1.4.uspp.F.UPF
+
+! Symbols of the chemical species and positions in crystal coordinates
+ATOMIC_POSITIONS crystal
+Li 0.500000000 0.500000000 0.588047290
+
+! ibrav=0, so we have to specify the cell
+CELL_PARAMETERS {alat}
+    1.00000000 0.00000000 0.00000000
+   -0.50000000 0.86602540 0.00000000
+    0.00000000 0.00000000 5.00000000
+
+! For which k-points to solve the KS wave equations
+! Below is a 10x10x1 Monkhorst-Pack grid
+K_POINTS (automatic)
+10 10 1 0 0 0
