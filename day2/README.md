@@ -564,6 +564,12 @@ There are two main differences compared to silicon calculations:
 - Since Ag is a metal, we have to use [smearing techniques](https://vasp.at/wiki/Smearing_technique)
   to stabilize numeric convergence
 
+**Question:** What is the
+[electron configuration](https://en.wikipedia.org/wiki/Electron_configuration)
+of silver?
+Which electrons are defined as _valence electrons_ in the
+`ag_pbe_v1.4.uspp.F.UPF` pseudopotential file?
+
 Let's run the SCF calculation using 2 CPUs via [MPI](https://en.wikipedia.org/wiki/Message_Passing_Interface):
 
 ```bash
