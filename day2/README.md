@@ -594,3 +594,18 @@ This can be understood in terms of the
 [nearly free electron model](https://solidstate.quantumtinkerer.tudelft.nl/test_builds/N_A-equal-0/11_nearly_free_electron_model/)
 for systems in which the
 [diameter of the free electron Fermi sphere is slightly less than the Brillouin zone boundary](https://kbose.weebly.com/uploads/1/0/4/9/10492046/fermi_surfaces_from_kittel.pdf).
+
+***
+### Exercise 2.2: Band Structure & Projected Density of States
+
+We can follow steps analogous to the ones in Exercise 1
+to obtain the band structure and PDOS of silver.
+
+<p align="center">
+  <img src="/day2/figs/Ag_bands_pdos.png" width="1000">
+</p>
+
+**Task:** Modify the plot limits in the
+`plot_bands_pdos.py` script to
+see the localized bands belonging to the
+deeper $4s^2$ and $4p^6$ states.

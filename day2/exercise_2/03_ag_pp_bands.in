@@ -1,0 +1,11 @@
+&BANDS
+
+  ! The same prefix as in si_scf.in
+  prefix = 'silver'
+
+  ! The same output directory as in si_scf.in
+  outdir = './out'
+
+  ! Arbitrary output file name
+  filband = 'Ag.bands.dat'
+/

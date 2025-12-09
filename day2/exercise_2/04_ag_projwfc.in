@@ -1,0 +1,18 @@
+&PROJWFC
+
+  ! The same prefix as in si_scf.in
+  prefix = 'silver'
+
+  ! The same output directory as in si_scf.in
+  outdir = './out'
+
+  ! Arbitrary output file name
+  ! Use pdos directory not to overcrowd the current directory
+  filpdos = './pdos/Ag.pdos.dat'
+
+  ! Energy resolution (in eV)
+  deltaE = 0.05
+
+  ! Gaussian broadening for nicer plot
+  degauss = 0.025
+/
