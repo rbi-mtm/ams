@@ -35,10 +35,11 @@ Some facts about QE:
 - approximately 520k lines of Fortran source code
 
 [What can QE do?](https://www.quantum-espresso.org/what-can-qe-do/)
-- **Ground-state calculations**
-- **Structural optimizations / molecular dynamics**
-- Response properties
+- Ground-state calculations
+- Structural optimizations
+- Molecular dynamics
 - Quantum transport
+- Response properties
 - ...
 
 ## Exercise 1: Basic QE workflow / Silicon
