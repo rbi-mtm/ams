@@ -661,3 +661,10 @@ $$
 
 **Task:** Calculate the formation energy as given above.
 Hint: The fastest way to get the data is `grep ! *out`.
+
+***
+# Acknowledgement
+
+Juraj Ovčar thanks prof. dr. sc. Ivo Batistić
+for the input files for Exercises 2 and 3,
+as well as for the excellent notes on introductory DFT.
