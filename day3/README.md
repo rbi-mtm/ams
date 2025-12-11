@@ -2,6 +2,30 @@
 
 Welcome to the third day of the hands-on sessions at **AMS25!**
 
+
+> [!IMPORTANT]
+> To update the exercises,
+> open Terminal using ``Ctrl+Alt+T`` and execute:
+> 
+> ```bash
+> cd ams
+> git pull
+> ```
+> 
+> If `git pull` fails due to a merge conflict, you can temporarily stash your changes
+> (note that if you care about the changes you made,
+> you might want to back them up before executing
+> the following commands):
+> 
+> ```bash
+> git stash -u
+> git pull
+> ```
+> 
+> If you want to restore the changes, use `git stash pop`.
+> If you don't care about the changes you made, you can delete them forever using `git stash drop`.
+
+
 ## Introduction
 
 In this hands-on session you will learn how to perform a simple transport calculation using Quantum Espresso, how to train and fine-tune a 
@@ -53,22 +77,43 @@ At the end of the input file for `pwcond.x`, the following data is specified (ea
 
 The pseudopotentials for Al and Si used in this exercise can be found in the `pseudos` folder in the directory for this exercise.
 
+
+#### Plotting with GNUplot
+
+The following commands let you plot one or two files, respectively, using `gnuplot` (plots can be saved by pressing the export button in the top left
+corner). 
+
+```bash
+gnuplot -e 'plot "filename" w l' -p
+gnuplot -e 'plot "filename" w l, "filename_2" w l' -p
+```
+
+
 ---
 
 ### Exercise 1.1: transmission of Al-wire
 
 In this exercise, we will calculate the transmission through an Al wire using `pw.x` and `pwcond.x`. 
+The image below shows the setup for the transport calculation.
+
+![Al wire](figs/Al_wire.png)
 
 The input folder for this exercise contains the input files for the SCF and transmission calculations for the Al-wire.
 
 #### Tasks
 
-1. Fill the missing information in the input file for the SCF calculation: `pseudo_dir`, `outdir`, `prefix`, `nat`
-2. Fill the missing information in the input file for the transmission, so that the transmission will be calculated from -3.0 eV to +3.0 eV in intervals
-of 0.05 eV (120 energy points).
-3. Perform the SCF calculation
-4. Perform the transmission calculation
-5. Plot the transmission. How does it look like and why?
+1. Check the input file for the SCF calculation (`01_Al_wire_scf.in`) and take note of the following parameters: `pseudo_dir`, `outdir`, `prefix`
+2. Perform the SCF calculation (`pw.x -i 01_Al_wire_scf.in | tee 01_Al_wire_scf.out`)
+3. Fill the missing information in the input file for the transmission (`02_Al_wire_transmission.in`, so that the transmission will be calculated from -3.0 eV to +3.0 eV in intervals
+of 0.05 eV (120 energy points). For that purpose, open the file `02_Al_wire_transmission.in` with `mousepad` (`mousepad 02_Al_wire_transmission.in`) or any other text editor
+of your choice and replace entries marked `??`.
+4. Perform the transmission calculation (`pwcond.x -i 02_Al_wire_transmission.in | tee 02_Al_wire_transmission.out`)
+5. Plot the transmission (eg., using `gnuplot` or `python`. How does it look like and why?
+
+
+#### Solution
+
+![Transmission Al wire](figs/Al_wire_T.png)
 
 
 ---
@@ -76,7 +121,9 @@ of 0.05 eV (120 energy points).
 ### Exercise 1.2: transmission of Si between Al-wire electrodes
 
 In this exercise, we will calculate the transmission through an Al-Si-Al wire using `pw.x` and `pwcond.x`. Additionally, we will use the transmission
-to calculate the I-V-curve.
+to calculate the I-V-curve. The device region for this wire is shown below, the electrodes are the same as in the previous exercise.
+
+![Al-Si-Al wire](figs/AlSiAl_wire.png)
 
 The current, I, as function of the voltage, V, can be calculated from the transmission as follows (neglecting a factor of 2 for spin):
 
@@ -116,16 +163,24 @@ def I_of_V(t, V, T=100):
 
 #### Tasks
 
-<!-- 1. Modify Quantum Espresso input file to replace the 3 central Al atoms by Si (note that the coordinates and cell parameters were already adapted to the Si-Si bond length) and fill in missing information
-(use 28.09 for the atomic mass of Si). -->
+1. Run SCF calculation for the Al-Si-Al wire (with the provided input file: `01_AlSiAl_wire_scf.in`).
+2. Copy data for Al-wire from Exercise 1.1 to use as electrode (`cp -r ../E1.1_Al_wire/data/* .`).
+3. Set the `prefixl` and `prefixs` parameters in the `02_AlSiAl_wire_transmission.in` file.
+4. Run transmission calculation for Al-Si-Al system with Al electrodes
+5. Plot transmission and compare it to transmission for Al-wire from Exercise 1.1. What are the changes?
+6. Calculate and plot the I-V curve for V from -1 V to +1 V in 0.1 V intervals.
 
-1. We provide the input file for the SCF calculation on an Al-Si-Al wire. You only need to set `pseudo_dir` and `outdir`.
-2. Run SCF calculation for the Al-Si-Al wire.
-3. Copy data for Al-wire from Exercise 1.1 to use as electrode.
-4. Modify the input file for the transmission calculation to use the correct files for the electrodes and fill in missing information.
-5. Run transmission calculation for Al-Si-Al system with Al electrodes
-6. Plot transmission and compare it to transmission for Al-wire from Exercise 1.1. What are the changes?
-7. Calculate and plot the I-V curve for V from -1 V to +1 V in 0.1 V intervals.
+#### Solution
+
+##### Transmission
+
+![Transmission for Al-Si-Al wire](figs/AlSiAl_wire_T.png)
+
+##### I-V curve
+
+![I-V curve for Al-Si-Al wire](figs/AlSiAl_wire_IV.png)
+
+
 
 ---
 
@@ -140,6 +195,7 @@ from a physics point of view?
 
 ⚠ **WARNING** All settings used here for the MACE force field are chosen to make the training fast enough for this exercise. They should NOT be used
 for the training of a force field that is to be used to calculate properties of real materials. ⚠
+
 
 ### MACE
 
@@ -173,6 +229,12 @@ Important parameters are listed below:
 * `--seed`: seed for random number generator for initialization
 
 
+At the beginning of the training of a MACE model, the weights of the neural network and the message function are randomly initialized. Then, the network
+is fed with the trainig data to make predictions. These predictions are compared to the true values from the training data to calculate the loss (
+according to a predefined loss function). Then the weights and message passing functions are updated according to the loss (backpropagation).
+This process is repeated until the loss converges to a small value or a maximum number of training iterations (epochs) is reached.
+
+
 
 ### Dataset
 Ethanol from [revised MD17](https://archive.materialscloud.org/records/pfffs-fff86) data set. Randomly select 300 structures, use 200 for training
@@ -183,9 +245,11 @@ and 100 for test set. Another 100 structures were extracted to make predictions 
 ### Exercise 2.1: train MACE model:
 
 In this exercise, we will train a machine learning model from scratch using MACE. The training set contains 200 ethanol structures with
-corresponding forces and energies. These 200 strictures were randomly selected from the RMD17 data set.
+corresponding forces and energies. These 200 structures were randomly selected from the RMD17 data set. One of these structures is shown here.
 
-The folder `E2.1_training/Input` contains all the files needed for training:
+![Ethanol molecule](figs/ethanol.png)
+
+The folder `E2.1_training` contains all the files needed for training:
 
 * `train.xyz`: geometries, forces, and energies used for training the model
 * `test.xyz`: geometries, forces, and energies used for evaluation of the model
@@ -193,15 +257,25 @@ The folder `E2.1_training/Input` contains all the files needed for training:
 
 #### Tasks
 
-1. Set the paths for the training and test sets in the `mace.sh` script.
-2. Set the number of epochs to 150 and the start for the second stage to 120 epochs.
-3. Run the `mace.sh` to perform the training
-4. When the training is finished, note the errors and how much time the training took.
+1. Set the paths for the training and test sets in the `mace.sh` script (look for ??? values).
+2. Set the number of epochs to 150 and the start for the second stage to 120 epochs (look for ??? values).
+3. Run the `mace.sh` to perform the training (type `./mace.sh` in the terminal).
+4. When the training is finished, note the errors and how much time the training took (you can find the errors also in the log file in the `log/` directory).
 
+
+#### Solution
+
+* RMSE Energy: 15.5 meV/atom (first stage); 1.7 meV / atom (second stage)
+* RMSE Forces: 58.2 meV/Ang (first stage); 56.8 meV/Ang (second stage)
+* Time: approx. 5 minutes
 
 ---
  
 ### Exercise 2.2: fine-tune foundation model:
+
+> Note:
+> In this exercise, when running `mace.sh` for the first time, MACE will download the foundation model. Therefore, an internet connection is required
+> for this exercise.
 
 In this exercise, we will fine-tune a foundation model using the training and test data sets from Exercise 2.1. There are different ways to fine-tune
 a model in MACE (see [Fine-tuning Foundation Models](https://mace-docs.readthedocs.io/en/latest/guide/finetuning.html) and 
@@ -214,15 +288,21 @@ In the approach we will use for fine-tuning, we only need to specify the `--foun
 It will automatically download the appropriate model when running the fine-tuning for the first time. Additionally, the parameter `--multiheads_finetuning`
 needs to be set to `False`.
 
-The folder `E2.2_fine-tuning/Input` contains the `mace.sh` script to run the fine-tuning.
+The folder `E2.2_fine-tuning` contains the `mace.sh` script to run the fine-tuning.
 
 #### Tasks
 
-1. Copy the training and test data sets from the previous exercise.
-2. Set the number of epochs to 25 and the start of the second stage to 15 (`mace.sh`).
-3. Set the foundation model to `small` (`mace.sh`).
-4. Run the fine-tuning (execute `mace.sh`).
-5. Note the errors and training time and compare them to the results of the previous exercise.
+1. Copy the training and test data sets from the previous exercise (`cp ../E2.1_training/*.xyz .`).
+2. Set the number of epochs to 25 and the start of the second stage to 15 in the `mace.sh` file (look for `???` values).
+3. Run the fine-tuning (type `./mace.sh` in the terminal).
+4. Note the errors and training time and compare them to the results of the previous exercise.
+
+#### Solution
+
+* RMSE Energy: 6.4 meV/atom (first stage); 1.8 meV / atom (second stage)
+* RMSE Forces: 56.2 meV/Ang (first stage); 51.7 meV/Ang (second stage)
+* Time: approx. 3.5 minutes
+
 
 ---
 
@@ -239,7 +319,7 @@ MACE provides as script called `mace_eval_configs` for predicting energies and f
 * `--device`: whether to run predictions on CPU (`cpu`) or GPU (`cuda`)
 * `--default_dtype`: use single (`float32`) or double (`float64`) precision
 
-The folder `E2.3_predictions/Input` contains a set of 100 Ethylene atoms that were not used in training so far.
+The folder `E2.3_predictions` contains a set of 100 Ethylene atoms that were not used in training so far.
 
 The mean absolute error (MAE) is calculated according to the following equation (using energies as example):
 
@@ -249,12 +329,12 @@ Here, $N$ is the total number of geometries for which predictions were made, $E_
 DFT reference energy for geometry $i$.
 
 The following python snippet can be used to load the predictions and reference data and calculate the differences in predicted to reference energies (
-replace filenames `predictions` and `references` in the lines 2 and 3):
+replace filenames `predictions` in the line 2):
 
 ```Python
 from ase import io
 pred = io.read("predictions", format="extxyz", index=":")
-target = io.read("references", format="extxyz", index=":")
+target = io.read("new_data.xyz", format="extxyz", index=":")
 diffs = []
 for p, t in zip(pred, target):
     e_p = p.info["MACE_energy"]
@@ -267,8 +347,17 @@ Then, the `numpy` functions `numpy.fabs` and `numpy.mean` can be used to calcula
 
 #### Tasks
 
-1. Predict energies and forces on new data using the two models from the E2.1 and E2.2
+1. Predict energies and forces on new data using the two models from the E2.1 and E2.2, e.g., as shown below for the model from E2.1.
 2. Calculate MAEs for the predictions with both models and compare them
+
+```bash
+mace_eval_configs --configs new_data.xyz  --device cpu --default_dtype float32 --model ../E2.1_training/MACE_stagetwo.model --output predictions_model_E2.1.xyz
+```
+
+#### Solution:
+
+* Model from E2.1: MAE approx. 1.17 meV/atom
+* Model from E2.2: MAE approx. 1.15 meV/atom
 
 ---
 
@@ -292,6 +381,7 @@ MACE provides a calculator for foundation models. It can be imported in Python u
 
 ```Python
 from mace.calculators import mace_mp
+calc = mace_mp("small", device="cpu")
 ```
 
 This function takes a few arguments:
@@ -330,7 +420,7 @@ The `EquationOfState` class takes 3 arguments for initialization:
 
 The `EquationOfState` class has 2 methods: 
 
-* `fit`: method to perform equation-of-state fit. Returns optimal volume, the energy at the optimal volume, and the bulk modulus.
+* `fit`: method to perform equation-of-state fit. Returns optimal volume (`v0`), the energy at the optimal volume (`e0`), and the bulk modulus (`B`).
 * `plot`: method to plot E-V curve
 
 The input folder for this exercise contains the structure for Si in a diamond cubic cell (8 atoms), which can be loaded in Python using ASE as follows:
@@ -345,12 +435,32 @@ This gives an ASE atoms object, which can be modified for this exercise. The fol
 * `si.set_cell(cell)`: sets new unit cell parameters for the `si` Atoms object. `cell` must be a 3x3 matrix.
 * `si.get_cell()`: returns a 3x3 matrix containing the cell vectors of `si`
 
+The following code snippet calculates the energies for 3 different volumes (97.5 %, 100 %, and 102.5 % of reference volume), assuming that the object `si7
+contains the Si structure loaded from the provided file (see above on how to read the geometry):
+
+```python
+volumes = []
+energies = []
+cpy_si = si.copy()
+for i in [0.975, 1.0, 1.025]:
+    f = i ** (1/3)
+    si = cpy_si.copy()
+    si.set_cell(si.cell * f)
+    si.calc = calc
+    volumes.append(si.get_volume())
+    energies.append(si.get_potential_energy())
+```
+
 #### Tasks
 
 1. Calculate the energies for Si with different volumes using the `mace_mp` calculator with a small model: change the volume in 2.5% steps from 95% to 105% of the volume in the given input file.
-2. Fit the energy-volume curve to an equation of state and plot the result.
-3. What are the optimized cell parameters? Compare the values obtained with the machine learning model to the values from the empirical force field
-(first hands-on session) and DFT (second hands-on session).
+2. Fit the energy-volume curve to an equation of state and plot the result (use `equ.plot(show=True)`).
+
+#### Solution
+
+* Optimized lattice constant: 5.4474 Ang
+
+![Equation-of-state fit for Si](figs/eos_Si.png)
 
 ---
 
@@ -384,11 +494,9 @@ The input folder for this exercise contains Si in the diamond cell (2 atoms).
 
 #### Tasks
 
-1. Load the Si structure and use the `rattle` function to displace the atoms (e.g., `si.rattle(0.05)`).
-2. Run the relaxation using a maximum force criterion of 0.001 eV/Angstrom. How different is the structure to the one loaded from file?
-3. Continue running the relaxation with a force criterion of 0.00001 eV/Angstrom. Does the structure get more similar to the one loaded from file? 
-Hint: use `np.diff(si.positions, axis=0)` to get the differences in coordinates between the two Si atoms in the cell and compare these values for the
-structure relaxed with the machine learning potential and the original structure loaded from file.
+1. Load the Si structure and use the `rattle` function to displace the atoms (e.g., `si.rattle(0.2)`).
+2. Run the relaxation using a maximum force criterion of 0.01 eV/Angstrom. How many steps does it take to converge the forces?
+3. Displace the atoms more (`si.rattle(1)`) and rerun the relaxation. How many steps does it take now for the forces to converge?
 
 
 ### Exercise 3.3: Calculation of phonon band structure of Si

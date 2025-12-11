@@ -1,0 +1,15 @@
+ &inputcond
+    outdir='??',  ! same as outdir in 01_Al_wire_scf.in
+    prefixl='??', ! same as prefix in 01_Al_wire_scf.in
+    prefixs='??', ! same as prefix in 01_Al_wire_scf.in
+    tran_file='trans.alwire',
+    ikind=1,
+    energy0=??, ! Lowest energy for calculation of transmission
+    denergy=0.05d0,
+    ewind=1.d0,
+    epsproj=1.d-3,
+    nz1 = 1
+ /
+    1
+    0.0  0.0  1.0
+    ?? ! number of energy points for transmission

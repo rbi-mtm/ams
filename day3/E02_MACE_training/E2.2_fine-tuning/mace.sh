@@ -28,6 +28,6 @@ mace_run_train \
     --device=cpu \
     --default_dtype=float32 \
     --seed=42 \
-    --foundation_model="???" \
+    --foundation_model="small" \
     --multiheads_finetuning=False 
 

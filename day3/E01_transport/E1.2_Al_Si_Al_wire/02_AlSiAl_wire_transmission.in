@@ -1,0 +1,15 @@
+ &inputcond
+    outdir='data',
+    prefixl='??',  ! Same as prefix for calculation in exercise 1.1
+    prefixs='??',  ! Same as prefix in 01_AlSiAl_wire_scf.in (exercise 1.2) 
+    tran_file='trans.alwire',
+    ikind=1,
+    energy0=-3,
+    denergy=0.05d0,
+    ewind=1.d0,
+    epsproj=1.d-3,
+    nz1 = 1
+ /
+    1
+    0.0  0.0  1.0
+    120 ! number of energy points for transmission
