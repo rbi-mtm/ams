@@ -32,6 +32,44 @@ In this hands-on session you will learn how to perform a simple transport calcul
 machine-learning force field using MACE, and, finally, how to perform geometry optimizations, molecular dynamics, and phonon calculations using
 MACE machine learning force fields.
 
+#### IPython
+
+IPython is an interactive python interpreter with code highlighting and auto-completion. It can be very useful to test code snippets, or execute python
+code without writing an entire script. In the VM, it can be opened by running `ipython` in the terminal.
+
+
+#### Plotting with Python
+
+```Python
+import matplotlib.pyplot as plt
+import numpy as np
+
+x = np.arange(-np.pi, np.pi, np.pi/100)
+y = np.sin(x)
+y_2 = np.cos(x)
+
+plt.plot(x, y, label="sin(x)")
+plt.plot(x, y_2, label="cos(x)")
+plt.xlabel("x")
+plt.ylabel("sin(x)")
+plt.xlim(-np.pi, np.pi)
+plt.ylim(-1, 1)
+plt.legend()
+plt.show()
+# plt.savefig("plot.pdf")  # save plot to pdf
+```
+
+#### Plotting with GNUplot
+
+The following commands let you plot one or two files, respectively, using `gnuplot` (plots can be saved by pressing the export button in the top left
+corner). 
+
+```bash
+gnuplot -e 'plot "filename" w l' -p
+gnuplot -e 'plot "filename" w l, "filename_2" w l' -p
+```
+
+
 ## Exercise 1: Electronic transport with Quantum Espresso
 
 In this exercise, we will calculate the electronic transmission for an Al wire and for an Al-Si-Al wire, both consisting of 7 atoms (with the central 3
@@ -76,17 +114,6 @@ At the end of the input file for `pwcond.x`, the following data is specified (ea
 #### Pseudopotentials
 
 The pseudopotentials for Al and Si used in this exercise can be found in the `pseudos` folder in the directory for this exercise.
-
-
-#### Plotting with GNUplot
-
-The following commands let you plot one or two files, respectively, using `gnuplot` (plots can be saved by pressing the export button in the top left
-corner). 
-
-```bash
-gnuplot -e 'plot "filename" w l' -p
-gnuplot -e 'plot "filename" w l, "filename_2" w l' -p
-```
 
 
 ---
@@ -160,11 +187,24 @@ def I_of_V(t, V, T=100):
     return I
 ```
 
+The following Python code creates a range of x-values using `np.arange`, then loops over those values and calls a function with them as parameter, storing 
+the result in an array together with the x-values, and writes the resulting array to a file called `arr.txt`:
+
+```Python
+import numpy as np
+
+x = np.arange(-1, 1.001, 0.1)
+arr = np.zeros((x.shape[0], 2))
+for i, i_x in enumerate(x):
+    arr[i, 0] = i_x
+    arr[i, 1] = np.exp(i_x)
+np.savetxt("arr.txt", arr)    
+```
 
 #### Tasks
 
 1. Run SCF calculation for the Al-Si-Al wire (with the provided input file: `01_AlSiAl_wire_scf.in`).
-2. Copy data for Al-wire from Exercise 1.1 to use as electrode (`cp -r ../E1.1_Al_wire/data/* .`).
+2. Copy data for Al-wire from Exercise 1.1 to use as electrode (`cp -r ../E1.1_Al_wire/data/* data/`).
 3. Set the `prefixl` and `prefixs` parameters in the `02_AlSiAl_wire_transmission.in` file.
 4. Run transmission calculation for Al-Si-Al system with Al electrodes
 5. Plot transmission and compare it to transmission for Al-wire from Exercise 1.1. What are the changes?
@@ -186,7 +226,8 @@ def I_of_V(t, V, T=100):
 
 ### Advanced tasks
 
-* Calculate the thermal current from the transmission (hint: set V=0 and provide 2 different temperatures to the two Fermi-functions).
+* Calculate the thermal current from the transmission for the Al-Si-Al-wire (hint: set V=0 and provide 2 different temperatures to the two Fermi-functions).
+* Calculate I-V curve and thermal current for the pure Al-wire.
 * Use a smaller electrode (1, 3, or 5 Al atoms) and recalculate the transmission for the Al-wire from E1.1. What changes? Do the changes make sense
 from a physics point of view?
 
