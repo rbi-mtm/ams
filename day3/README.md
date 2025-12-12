@@ -234,7 +234,7 @@ from a physics point of view?
 
 ## Exercise 2: Machine learning - training and fine-tuning
 
-⚠ **WARNING** All settings used here for the MACE force field are chosen to make the training fast enough for this exercise. They should NOT be used
+> ⚠ **WARNING** All settings used here for the MACE force field are chosen to make the training fast enough for this exercise. They should NOT be used
 for the training of a force field that is to be used to calculate properties of real materials. ⚠
 
 
@@ -537,7 +537,7 @@ The input folder for this exercise contains Si in the diamond cell (2 atoms).
 
 1. Load the Si structure and use the `rattle` function to displace the atoms (e.g., `si.rattle(0.2)`).
 2. Run the relaxation using a maximum force criterion of 0.01 eV/Angstrom. How many steps does it take to converge the forces?
-3. Displace the atoms more (`si.rattle(1)`) and rerun the relaxation. How many steps does it take now for the forces to converge?
+3. Displace the atoms more (`si.rattle(1.0)`) and rerun the relaxation. How many steps does it take now for the forces to converge?
 
 
 ### Exercise 3.3: Calculation of phonon band structure of Si
