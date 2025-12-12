@@ -131,8 +131,8 @@ The input folder for this exercise contains the input files for the SCF and tran
 
 1. Check the input file for the SCF calculation (`01_Al_wire_scf.in`) and take note of the following parameters: `pseudo_dir`, `outdir`, `prefix`
 2. Perform the SCF calculation (`pw.x -i 01_Al_wire_scf.in | tee 01_Al_wire_scf.out`)
-3. Fill the missing information in the input file for the transmission (`02_Al_wire_transmission.in`, so that the transmission will be calculated from -3.0 eV to +3.0 eV in intervals
-of 0.05 eV (120 energy points). For that purpose, open the file `02_Al_wire_transmission.in` with `mousepad` (`mousepad 02_Al_wire_transmission.in`) or any other text editor
+3. Fill the missing information in the input file for the transmission (`02_Al_wire_transmission.in`), so that the transmission will be calculated from -3.0 eV to +3.0 eV in intervals
+of 0.05 eV (121 energy points). For that purpose, open the file `02_Al_wire_transmission.in` with `mousepad` (`mousepad 02_Al_wire_transmission.in`) or any other text editor
 of your choice and replace entries marked `??`.
 4. Perform the transmission calculation (`pwcond.x -i 02_Al_wire_transmission.in | tee 02_Al_wire_transmission.out`)
 5. Plot the transmission (eg., using `gnuplot` or `python`. How does it look like and why?
@@ -169,6 +169,14 @@ def Fermi(E, mu, T, kb=1.380649E-23):
     return 1 / (1 + np.exp((E - mu) / (kb * T)))
 
 def I_of_V(t, V, T=100):
+    """
+    Inputs: 
+        t: transmission as function of energy T(E) aligned to Fermi-level
+        V: bias voltage in Volt
+        T: temperature in K
+    Output:
+        I: current in A
+    """
     q = 1.6021E-19  #C
     h = 6.626071E-34  #/Js
     eV = 1.6021E-19  #J
@@ -199,6 +207,13 @@ for i, i_x in enumerate(x):
     arr[i, 0] = i_x
     arr[i, 1] = np.exp(i_x)
 np.savetxt("arr.txt", arr)    
+```
+
+In python and numpy, array data can be loaded from text files as follows:
+
+```Python
+import numpy as np
+arr = np.loadtxt("arr.txt")
 ```
 
 #### Tasks
@@ -308,7 +323,7 @@ The folder `E2.1_training` contains all the files needed for training:
 
 * RMSE Energy: 15.5 meV/atom (first stage); 1.7 meV / atom (second stage)
 * RMSE Forces: 58.2 meV/Ang (first stage); 56.8 meV/Ang (second stage)
-* Time: approx. 5 minutes
+* Time: approx. 6 minutes (can be very different depending on hardware)
 
 ---
  
@@ -467,6 +482,7 @@ The `EquationOfState` class has 2 methods:
 The input folder for this exercise contains the structure for Si in a diamond cubic cell (8 atoms), which can be loaded in Python using ASE as follows:
 
 ```Python
+import ase
 si = ase.io.read("Si_diamond_cubic.xyz", format="extxyz")
 ```
 
@@ -476,7 +492,7 @@ This gives an ASE atoms object, which can be modified for this exercise. The fol
 * `si.set_cell(cell)`: sets new unit cell parameters for the `si` Atoms object. `cell` must be a 3x3 matrix.
 * `si.get_cell()`: returns a 3x3 matrix containing the cell vectors of `si`
 
-The following code snippet calculates the energies for 3 different volumes (97.5 %, 100 %, and 102.5 % of reference volume), assuming that the object `si7
+The following code snippet calculates the energies for 3 different volumes (97.5 %, 100 %, and 102.5 % of reference volume), assuming that the object `si`
 contains the Si structure loaded from the provided file (see above on how to read the geometry):
 
 ```python
@@ -496,6 +512,7 @@ for i in [0.975, 1.0, 1.025]:
 
 1. Calculate the energies for Si with different volumes using the `mace_mp` calculator with a small model: change the volume in 2.5% steps from 95% to 105% of the volume in the given input file.
 2. Fit the energy-volume curve to an equation of state and plot the result (use `equ.plot(show=True)`).
+3. What is the value for the optimized lattice constant?
 
 #### Solution
 
@@ -523,12 +540,14 @@ import ase
 from ase.optimize import BFGS
 from mace.calculators import mace_mp
 
-si = ase.io.read("si.xyz", format="extxyz")
+si = ase.io.read("Si.xyz", format="extxyz")
 calc = mace_mp("small", device="cpu", default_dtype="float32")
 si.calc = calc
 
 opt = BFGS(si)
 opt.run(fmax=0.01)  # eV/Ang
+
+si.write("Si_relaxed.xyz", format="extxyz")
 ```
 
 The input folder for this exercise contains Si in the diamond cell (2 atoms).
@@ -537,7 +556,15 @@ The input folder for this exercise contains Si in the diamond cell (2 atoms).
 
 1. Load the Si structure and use the `rattle` function to displace the atoms (e.g., `si.rattle(0.2)`).
 2. Run the relaxation using a maximum force criterion of 0.01 eV/Angstrom. How many steps does it take to converge the forces?
-3. Displace the atoms more (`si.rattle(1.0)`) and rerun the relaxation. How many steps does it take now for the forces to converge?
+3. Reload the structure, displace the atoms more (`si.rattle(1.0)`) and rerun the relaxation. How many steps does it take now for the forces to converge?
+
+
+#### Solution
+
+* With `si.rattle(0.2)`: it takes 8 steps to converge
+* With `si.rattle(1)`: it takes 19 steps to converge. However, the energy is significantly different, because the relaxation ends up in a completely different
+and unphysical minimum. This demonstrates that one needs to take care about the initial structure when performing a geometry relaxation.
+
 
 
 ### Exercise 3.3: Calculation of phonon band structure of Si
@@ -552,6 +579,7 @@ calculate phonons.
 To make this exercise more tractable, we provide the (incomplete) python code for phonon calculations:
 
 ```Python
+import ase
 from ase.phonons import Phonons
 from mace.calculators ...  # see previous exercise
 si = ase.io.read(GEOMETRY_FILE, format="extxyz")
@@ -593,6 +621,10 @@ plt.show()
 2. Run the phonon calculation
 3. Plot the phonon band structure.
 
+#### Solution
+
+![Si phonon band structure](figs/Si_ph_BS.png)
+
 ---
 
 ### Advanced tasks
@@ -605,20 +637,3 @@ for the relaxed Si structure for 300 K and run Langevin dynamics again. How long
 * Besides BFGS, ASE provides different algorithms for geometry optimizations. Try different algorithms to relax the Si structure from E3.2 and compare the
 results.
 
-<!--
-### Exercise 3.X: Performing molecular dynamics for Si
-
-TODO:
-
-* Intro to exercise
-* Find suitable foundation model
-* How to run calculations
-
-
-POSSIBLE TASKS:
-
-* Run geometry optimization with ASE and MACE
-* Run phonon calculation with ASE and MACE
-* Run MD with ASE/MACE and QE - compare run-times
-
--->

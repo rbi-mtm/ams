@@ -4,8 +4,6 @@ num_threads=2
 export OMP_NUM_THREADS=$num_threads
 export MKL_NUM_THREADS=$num_threads
 
-cp Input/* .
-
 mace_run_train \
     --name="MACE" \
     --train_file="???" \
