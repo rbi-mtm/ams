@@ -388,9 +388,9 @@ The following python snippet can be used to load the predictions and reference d
 replace filenames `predictions` in the line 2):
 
 ```Python
-from ase import io
-pred = io.read("predictions", format="extxyz", index=":")
-target = io.read("new_data.xyz", format="extxyz", index=":")
+from ase.io import read
+pred = read("predictions", format="extxyz", index=":")
+target = read("new_data.xyz", format="extxyz", index=":")
 diffs = []
 for p, t in zip(pred, target):
     e_p = p.info["MACE_energy"]
@@ -482,8 +482,8 @@ The `EquationOfState` class has 2 methods:
 The input folder for this exercise contains the structure for Si in a diamond cubic cell (8 atoms), which can be loaded in Python using ASE as follows:
 
 ```Python
-import ase
-si = ase.io.read("Si_diamond_cubic.xyz", format="extxyz")
+from ase.io import read
+si = read("Si_diamond_cubic.xyz", format="extxyz")
 ```
 
 This gives an ASE atoms object, which can be modified for this exercise. The following methods of the ASE atoms object will be useful for this exercise:
@@ -536,11 +536,11 @@ The ASE optimize module contains all the tools needed to perform a geometry opti
 The following Python code can be used to perform a geometry optimization using the BFGS algorithm:
 
 ```Python
-import ase
+from ase.io import read
 from ase.optimize import BFGS
 from mace.calculators import mace_mp
 
-si = ase.io.read("Si.xyz", format="extxyz")
+si = read("Si.xyz", format="extxyz")
 calc = mace_mp("small", device="cpu", default_dtype="float32")
 si.calc = calc
 
@@ -579,10 +579,10 @@ calculate phonons.
 To make this exercise more tractable, we provide the (incomplete) python code for phonon calculations:
 
 ```Python
-import ase
+from ase.io import read
 from ase.phonons import Phonons
 from mace.calculators ...  # see previous exercise
-si = ase.io.read(GEOMETRY_FILE, format="extxyz")
+si = read(GEOMETRY_FILE, format="extxyz")
 
 calc = mace_mp(???)  # see previous exercise
 
